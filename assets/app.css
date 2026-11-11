@@ -55,7 +55,6 @@ footer, .site-footer { margin-top: 20px !important; border-top: 0 !important; fo
 /* tabs and buttons: same shape everywhere, comfortable on touch screens */
 .btn, .tab-button, .quiz-options button, .next-btn { min-height: 44px; border-radius: 10px !important; }
 nav.tab-navigation, .tab-navigation { gap: 8px !important; flex-wrap: wrap; }
-.tab-button.active { background: var(--ku-green) !important; border-color: var(--ku-green) !important; color: #fff !important; }
 .nav-card, .module-card { position: relative; border: 1px solid var(--ku-line); border-top-width: 1px !important; box-shadow: none !important; }
 .nav-card:hover, .module-card:hover, .nav-card:focus-visible, .module-card:focus-visible {
     border-color: var(--ku-green) !important; box-shadow: var(--box-shadow-hover) !important; transform: translateY(-3px) !important;
@@ -125,4 +124,51 @@ nav.tab-navigation, .tab-navigation { gap: 8px !important; flex-wrap: wrap; }
 .ku-novoice :is(button, a, span, .btn):has(> i.fa-volume-high),
 .ku-novoice :is(button, a, span, .btn):has(> i.fa-volume-up),
 .ku-novoice :is(.play-btn-small, .play-btn-activity, .play-sound, .play-btn, .audio-btn, .speak-btn),
+.ku-novoice button[class*="play"],
 .ku-novoice i.fa-volume-high[onclick] { display: none !important; }
+
+/* ---- lesson cards on the lesson lists ---- */
+.nav-card, .module-card {
+    display: grid !important; grid-template-columns: 54px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; align-items: start;
+    text-align: start !important; padding: 18px 16px 16px !important; border-radius: 16px !important; background: #fff !important;
+    --h: 152;
+}
+.nav-card:nth-child(6n+2), .module-card:nth-child(6n+2) { --h: 205; }
+.nav-card:nth-child(6n+3), .module-card:nth-child(6n+3) { --h: 38; }
+.nav-card:nth-child(6n+4), .module-card:nth-child(6n+4) { --h: 4; }
+.nav-card:nth-child(6n+5), .module-card:nth-child(6n+5) { --h: 265; }
+.nav-card:nth-child(6n), .module-card:nth-child(6n) { --h: 178; }
+.nav-card-icon, .module-icon {
+    grid-row: 1 / span 2; width: 54px; height: 54px; margin: 0 !important; border-radius: 14px; display: grid; place-items: center;
+    font-size: 1.4rem !important; background: hsl(var(--h) 62% 93%); color: hsl(var(--h) 58% 30%) !important;
+    transition: transform var(--transition-speed) ease;
+}
+.nav-card:hover .nav-card-icon, .module-card:hover .module-icon { transform: rotate(-6deg) scale(1.06); color: hsl(var(--h) 58% 30%) !important; }
+.nav-card h2, .module-card h3 { grid-column: 2; margin: 0 !important; padding-inline-end: 52px; font-size: 1.08rem !important; line-height: 1.6 !important; text-align: start; }
+.nav-card p, .module-card p { grid-column: 2; margin: 0 !important; font-size: .88rem !important; line-height: 1.65 !important; text-align: start; }
+.module-card .btn-learn { display: none !important; }
+.ku-num {
+    position: absolute; top: 14px; inset-inline-end: 14px; inset-inline-start: auto; display: inline-flex; align-items: center; gap: 5px;
+    min-width: 30px; height: 24px; padding: 0 9px; border-radius: 999px; justify-content: center;
+    background: var(--ku-paper); color: var(--ku-muted); font: 600 .78rem/1 'Vazirmatn', 'Poppins', sans-serif; font-variant-numeric: tabular-nums;
+}
+.ku-num-done { background: var(--ku-green); color: #fff; }
+.ku-num-done i { font-size: .68rem; }
+
+/* ---- lesson page heading and tabs ---- */
+.ku-chip {
+    display: inline-flex; align-items: center; margin: 0 auto 8px; padding: 3px 12px; border-radius: 999px;
+    background: #fdf1cf; color: #7a5200; font-size: .8rem; font-weight: 600; line-height: 1.7;
+}
+header { display: flex; flex-direction: column; align-items: center; border-bottom: 0 !important; }
+header h1 > i:first-child, .site-header h1 > i:first-child {
+    display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; margin-inline: 0 .55em !important; border-radius: .55em;
+    background: #e3f1e8; color: var(--ku-green-deep) !important; font-size: .6em; vertical-align: .12em;
+}
+nav.tab-navigation, .tab-navigation {
+    display: flex !important; justify-content: center; width: fit-content; max-width: 100%; margin-inline: auto !important;
+    padding: 5px !important; gap: 4px !important; border: 0 !important; border-radius: 14px; background: var(--ku-paper) !important;
+}
+.tab-button { border: 0 !important; background: transparent !important; box-shadow: none !important; color: var(--ku-muted) !important; transform: none !important; }
+.tab-button:hover { color: var(--ku-ink) !important; background: rgba(255, 255, 255, .6) !important; }
+.tab-button.active { background: #fff !important; color: var(--ku-green-deep) !important; box-shadow: 0 1px 3px rgba(28, 43, 38, .16) !important; }

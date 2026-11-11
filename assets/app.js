@@ -212,6 +212,13 @@
         b.innerHTML = h;
         document.body.insertBefore(b, document.body.firstChild);
     }
+    function num(n) { return isKmr ? String(n) : String(n).replace(/\d/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'[d]; }); }
+    function chip() {
+        var h = document.querySelector('header h1'); if (!h || pos < 0) return;
+        var c = document.createElement('div'); c.className = 'ku-chip';
+        c.textContent = isKmr ? 'Wane ' + (pos + 1) + ' ji ' + list.length : 'وانەی ' + num(pos + 1) + ' لە ' + num(list.length);
+        h.parentNode.insertBefore(c, h);
+    }
     function hubProgress() {
         [].forEach.call(document.querySelectorAll('.module-card:not(a), .nav-card:not(a)'), function (x) { x.remove(); });
         var first = document.querySelector('a.nav-card, a.module-card');
@@ -229,17 +236,19 @@
         cards.sort(function (a, b) { return list.indexOf(a.getAttribute('href')) - list.indexOf(b.getAttribute('href')); });
         cards.forEach(function (c, i) {
             parent.appendChild(c);
-            var n = document.createElement('span'); n.className = 'ku-num'; n.textContent = (i + 1 < 10 ? '0' : '') + (i + 1); c.appendChild(n);
-            if (seen[c.getAttribute('href')]) { done++; var d = document.createElement('span'); d.className = 'ku-done'; d.innerHTML = '<i class="fa-solid fa-check"></i>'; c.appendChild(d); }
+            var isDone = !!seen[c.getAttribute('href')], n = document.createElement('span');
+            n.className = 'ku-num' + (isDone ? ' ku-num-done' : '');
+            n.innerHTML = (isDone ? '<i class="fa-solid fa-check"></i>' : '') + '<span>' + num(i + 1) + '</span>';
+            c.appendChild(n); if (isDone) done++;
         });
         var p = document.createElement('div'); p.className = 'ku-progress'; p.dir = isKmr ? 'ltr' : 'rtl';
-        p.innerHTML = '<span dir="ltr">' + done + ' / ' + cards.length + '</span> ' + T.done +
+        p.innerHTML = '<span dir="ltr">' + num(done) + ' / ' + num(cards.length) + '</span> ' + T.done +
             '<div class="ku-progress-track"><div class="ku-progress-fill" style="width:' + Math.round(done / cards.length * 100) + '%"></div></div>';
         parent.parentNode.insertBefore(p, parent);
     }
     function start() {
         if (page === 'index.html') return;
-        bar(); if (isHub) hubProgress();
+        bar(); if (isHub) hubProgress(); chip();
         var f = document.querySelector('footer p');
         if (f) f.textContent = '© ' + new Date().getFullYear() + (isKmr ? ' Hîngeha Zimanê Kurdî' : ' فێرگەی زمانی کوردی');
     }

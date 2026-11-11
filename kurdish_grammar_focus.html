@@ -336,15 +336,15 @@
                 </p>
                 <ul>
                     <li>
-                        ئەگەر وشەی یەکەم بە پیتی بێدەنگ (consonant) کۆتایی هات، پاشگری <code>-ی</code> (ـی) زیاد دەکرێت.
+                        پاشگری <code>-ی</code>: کاتێک ناوەکە گشتی یان نەناسراوە. نموونە: کتێب<code>ی</code> جوان، دەرگا<code>ی</code> ماڵ. ئەگەر ناوەکە بە «ی» کۆتایی هاتبێت، دوو «ی» دەنووسرێت: ماسی<code>ی</code> سوور.
                     </li>
-                     <li>
-                        ئەگەر وشەی یەکەم بە پیتی دەنگدار (vowel) کۆتایی هات (وەک ا، ە، ێ، ۆ، وو، و، ی)، پاشگری <code>-ی</code> (ی) زیاد دەکرێت.
+                    <li>
+                        پاشگری <code>-ە</code>: کاتێک دەستەواژەکە ناسراوە و ئامرازی «ـەکە» دەچێتە سەر ئاوەڵناوەکە، یان لەگەڵ «ئەم / ئەو». نموونە: کوڕ<code>ە</code> زیرەکەکە، ئەم گوڵ<code>ە</code> سوورە.
                     </li>
                 </ul>
-                 <p>
-                    <strong>تێبینی:</strong> ئەمە یاسای بنەڕەتییە. هەندێک حاڵەتی تایبەت و گۆڕانکاری لەوانەیە ڕووبدات، بەڵام ئەمە بنچینەکەیە.
-                 </p>
+                <p>
+                    <strong>تێبینی:</strong> بۆ خاوەندارێتی (ناو + ناو) هەمیشە <code>-ی</code> بەکاردێت: کتێب<code>ی</code> قوتابی.
+                </p>
             </section>
 
             <section class="grammar-section examples">
@@ -356,7 +356,9 @@
                      <li>پەنجەرە + پۆل ⟵ پەنجەرە<code>ی</code> پۆل</li>
                      <li>ماسی + سوور ⟵ ماسی<code>ی</code> سوور</li>
                      <li>مامۆستا + باش ⟵ مامۆستا<code>ی</code> باش</li>
-                     <li>ئاوی + کانیاو ⟵ ئاو<code>ی</code> کانیاو</li>
+                     <li>ئاو + کانیاو ⟵ ئاو<code>ی</code> کانیاو</li>
+                     <li>کوڕ + زیرەکەکە ⟵ کوڕ<code>ە</code> زیرەکەکە</li>
+                     <li>گوڵ + سوورەکە ⟵ گوڵ<code>ە</code> سوورەکە</li>
                  </ul>
             </section>
 
@@ -390,7 +392,12 @@
             { word1: "دار", word2: "بەرز", ends_with_vowel: false, correct_ending: "-ی" },
             { word1: "گوڵ", word2: "سوور", ends_with_vowel: false, correct_ending: "-ی" },
             { word1: "چیا", word2: "بەرز", ends_with_vowel: true, correct_ending: "-ی" }, 
-            { word1: "دەرگا", word2: "کراوە", ends_with_vowel: true, correct_ending: "-ی" } 
+            { word1: "دەرگا", word2: "کراوە", ends_with_vowel: true, correct_ending: "-ی" },
+            { word1: "کوڕ", word2: "زیرەکەکە", ends_with_vowel: false, correct_ending: "-ە" },
+            { word1: "گوڵ", word2: "سوورەکە", ends_with_vowel: false, correct_ending: "-ە" },
+            { word1: "دار", word2: "بەرزەکە", ends_with_vowel: false, correct_ending: "-ە" },
+            { word1: "کچ", word2: "بچووکەکە", ends_with_vowel: false, correct_ending: "-ە" },
+            { word1: "قەڵەم", word2: "شینەکە", ends_with_vowel: false, correct_ending: "-ە" }
         ];
 
         // --- STATE VARIABLES ---
@@ -405,7 +412,7 @@
         const currentYearEl = document.getElementById('current-year');
         
         // --- CONSTANTS --- Added for fixed options
-        const FIXED_OPTIONS = ["-ی", "-ی", "-ە", "-ا"]; 
+        const FIXED_OPTIONS = ["-ی", "-ە", "-ا", "-ێ"]; 
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {

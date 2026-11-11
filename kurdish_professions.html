@@ -232,14 +232,14 @@
                 { id: 107, word_ku: "جووتیار", meaning: "کەسێک کە کشتوکاڵ دەکات", audio_src: "audio/professions/jootyar.mp3", image_src: "img/professions/farmer.png", sentence_ku: "جووتیارەکە گەنمی چاندووە.", grammar_note_ku: null },
                 { id: 108, word_ku: "پۆلیس", meaning: "کەسێک کە پارێزگاری لە ئاسایش دەکات", audio_src: "audio/professions/polis.mp3", image_src: "img/professions/police.png", sentence_ku: "پۆلیسەکە هاتووچۆی ڕێکخست.", grammar_note_ku: null },
                 { id: 109, word_ku: "پارێزەر", meaning: "کەسێک کە لە دادگا بەرگری دەکات", audio_src: "audio/professions/parezar.mp3", image_src: "img/professions/lawyer.png", sentence_ku: "پارێزەرەکە دۆسیەکەی بردەوە.", grammar_note_ku: null },
-                { id: 110, word_ku: "شوفێر", meaning: "کەسێک کە ئۆتۆمبێل لێدەخوڕێت", audio_src: "audio/professions/shofer.mp3", image_src: "img/professions/driver.png", sentence_ku: "شوفێری پاسەکە زۆر بە ئاگایە.", grammar_note_ku: null }
+                { id: 110, word_ku: "شۆفێر", meaning: "کەسێک کە ئۆتۆمبێل لێدەخوڕێت", audio_src: "audio/professions/shofer.mp3", image_src: "img/professions/driver.png", sentence_ku: "شۆفێری پاسەکە زۆر بە ئاگایە.", grammar_note_ku: null }
             ]
         };
 
         const dialogueData = {
              'پیشەکان': [
-                  { speaker: "ئاراس", line: "تۆ چ کارەییت؟", keywords: [], audio: "audio/professions_dialogue/dialogue_p1.mp3" },
-                  { speaker: "سارا", line: "من <span class='keyword'>مامۆستا</span>م. تۆ چیت؟", keywords: ["مامۆستا"], audio: "audio/professions_dialogue/dialogue_p2.mp3" },
+                  { speaker: "ئاراس", line: "تۆ چ کارەیت؟", keywords: [], audio: "audio/professions_dialogue/dialogue_p1.mp3" },
+                  { speaker: "سارا", line: "من <span class='keyword'>مامۆستا</span>م. ئەی تۆ؟", keywords: ["مامۆستا"], audio: "audio/professions_dialogue/dialogue_p2.mp3" },
                   { speaker: "ئاراس", line: "من <span class='keyword'>ئەندازیار</span>م. لە کوێ کار دەکەیت؟", keywords: ["ئەندازیار"], audio: "audio/professions_dialogue/dialogue_p3.mp3" },
                   { speaker: "سارا", line: "من لە قوتابخانەیەک کار دەکەم. <span class='keyword'>پزیشک</span>ەکان لە کوێ کار دەکەن؟", keywords: ["پزیشک"], audio: "audio/professions_dialogue/dialogue_p4.mp3" },
                   { speaker: "ئاراس", line: "ئەوان لە نەخۆشخانە کار دەکەن. <span class='keyword'>جووتیار</span> چی دەکات؟", keywords: ["جووتیار"], audio: "audio/professions_dialogue/dialogue_p5.mp3" },
@@ -652,7 +652,7 @@
                 setTimeout(() => { if(playQuizAudioBtn) playQuizAudioBtn.disabled = false; }, 1500);
             } else if (currentQuizIndex < quizItems.length) {
                 console.warn("No audio source for current quiz item.");
-                 quizFeedbackEl.textContent = "ببورە، دەنگی ئەم وشەیە بەردەست نییە.";
+                 quizFeedbackEl.textContent = "ببوورە، دەنگی ئەم وشەیە بەردەست نییە.";
             }
         }
         function checkListeningAnswer(selectedButton, correctWordId) {
