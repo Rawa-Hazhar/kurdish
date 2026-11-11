@@ -120,3 +120,9 @@ nav.tab-navigation, .tab-navigation { gap: 8px !important; flex-wrap: wrap; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* no voice yet: hide the listen buttons instead of leaving dead ones */
+.ku-novoice :is(button, a, span, .btn):has(> i.fa-volume-high),
+.ku-novoice :is(button, a, span, .btn):has(> i.fa-volume-up),
+.ku-novoice :is(.play-btn-small, .play-btn-activity, .play-sound, .play-btn, .audio-btn, .speak-btn),
+.ku-novoice i.fa-volume-high[onclick] { display: none !important; }

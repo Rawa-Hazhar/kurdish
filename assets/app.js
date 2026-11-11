@@ -90,6 +90,11 @@
         if (!/[؀-ۿ]/.test(text)) return text;
         return text.replace(/[ً-ْـ]/g, '').split(/(\s+)/).map(function (w) { return /\s/.test(w) ? w : word(w); }).join('');
     }
+    var VOICE = false;   // set true to bring back the approximate machine voice
+    if (!VOICE) {
+        document.documentElement.classList.add('ku-novoice');
+        try { if (window.SpeechSynthesis) SpeechSynthesis.prototype.speak = function (u) { var f = u && u.onend; if (typeof f === 'function') setTimeout(function () { f.call(u, {}); }, 0); }; } catch (e) { }
+    }
     var voice = null, synth = window.speechSynthesis;
     function pick() {
         if (!synth) return;
@@ -99,6 +104,7 @@
     if (synth) { pick(); try { synth.addEventListener('voiceschanged', pick); } catch (e) { } }
     var warned = false;
     function speak(text, onend) {
+        if (!VOICE) { if (onend) onend(); return; }   // synthetic voice is off until real recordings exist
         if (!synth || !text) { if (!warned) { warned = true; toast(T.noAudio); } if (onend) onend(); return; }
         try {
             synth.cancel();
