@@ -473,7 +473,7 @@
                  const clientX = event.touches?.[0]?.clientX ?? event.clientX;
                  const clientY = event.touches?.[0]?.clientY ?? event.clientY;
                  if (clientX === undefined || clientY === undefined) return null;
-                 return { x: clientX - rect.left, y: clientY - rect.top };
+                 return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
             }
             function startDrawing(e) { const pos = getPos(e); if(!pos) return; isDrawing=true; [lastX, lastY] = [pos.x, pos.y]; }
             function draw(e) { if(!isDrawing) return; if(e.touches) e.preventDefault(); const pos = getPos(e); if(!pos) return; ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); [lastX, lastY] = [pos.x, pos.y]; }

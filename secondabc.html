@@ -536,7 +536,7 @@
                 const clientX = event.touches?.[0]?.clientX ?? event.clientX;
                 const clientY = event.touches?.[0]?.clientY ?? event.clientY;
                 if (clientX === undefined || clientY === undefined) return null;
-                return { x: clientX - rect.left, y: clientY - rect.top };
+                return { x: (clientX - rect.left) * (canvasElement.width / rect.width), y: (clientY - rect.top) * (canvasElement.height / rect.height) };
             }
 
             function startVocabDraw(e) {
