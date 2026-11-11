@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی وشەکانی کەش و هەوا - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #2980b9; /* Blue accent for weather */
+            --accent-hover-color: #3498db;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+        header h1 i {
+            margin-left: 10px;
+            color: var(--accent-color);
+        }
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Activity 1: Word and Image Recognition */
+        .word-image-recognition-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .recognition-card {
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .recognition-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 15px;
+            border: 1px solid var(--light-bg-color);
+        }
+        .recognition-card .word-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .recognition-card .word-meaning {
+            font-size: 0.95rem;
+            color: var(--muted-text-color);
+            margin-bottom: 10px;
+            min-height: 2.5em;
+        }
+         .recognition-card .word-sentence {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-style: italic;
+            margin-bottom: 15px;
+            min-height: 2.5em;
+        }
+        .recognition-card .play-btn-activity {
+            background: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+        .recognition-card .play-btn-activity:hover {
+            background-color: var(--accent-hover-color);
+        }
+
+        /* Activity 2: Which Picture is Correct? */
+        .picture-quiz-area, .sentence-completion-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .picture-quiz-question {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .picture-quiz-question .target-word {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        .picture-quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .picture-quiz-option img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            border-radius: var(--border-radius-sm);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: border-color var(--transition-speed), transform var(--transition-speed);
+        }
+        .picture-quiz-option img:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        .picture-quiz-option img.correct {
+            border-color: var(--success-color) !important;
+            box-shadow: 0 0 10px var(--success-color);
+        }
+        .picture-quiz-option img.incorrect {
+            border-color: var(--danger-color) !important;
+            opacity: 0.7;
+        }
+        .picture-quiz-options.disabled .picture-quiz-option img:not(.correct):not(.incorrect) {
+            opacity: 0.5;
+            cursor: default;
+        }
+         .picture-quiz-options.disabled .picture-quiz-option img:hover:not(.correct):not(.incorrect) {
+            transform: none;
+            border-color: var(--border-color);
+        }
+
+        /* Activity 3: Complete the Sentence */
+        .sentence-completion-question {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            line-height: 2;
+            padding: 10px;
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-sm);
+        }
+        .sentence-completion-question .blank-spot {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dotted var(--muted-text-color);
+            padding: 0 5px;
+            font-weight: bold;
+            color: var(--accent-color);
+            background-color: #f0f8ff; /* Light aliceblue for the blank */
+            border-radius: 3px;
+        }
+        .sentence-completion-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .sentence-option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .sentence-option-btn:hover {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+        }
+        .sentence-option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+        }
+        .sentence-option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        .sentence-completion-options.disabled .sentence-option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+         .sentence-completion-options.disabled .sentence-option-btn:hover:not(.correct):not(.incorrect) {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border-color: var(--border-color);
+        }
+
+        /* General Feedback Area & Next Button */
+        .feedback-area-activity {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .btn-next-activity {
+            margin-top: 15px;
+        }
+        .btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(41, 128, 185, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+         .btn i { margin-left: 8px; }
+         .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3); outline: none; }
+         .feedback-correct { color: var(--success-color); }
+         .feedback-incorrect { color: var(--danger-color); }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .recognition-card .word-name { font-size: 1.3rem; }
+            .picture-quiz-options { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px;}
+            .picture-quiz-option img { height: 80px;}
+            .sentence-completion-question {font-size: 1.1rem;}
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .recognition-card {padding: 15px;}
+             .sentence-option-btn {font-size: 1rem; padding: 8px 15px;}
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-cloud-sun-rain"></i> فێربوونی وشەکانی کەش و هەوا</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('wordImageTab', this)"><i class="fa-solid fa-image"></i> ناسینی ووشە و وێنە</button>
+            <button class="tab-button" onclick="showTab('pictureQuizTab', this)"><i class="fa-solid fa-photo-film"></i> کام وێنەیە ڕاستە؟</button>
+            <button class="tab-button" onclick="showTab('sentenceCompletionTab', this)"><i class="fa-solid fa-pen-to-square"></i> ڕستەکە تەواو بکە</button>
+        </nav>
+
+        <main>
+            <section id="wordImageTab" class="tab-content active">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">وشەکانی کەش و هەوا</h2>
+                 <div class="word-image-recognition-list" id="word-image-list">
+                     </div>
+            </section>
+
+            <section id="pictureQuizTab" class="tab-content">
+                <div class="picture-quiz-area">
+                    <h3 id="picture-quiz-title">کام وێنەیە وەسفی وشەی <strong class="target-word" id="picture-quiz-word">...</strong> دەکات؟</h3>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <button class="btn play-btn-activity" id="play-picture-quiz-audio-btn"><i class="fa-solid fa-volume-high"></i> گوێگرتن لە وشە</button>
+                    </div>
+                    <div class="picture-quiz-options" id="picture-quiz-options-container">
+                        </div>
+                    <div id="picture-quiz-feedback" class="feedback-area-activity"></div>
+                    <button id="next-picture-quiz-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="sentenceCompletionTab" class="tab-content">
+                 <div class="sentence-completion-area">
+                    <h3>ڕستەی خوارەوە بە وشەی گونجاو پڕبکەرەوە:</h3>
+                    <div id="sentence-completion-question" class="sentence-completion-question">
+                        </div>
+                    <div class="sentence-completion-options" id="sentence-completion-options-container">
+                        </div>
+                    <div id="sentence-completion-feedback" class="feedback-area-activity"></div>
+                    <button id="next-sentence-completion-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const weatherData = [
+            { id: 201, name: "خۆر", meaning: "تیشکی گەرمی خۆر", sentence: "ئەمڕۆ هەوا _ و ئاسمان ساماڵە.", image: "img/weather/sunny.png", audio: "audio/weather/xor.mp3" },
+            { id: 202, name: "باران", meaning: "دڵۆپی ئاو لە هەورەوە", sentence: "پایزان لە کوردستان _ی زۆر دەبارێت.", image: "img/weather/rainy.png", audio: "audio/weather/baran.mp3" },
+            { id: 203, name: "بەفر", meaning: "کریستاڵی سەهۆڵی سپی", sentence: "شەوی ڕابردوو _ێکی جوان باری.", image: "img/weather/snowy.png", audio: "audio/weather/bafr.mp3" },
+            { id: 204, name: "هەور", meaning: "کۆمەڵە دڵۆپی ئاو لە ئاسماندا", sentence: "کاتێک ئاسمان پڕە لە _، خۆر دەرناکەوێت.", image: "img/weather/cloudy.png", audio: "audio/weather/hawr.mp3" },
+            { id: 205, name: "با", meaning: "جووڵەی هەوا", sentence: "ئەمڕۆ _یەکی فێنک هەڵیکردووە.", image: "img/weather/windy.png", audio: "audio/weather/ba.mp3" },
+            { id: 206, name: "تەم", meaning: "هەوری نزم کە بینین کەمدەکاتەوە", sentence: "لەبەر _، شۆفێری کردن قورس بوو.", image: "img/weather/foggy.png", audio: "audio/weather/tam.mp3" },
+            { id: 207, name: "گەرم", meaning: "پلەی گەرمی بەرز", sentence: "لە وەرزی هاویندا، کەش و هەوا زۆر _ دەبێت.", image: "img/weather/hot.png", audio: "audio/weather/garm.mp3" },
+            { id: 208, name: "سارد", meaning: "پلەی گەرمی نزم", sentence: "جل و بەرگی گەرم لەبەر بکە، دەرەوە _ە.", image: "img/weather/cold.png", audio: "audio/weather/sard.mp3" },
+            { id: 209, name: "فێنک", meaning: "نە گەرم و نە سارد، خۆش", sentence: "ئێوارانی بەهار هەوا _ و خۆشە.", image: "img/weather/cool.png", audio: "audio/weather/fenk.mp3" },
+            { id: 210, name: "برووسکە", meaning: "ڕووناکییەکی لەناکاو", sentence: "لەگەڵ _، دەنگی هەورەتریشقەش هات.", image: "img/weather/lightning.png", audio: "audio/weather/bruska.mp3" }
+        ];
+
+
+        let currentAudioPlayer = null;
+        let currentWordForQuiz = null;
+        let currentSentenceForCompletion = null;
+
+
+        // DOM Cache
+        const wordImageListDiv = document.getElementById('word-image-list');
+        const pictureQuizWordEl = document.getElementById('picture-quiz-word');
+        const playPictureQuizAudioBtn = document.getElementById('play-picture-quiz-audio-btn');
+        const pictureQuizOptionsContainer = document.getElementById('picture-quiz-options-container');
+        const pictureQuizFeedbackEl = document.getElementById('picture-quiz-feedback');
+        const nextPictureQuizBtn = document.getElementById('next-picture-quiz-btn');
+
+        const sentenceCompletionQuestionEl = document.getElementById('sentence-completion-question');
+        const sentenceCompletionOptionsContainer = document.getElementById('sentence-completion-options-container');
+        const sentenceCompletionFeedbackEl = document.getElementById('sentence-completion-feedback');
+        const nextSentenceCompletionBtn = document.getElementById('next-sentence-completion-btn');
+
+        const currentYearWeatherEl = document.getElementById('current-year');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearWeatherEl) { currentYearWeatherEl.textContent = new Date().getFullYear(); }
+            populateWordImageList();
+            loadPictureQuizQuestion();
+            loadSentenceCompletionQuestion();
+
+            playPictureQuizAudioBtn.addEventListener('click', () => {
+                if (currentWordForQuiz && currentWordForQuiz.audio) playAudio(currentWordForQuiz.audio);
+            });
+            nextPictureQuizBtn.addEventListener('click', loadPictureQuizQuestion);
+            nextSentenceCompletionBtn.addEventListener('click', loadSentenceCompletionQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'pictureQuizTab') {
+                loadPictureQuizQuestion();
+            } else if (tabId === 'sentenceCompletionTab') {
+                loadSentenceCompletionQuestion();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid or not provided: ${src}`); return; }
+            if (currentAudioPlayer) { currentAudioPlayer.pause(); currentAudioPlayer.currentTime = 0; }
+            try {
+                currentAudioPlayer = new Audio(src);
+                currentAudioPlayer.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        function populateWordImageList() {
+            wordImageListDiv.innerHTML = '';
+            weatherData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'recognition-card';
+                // Use item.sentence directly as it already has the blank for this view
+                const displaySentence = item.sentence.replace('_', item.name); // Show full sentence here
+                card.innerHTML = `
+                    <img src="${item.image || 'img/weather/placeholder.png'}" alt="${item.name}">
+                    <div class="word-name">${item.name}</div>
+                    <div class="word-meaning">${item.meaning}</div>
+                    <div class="word-sentence">${displaySentence}</div>
+                    <button class="play-btn-activity" onclick="playAudio('${item.audio}')" ${!item.audio ? 'disabled' : ''}>
+                        <i class="fa-solid fa-volume-high"></i> گوێگرتن
+                    </button>
+                `;
+                wordImageListDiv.appendChild(card);
+            });
+        }
+
+        function loadPictureQuizQuestion() {
+            pictureQuizFeedbackEl.textContent = '';
+            pictureQuizFeedbackEl.className = 'feedback-area-activity';
+            pictureQuizOptionsContainer.innerHTML = '';
+            pictureQuizOptionsContainer.classList.remove('disabled');
+            nextPictureQuizBtn.style.display = 'none';
+
+            currentWordForQuiz = weatherData[Math.floor(Math.random() * weatherData.length)];
+            pictureQuizWordEl.textContent = currentWordForQuiz.name;
+             if (currentWordForQuiz.audio) {
+                 playAudio(currentWordForQuiz.audio);
+                 playPictureQuizAudioBtn.disabled = false;
+            } else {
+                playPictureQuizAudioBtn.disabled = true;
+            }
+
+
+            let options = [currentWordForQuiz];
+            let distractors = shuffleArray([...weatherData].filter(w => w.id !== currentWordForQuiz.id));
+            for (let i = 0; options.length < Math.min(4, weatherData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const imgElement = document.createElement('img');
+                imgElement.src = option.image || 'img/weather/placeholder.png';
+                imgElement.alt = option.name;
+                imgElement.dataset.id = option.id;
+                imgElement.onclick = () => checkPictureQuizAnswer(imgElement, currentWordForQuiz.id);
+                
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'picture-quiz-option';
+                optionDiv.appendChild(imgElement);
+                pictureQuizOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function checkPictureQuizAnswer(selectedImg, correctId) {
+            const selectedId = parseInt(selectedImg.dataset.id);
+            pictureQuizOptionsContainer.classList.add('disabled');
+            playPictureQuizAudioBtn.disabled = true;
+
+
+            if (selectedId === correctId) {
+                selectedImg.classList.add('correct');
+                pictureQuizFeedbackEl.textContent = 'ڕاستە! زۆر باشە!';
+                pictureQuizFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedImg.classList.add('incorrect');
+                pictureQuizFeedbackEl.textContent = `هەڵەیە. وێنەی ڕاست بۆ "${currentWordForQuiz.name}" نیشان دراوە.`;
+                pictureQuizFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctImg = pictureQuizOptionsContainer.querySelector(`img[data-id="${correctId}"]`);
+                if (correctImg) {
+                    correctImg.classList.add('correct');
+                }
+            }
+            nextPictureQuizBtn.style.display = 'inline-flex';
+        }
+
+        function loadSentenceCompletionQuestion() {
+            sentenceCompletionFeedbackEl.textContent = '';
+            sentenceCompletionFeedbackEl.className = 'feedback-area-activity';
+            sentenceCompletionOptionsContainer.innerHTML = '';
+            sentenceCompletionOptionsContainer.classList.remove('disabled');
+            nextSentenceCompletionBtn.style.display = 'none';
+
+            currentSentenceForCompletion = weatherData[Math.floor(Math.random() * weatherData.length)];
+            
+            // The sentence in weatherData already has "_" as a placeholder.
+            // We will replace it with a styled span for the blank.
+            const sentenceWithBlank = currentSentenceForCompletion.sentence.replace('_', '<span class="blank-spot"></span>');
+            sentenceCompletionQuestionEl.innerHTML = sentenceWithBlank;
+
+            let options = [currentSentenceForCompletion]; // The correct answer
+            let distractors = shuffleArray([...weatherData].filter(w => w.id !== currentSentenceForCompletion.id));
+            for (let i = 0; options.length < Math.min(4, weatherData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+             shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'sentence-option-btn';
+                button.textContent = option.name;
+                button.dataset.id = option.id;
+                button.onclick = () => checkSentenceCompletionAnswer(button, currentSentenceForCompletion.id, currentSentenceForCompletion.name);
+                sentenceCompletionOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkSentenceCompletionAnswer(selectedButton, correctId, correctName) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            sentenceCompletionOptionsContainer.classList.add('disabled');
+            const blankSpot = sentenceCompletionQuestionEl.querySelector('.blank-spot');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                if(blankSpot) blankSpot.textContent = correctName; // Fill the blank with the correct word
+                sentenceCompletionFeedbackEl.textContent = 'ڕاستە! جوانە!';
+                sentenceCompletionFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                if(blankSpot) blankSpot.textContent = selectedButton.textContent; // Fill with incorrect choice for visual
+                sentenceCompletionFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتی بوو لە: ${correctName}`;
+                sentenceCompletionFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctButton = Array.from(sentenceCompletionOptionsContainer.querySelectorAll('.sentence-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) {
+                    correctButton.classList.add('correct'); // Still show the correct option text button
+                }
+                 // Revert the blank to empty or show correct answer after a delay if preferred
+                setTimeout(() => {
+                     if(blankSpot) {
+                         const originalSentenceWithStyledBlank = currentSentenceForCompletion.sentence.replace('_', `<span class="blank-spot" style="color: var(--success-color); font-weight:bold;">${correctName}</span>`);
+                         sentenceCompletionQuestionEl.innerHTML = originalSentenceWithStyledBlank;
+                     }
+                }, 1500);
+
+
+            }
+            nextSentenceCompletionBtn.style.display = 'inline-flex';
+        }
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

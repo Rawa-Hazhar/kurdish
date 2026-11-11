@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی ڕۆژەکانی هەفتە - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #8e44ad; /* Purple accent for weekdays */
+            --accent-hover-color: #9b59b6;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+        header h1 i {
+            margin-left: 10px;
+            color: var(--accent-color);
+        }
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-3px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Weekday List Styles (similar to month-list) */
+        .weekday-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .weekday-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            transition: box-shadow var(--transition-speed);
+        }
+         .weekday-list li:hover {
+             box-shadow: var(--box-shadow-hover);
+         }
+        .weekday-text {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        .weekday-kurdish {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .weekday-order-display { /* For displaying "ڕۆژی یەکەم", etc. */
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+            font-family: var(--font-kurdish), sans-serif;
+            display: block;
+        }
+        .play-weekday-btn {
+            background: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .play-weekday-btn:hover {
+            background-color: var(--accent-hover-color);
+            transform: scale(1.1);
+        }
+        .play-weekday-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Matching Game Styles */
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+         .matching-column h3 {
+             text-align: center;
+             font-size: 1.2rem;
+             color: var(--primary-color);
+             margin-bottom: 15px;
+             font-weight: 600;
+         }
+        .match-item {
+            padding: 12px 18px;
+            background-color: var(--white-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .match-item.kurdish-weekday { font-weight: 600; color: var(--primary-color); }
+        .match-item.weekday-order-number { font-family: var(--font-kurdish), sans-serif; color: var(--text-color); font-weight: bold; font-size: 1.2rem; }
+        .match-item:hover {
+            border-color: var(--accent-color);
+            background-color: #f3e5f5; /* Light accent color */
+        }
+        .match-item.selected {
+            border-color: var(--accent-hover-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            font-weight: bold;
+        }
+        .match-item.matched {
+            border-color: var(--success-color);
+            background-color: var(--success-color);
+            color: var(--white-color);
+            cursor: default;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .match-item.incorrect {
+             border-color: var(--danger-color);
+             background-color: var(--danger-color);
+             color: var(--white-color);
+             animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        #matching-feedback {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        /* Quiz Styles */
+        .quiz-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+         .quiz-area h3 {
+             font-size: 1.5rem;
+             color: var(--primary-color);
+             margin-bottom: 25px;
+         }
+        .quiz-question-display {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .quiz-question-display .target-value {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin: 0 5px;
+        }
+        .quiz-options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .quiz-option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--box-shadow);
+        }
+        .quiz-option-btn:hover, .quiz-option-btn:focus-visible {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-hover);
+            outline: none;
+        }
+        .quiz-option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+            transform: scale(1.05);
+        }
+         .quiz-option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+        .quiz-options-container.disabled .quiz-option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .quiz-feedback-area {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .btn { /* General button style for Next, Reset etc. */
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(142, 68, 173, 0.2); /* Accent color shadow */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+         .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); }
+         .btn i { margin-left: 8px; }
+         .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3); outline: none; }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .matching-area { grid-template-columns: 1fr; }
+            .weekday-kurdish { font-size: 1.1rem; }
+            .quiz-question-display { font-size: 1.2rem; }
+            .quiz-question-display .target-value { font-size: 1.8rem; }
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .match-item { font-size: 1rem; }
+             .quiz-option-btn { font-size: 1rem; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-calendar-week"></i> فێربوونی ڕۆژەکانی هەفتە</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('listWeekdaysTab', this)"><i class="fa-solid fa-list-ul"></i> لیستی ڕۆژەکان</button>
+            <button class="tab-button" onclick="showTab('matchingGameTabWeekdays', this)"><i class="fa-solid fa-link"></i> یاریی گونجاندن</button>
+            <button class="tab-button" onclick="showTab('quizTabWeekdays', this)"><i class="fa-solid fa-question-circle"></i> تاقیکردنەوە</button>
+        </nav>
+
+        <main>
+            <section id="listWeekdaysTab" class="tab-content active">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">ڕۆژەکانی هەفتە بە کوردی</h2>
+                 <div class="weekday-list">
+                     <ul id="weekday-list-ul">
+                         </ul>
+                 </div>
+            </section>
+
+            <section id="matchingGameTabWeekdays" class="tab-content">
+                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">ناوی ڕۆژ بە ژمارەکەی بگونجێنە</h2>
+                <div class="matching-area">
+                    <div class="matching-column" id="kurdish-weekdays-column">
+                        <h3>ڕۆژەکان</h3>
+                        </div>
+                    <div class="matching-column" id="weekday-order-column">
+                        <h3>ژمارەی ڕۆژ</h3>
+                        </div>
+                </div>
+                <div id="matching-feedback"></div>
+                 <div style="text-align: center; margin-top: 25px;">
+                    <button class="btn danger" onclick="resetWeekdayMatchingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                 </div>
+            </section>
+
+            <section id="quizTabWeekdays" class="tab-content">
+                <div class="quiz-area">
+                    <h3>تاقیکردنەوەی ڕۆژەکانی هەفتە</h3>
+                    <div id="weekday-quiz-question-display" class="quiz-question-display">
+                        ڕۆژی <span class="target-value" id="weekday-quiz-target-value">...</span> کامەیە؟
+                    </div>
+                    <div id="weekday-quiz-options-container" class="quiz-options-container">
+                    </div>
+                    <div id="weekday-quiz-feedback-area" class="quiz-feedback-area"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="next-weekday-quiz-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const soraniWeekdays = [
+            { id: 1, name: "شەممە", order: "١", orderText: "یەکەم", audio: "audio/weekdays/shemme.mp3" }, // Saturday
+            { id: 2, name: "یەکشەممە", order: "٢", orderText: "دووەم", audio: "audio/weekdays/yekshemme.mp3" }, // Sunday
+            { id: 3, name: "دووشەممە", order: "٣", orderText: "سێیەم", audio: "audio/weekdays/dooshemme.mp3" }, // Monday
+            { id: 4, name: "سێشەممە", order: "٤", orderText: "چوارەم", audio: "audio/weekdays/seshemme.mp3" }, // Tuesday
+            { id: 5, name: "چوارشەممە", order: "٥", orderText: "پێنجەم", audio: "audio/weekdays/chwarshemme.mp3" }, // Wednesday
+            { id: 6, name: "پێنجشەممە", order: "٦", orderText: "شەشەم", audio: "audio/weekdays/penjshemme.mp3" }, // Thursday
+            { id: 7, name: "ھەینی", order: "٧", orderText: "حەوتەم", audio: "audio/weekdays/heyni.mp3" }  // Friday
+        ];
+
+        let currentWeekdayAudio = null;
+        let selectedKurdishWeekdayItem = null;
+        let selectedWeekdayOrderItem = null;
+        let weekdayMatchedPairs = 0;
+        let totalWeekdayPairs = soraniWeekdays.length;
+
+        let currentWeekdayQuizQuestion = null;
+        let weekdayQuizMode = 'nameToOrder'; // or 'orderToName'
+
+        // DOM Cache
+        const weekdayListUl = document.getElementById('weekday-list-ul');
+        const kurdishWeekdaysColumnDiv = document.getElementById('kurdish-weekdays-column');
+        const weekdayOrderColumnDiv = document.getElementById('weekday-order-column');
+        const weekdayMatchingFeedbackEl = document.getElementById('matching-feedback'); // Reusing same ID, ensure it's specific if needed
+
+        const weekdayQuizTargetValueEl = document.getElementById('weekday-quiz-target-value');
+        const weekdayQuizQuestionDisplayEl = document.getElementById('weekday-quiz-question-display');
+        const weekdayQuizOptionsContainerEl = document.getElementById('weekday-quiz-options-container');
+        const weekdayQuizFeedbackAreaEl = document.getElementById('weekday-quiz-feedback-area');
+        const nextWeekdayQuizBtn = document.getElementById('next-weekday-quiz-btn');
+        const currentYearFooterEl = document.getElementById('current-year');
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearFooterEl) { currentYearFooterEl.textContent = new Date().getFullYear(); }
+            populateWeekdayList();
+            setupWeekdayMatchingGame();
+            loadWeekdayQuizQuestion();
+            nextWeekdayQuizBtn.addEventListener('click', loadWeekdayQuizQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            clickedButton.classList.add('active');
+
+            if (tabId === 'matchingGameTabWeekdays') {
+                resetWeekdayMatchingGame();
+            } else if (tabId === 'quizTabWeekdays') {
+                loadWeekdayQuizQuestion();
+            }
+        }
+
+        function playWeekdayAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid or not provided: ${src}`); return; }
+            if (currentWeekdayAudio) { currentWeekdayAudio.pause(); currentWeekdayAudio.currentTime = 0; }
+            try {
+                currentWeekdayAudio = new Audio(src); // Assuming audio files are in 'audio/weekdays/'
+                currentWeekdayAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        function populateWeekdayList() {
+            weekdayListUl.innerHTML = '';
+            soraniWeekdays.forEach(day => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="weekday-text">
+                        <span class="weekday-kurdish">${day.name}</span>
+                        <span class="weekday-order-display">(ڕۆژی ${day.orderText}ی هەفتە)</span>
+                    </div>
+                    <button class="play-weekday-btn" onclick="playWeekdayAudio('${day.audio}')" aria-label="گوێگرتن لە ${day.name}">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                `;
+                weekdayListUl.appendChild(li);
+            });
+        }
+
+        function setupWeekdayMatchingGame() {
+            kurdishWeekdaysColumnDiv.innerHTML = '<h3>ڕۆژەکان</h3>';
+            weekdayOrderColumnDiv.innerHTML = '<h3>ژمارەی ڕۆژ</h3>';
+            weekdayMatchingFeedbackEl.textContent = '';
+            selectedKurdishWeekdayItem = null;
+            selectedWeekdayOrderItem = null;
+            weekdayMatchedPairs = 0;
+
+            const shuffledDays = shuffleArray([...soraniWeekdays]);
+            const shuffledOrders = shuffleArray([...soraniWeekdays]); // For orders display
+
+            shuffledDays.forEach(day => createWeekdayMatchItem(day.name, day.id, 'kurdish-weekday', kurdishWeekdaysColumnDiv));
+            shuffledOrders.forEach(day => createWeekdayMatchItem(day.order, day.id, 'weekday-order-number', weekdayOrderColumnDiv));
+        }
+
+        function createWeekdayMatchItem(text, id, type, columnDiv) {
+            const div = document.createElement('div');
+            div.className = `match-item ${type}`;
+            div.textContent = text;
+            div.dataset.matchId = id;
+            div.onclick = () => handleWeekdayMatchItemClick(div, type);
+            columnDiv.appendChild(div);
+        }
+
+        function handleWeekdayMatchItemClick(itemElement, type) {
+            if (itemElement.classList.contains('matched')) return;
+
+            if (itemElement.classList.contains('selected')) {
+                 itemElement.classList.remove('selected');
+                 if (type === 'kurdish-weekday') selectedKurdishWeekdayItem = null;
+                 else selectedWeekdayOrderItem = null;
+                 return;
+            }
+
+            if (type === 'kurdish-weekday') {
+                if (selectedKurdishWeekdayItem) selectedKurdishWeekdayItem.classList.remove('selected');
+                selectedKurdishWeekdayItem = itemElement;
+            } else { // weekday-order-number
+                if (selectedWeekdayOrderItem) selectedWeekdayOrderItem.classList.remove('selected');
+                selectedWeekdayOrderItem = itemElement;
+            }
+            itemElement.classList.add('selected');
+            itemElement.classList.remove('incorrect');
+            weekdayMatchingFeedbackEl.textContent = '';
+
+            if (selectedKurdishWeekdayItem && selectedWeekdayOrderItem) {
+                checkWeekdayMatch();
+            }
+        }
+
+        function checkWeekdayMatch() {
+            const kurdishId = selectedKurdishWeekdayItem.dataset.matchId;
+            const orderId = selectedWeekdayOrderItem.dataset.matchId;
+
+            if (kurdishId === orderId) {
+                selectedKurdishWeekdayItem.classList.remove('selected');
+                selectedWeekdayOrderItem.classList.remove('selected');
+                selectedKurdishWeekdayItem.classList.add('matched');
+                selectedWeekdayOrderItem.classList.add('matched');
+                weekdayMatchingFeedbackEl.textContent = 'گونجا! 👍';
+                weekdayMatchingFeedbackEl.className = 'feedback-correct';
+                weekdayMatchedPairs++;
+                selectedKurdishWeekdayItem = null;
+                selectedWeekdayOrderItem = null;
+                if (weekdayMatchedPairs === totalWeekdayPairs) {
+                     weekdayMatchingFeedbackEl.textContent = "پیرۆزە! هەمووت گونجاند! 🎉";
+                }
+            } else {
+                selectedKurdishWeekdayItem.classList.add('incorrect');
+                selectedWeekdayOrderItem.classList.add('incorrect');
+                weekdayMatchingFeedbackEl.textContent = 'هەوڵبدەرەوە! 🤔';
+                weekdayMatchingFeedbackEl.className = 'feedback-incorrect';
+                setTimeout(() => {
+                    if(selectedKurdishWeekdayItem) selectedKurdishWeekdayItem.classList.remove('selected', 'incorrect');
+                    if(selectedWeekdayOrderItem) selectedWeekdayOrderItem.classList.remove('selected', 'incorrect');
+                    selectedKurdishWeekdayItem = null;
+                    selectedWeekdayOrderItem = null;
+                }, 800);
+            }
+        }
+
+        function resetWeekdayMatchingGame() {
+             setupWeekdayMatchingGame();
+        }
+
+        function loadWeekdayQuizQuestion() {
+            weekdayQuizFeedbackAreaEl.textContent = '';
+            weekdayQuizFeedbackAreaEl.className = 'quiz-feedback-area';
+            weekdayQuizOptionsContainerEl.innerHTML = '';
+            weekdayQuizOptionsContainerEl.classList.remove('disabled');
+            nextWeekdayQuizBtn.style.display = 'none';
+
+            currentWeekdayQuizQuestion = soraniWeekdays[Math.floor(Math.random() * soraniWeekdays.length)];
+            weekdayQuizMode = Math.random() < 0.5 ? 'nameToOrder' : 'orderToName';
+
+            if (weekdayQuizMode === 'nameToOrder') {
+                weekdayQuizQuestionDisplayEl.innerHTML = `ژمارەی ڕۆژی <span class="target-value">${currentWeekdayQuizQuestion.name}</span> کامەیە؟`;
+            } else { // orderToName
+                weekdayQuizQuestionDisplayEl.innerHTML = `ڕۆژی ژمارە <span class="target-value">${currentWeekdayQuizQuestion.order}</span> کامەیە؟`;
+            }
+
+            let options = [currentWeekdayQuizQuestion];
+            let distractors = shuffleArray([...soraniWeekdays].filter(d => d.id !== currentWeekdayQuizQuestion.id));
+            for(let i = 0; options.length < 4 && i < distractors.length; i++) { // Max 4 options
+                options.push(distractors[i]);
+            }
+             while (options.length < Math.min(4, soraniWeekdays.length)) { // Ensure enough unique options if total days < 4
+                let randomDay = soraniWeekdays[Math.floor(Math.random() * soraniWeekdays.length)];
+                if (!options.some(opt => opt.id === randomDay.id)) {
+                    options.push(randomDay);
+                }
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option-btn';
+                button.textContent = (weekdayQuizMode === 'nameToOrder') ? option.order : option.name;
+                button.dataset.id = option.id;
+                button.onclick = () => checkWeekdayQuizAnswer(button, currentWeekdayQuizQuestion.id);
+                weekdayQuizOptionsContainerEl.appendChild(button);
+            });
+        }
+
+        function checkWeekdayQuizAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            weekdayQuizOptionsContainerEl.classList.add('disabled');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                weekdayQuizFeedbackAreaEl.textContent = 'ڕاستە! زۆر باشە!';
+                weekdayQuizFeedbackAreaEl.className = 'quiz-feedback-area feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                const correctAnswerText = (weekdayQuizMode === 'nameToOrder') ? currentWeekdayQuizQuestion.order : currentWeekdayQuizQuestion.name;
+                weekdayQuizFeedbackAreaEl.textContent = `هەڵەیە. وەڵامی ڕاست: ${correctAnswerText}`;
+                weekdayQuizFeedbackAreaEl.className = 'quiz-feedback-area feedback-incorrect';
+                const correctButton = Array.from(weekdayQuizOptionsContainerEl.querySelectorAll('.quiz-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+            }
+            nextWeekdayQuizBtn.style.display = 'inline-flex';
+        }
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

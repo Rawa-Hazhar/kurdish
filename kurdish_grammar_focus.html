@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تەرکیزی ڕێزمان: پێوەندیی ئاوەڵناوی (Ezafe) - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; 
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; 
+            --secondary-color: #e67e22; 
+            --accent-color: #3498db; /* Blue */
+            --grammar-accent-color: #9b59b6; /* Purple for grammar focus */
+            --grammar-accent-hover: #8e44ad;
+            --light-bg-color: #ecf0f1; 
+            --card-bg-color: white;
+            --text-color: #34495e; 
+            --muted-text-color: #7f8c8d; 
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff; 
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px; 
+            --border-radius-lg: 12px; 
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); 
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background-color: var(--light-bg-color); 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 850px; 
+            margin: 20px auto; 
+            padding: 25px; 
+            background-color: var(--card-bg-color); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--box-shadow); 
+            flex-grow: 1; 
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.3rem; 
+            font-weight: 700; 
+        }
+        header h1 i { 
+            margin-left: 10px; 
+            color: var(--grammar-accent-color); 
+        }
+        
+        /* Navigation Bar Styles */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px; 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+        
+        /* Grammar Focus Specific Styles */
+        #grammar-focus-content {
+             animation: fadeInContent 0.5s ease-out; 
+        }
+         @keyframes fadeInContent { from { opacity: 0; } to { opacity: 1; } }
+
+        .grammar-section {
+            margin-bottom: 35px;
+            padding: 20px;
+            background-color: #f8f9fa; 
+            border-radius: var(--border-radius-md);
+            border-left: 5px solid var(--grammar-accent-color);
+        }
+        .grammar-section h2 {
+            font-size: 1.6rem;
+            color: var(--grammar-accent-color);
+            margin-bottom: 15px;
+            text-align: right; 
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .grammar-section h2 i {
+            margin-left: 10px;
+        }
+        
+        .explanation p {
+            margin-bottom: 15px;
+            line-height: 1.9; 
+            font-size: 1.05rem;
+        }
+        .explanation strong {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        .explanation code { 
+            background-color: #eaf2f8; 
+            color: var(--accent-hover-color);
+            padding: 2px 5px;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-kurdish), monospace; 
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .examples ul {
+            list-style: none; 
+            padding-right: 20px; 
+        }
+        .examples li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-right: 25px; 
+        }
+        .examples li::before { 
+            content: "\f104"; 
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--grammar-accent-color);
+            position: absolute;
+            right: 0;
+            top: 1px;
+            font-size: 0.9em;
+        }
+         .examples code { 
+            background-color: rgba(155, 89, 182, 0.1); 
+            color: var(--grammar-accent-hover);
+            padding: 1px 4px;
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+        }
+        
+        /* Exercise Styles */
+        #exercise-area {
+            padding: 25px;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+        }
+        #exercise-question {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--primary-color);
+            line-height: 1.7;
+        }
+         #exercise-question .word-pair {
+             font-weight: 600;
+             color: var(--secondary-color);
+             margin: 0 5px;
+         }
+         #exercise-question .blank {
+             display: inline-block;
+             width: 40px;
+             height: 1.2em; 
+             border-bottom: 2px solid var(--muted-text-color);
+             margin: 0 5px;
+             vertical-align: bottom;
+         }
+
+        #exercise-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 10px 25px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1.2rem; 
+            min-width: 80px;
+            text-align: center;
+        }
+        .option-btn:hover, .option-btn:focus-visible {
+            background-color: var(--grammar-accent-color);
+            color: var(--white-color);
+            border-color: var(--grammar-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+            outline: none;
+        }
+        .option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+            transform: scale(1.05);
+        }
+         .option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        
+        #exercise-options.disabled .option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: var(--light-bg-color);
+        }
+        #exercise-options.disabled .option-btn:hover { 
+             transform: none;
+             box-shadow: none;
+        }
+
+        #exercise-feedback {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em; 
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .feedback-correct { color: var(--success-color); background-color: #e8f8f5; border: 1px solid var(--success-color);}
+        .feedback-incorrect { color: var(--danger-color); background-color: #fdedec; border: 1px solid var(--danger-color); }
+
+        #next-exercise-btn {
+            display: block; 
+            margin: 25px auto 0; 
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 15px; 
+            font-size: 0.9rem; 
+            color: var(--muted-text-color); 
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .grammar-section h2 { font-size: 1.4rem; }
+            .explanation p, .examples li { font-size: 1rem; }
+            #exercise-question { font-size: 1.2rem; }
+            .option-btn { font-size: 1.1rem; padding: 8px 20px; }
+        }
+         @media (max-width: 480px) {
+             .btn { padding: 8px 15px; font-size: 0.9rem; }
+             .option-btn { min-width: 60px; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-microscope"></i> تەرکیزی ڕێزمان</h1>
+        </header>
+
+        
+
+        <main id="grammar-focus-content">
+            
+            <section class="grammar-section explanation">
+                <h2><i class="fa-solid fa-link"></i> پێوەندیی ئاوەڵناوی (Ezafe)</h2>
+                <p>
+                    پێوەندیی ئاوەڵناوی، یان "ئیزافە"، بەشێکی گرنگی ڕێزمانی کوردییە (سۆرانی). بۆ بەستنەوەی ناوێک بە ناوێکی تر (بۆ پیشاندانی خاوەندارێتی یان پەیوەندی) یان بۆ بەستنەوەی ناوێک بە ئاوەڵناوێک (سیفەت) بەکاردێت.
+                </p>
+                <p>
+                    ئەم پێوەندییە بە زیادکردنی پاشگرێک بۆ وشەی یەکەم دروست دەبێت:
+                </p>
+                <ul>
+                    <li>
+                        ئەگەر وشەی یەکەم بە پیتی بێدەنگ (consonant) کۆتایی هات، پاشگری <code>-ی</code> (ـی) زیاد دەکرێت.
+                    </li>
+                     <li>
+                        ئەگەر وشەی یەکەم بە پیتی دەنگدار (vowel) کۆتایی هات (وەک ا، ە، ێ، ۆ، وو، و، ی)، پاشگری <code>-ی</code> (ی) زیاد دەکرێت.
+                    </li>
+                </ul>
+                 <p>
+                    <strong>تێبینی:</strong> ئەمە یاسای بنەڕەتییە. هەندێک حاڵەتی تایبەت و گۆڕانکاری لەوانەیە ڕووبدات، بەڵام ئەمە بنچینەکەیە.
+                 </p>
+            </section>
+
+            <section class="grammar-section examples">
+                <h2><i class="fa-solid fa-list-ul"></i> نموونەکان</h2>
+                 <ul>
+                     <li>کتێب + جوان ⟵ کتێب<code>ی</code> جوان</li>
+                     <li>دەرگا + ماڵ ⟵ دەرگا<code>ی</code> ماڵ</li>
+                     <li>قەڵەم + ڕەش ⟵ قەڵەم<code>ی</code> ڕەش</li>
+                     <li>پەنجەرە + پۆل ⟵ پەنجەرە<code>ی</code> پۆل</li>
+                     <li>ماسی + سوور ⟵ ماسی<code>ی</code> سوور</li>
+                     <li>مامۆستا + باش ⟵ مامۆستا<code>ی</code> باش</li>
+                     <li>ئاوی + کانیاو ⟵ ئاو<code>ی</code> کانیاو</li>
+                 </ul>
+            </section>
+
+            <section id="exercise-area">
+                 <h2><i class="fa-solid fa-pen-ruler"></i> ڕاهێنان</h2>
+                 <div id="exercise-question">
+                     پاشگری ئیزافەی گونجاو بۆ <span class="word-pair">...</span> هەڵبژێرە:
+                 </div>
+                 <div id="exercise-options" role="radiogroup">
+                     </div>
+                 <div id="exercise-feedback"></div>
+                 <button id="next-exercise-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="site-footer"> 
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        // --- DATA STRUCTURE for Ezafe Exercises ---
+        const ezafeExercises = [
+            { word1: "کتێب", word2: "قوتابی", ends_with_vowel: false, correct_ending: "-ی" },
+            { word1: "ماسی", word2: "گەورە", ends_with_vowel: true, correct_ending: "-ی" },
+            { word1: "قەڵەم", word2: "شین", ends_with_vowel: false, correct_ending: "-ی" },
+            { word1: "پەنجەرە", word2: "ژوور", ends_with_vowel: true, correct_ending: "-ی" },
+            { word1: "نان", word2: "خۆش", ends_with_vowel: false, correct_ending: "-ی" },
+            { word1: "مامۆستا", word2: "بەڕێز", ends_with_vowel: true, correct_ending: "-ی" },
+            { word1: "دار", word2: "بەرز", ends_with_vowel: false, correct_ending: "-ی" },
+            { word1: "گوڵ", word2: "سوور", ends_with_vowel: false, correct_ending: "-ی" },
+            { word1: "چیا", word2: "بەرز", ends_with_vowel: true, correct_ending: "-ی" }, 
+            { word1: "دەرگا", word2: "کراوە", ends_with_vowel: true, correct_ending: "-ی" } 
+        ];
+
+        // --- STATE VARIABLES ---
+        let currentExerciseIndex = 0;
+        let shuffledExercises = [];
+
+        // --- DOM Elements Cache ---
+        const exerciseQuestionEl = document.getElementById('exercise-question');
+        const exerciseOptionsDiv = document.getElementById('exercise-options');
+        const exerciseFeedbackEl = document.getElementById('exercise-feedback');
+        const nextExerciseBtn = document.getElementById('next-exercise-btn');
+        const currentYearEl = document.getElementById('current-year');
+        
+        // --- CONSTANTS --- Added for fixed options
+        const FIXED_OPTIONS = ["-ی", "-ی", "-ە", "-ا"]; 
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            startExercises();
+            nextExerciseBtn.addEventListener('click', loadNextExercise);
+        });
+
+        function startExercises() {
+            currentExerciseIndex = 0;
+            shuffledExercises = shuffleArray([...ezafeExercises]); 
+            loadNextExercise();
+        }
+
+        function loadNextExercise() {
+            if (currentExerciseIndex >= shuffledExercises.length) {
+                exerciseQuestionEl.textContent = "پیرۆزە! هەموو ڕاهێنانەکانت تەواو کرد.";
+                exerciseOptionsDiv.innerHTML = '';
+                exerciseFeedbackEl.textContent = '';
+                nextExerciseBtn.style.display = 'none';
+                return;
+            }
+
+            const exercise = shuffledExercises[currentExerciseIndex];
+            
+            exerciseQuestionEl.innerHTML = `
+                پاشگری ئیزافەی گونجاو بۆ 
+                <span class="word-pair">${exercise.word1}</span> 
+                <span class="blank"></span> 
+                <span class="word-pair">${exercise.word2}</span> 
+                هەڵبژێرە:
+            `;
+
+            exerciseOptionsDiv.innerHTML = '';
+            exerciseFeedbackEl.textContent = '';
+            exerciseFeedbackEl.className = 'feedback-area'; 
+            exerciseOptionsDiv.classList.remove('disabled');
+            nextExerciseBtn.style.display = 'none'; 
+
+            // **MODIFIED:** Use the fixed options array and shuffle it
+            let currentOptions = [...FIXED_OPTIONS]; // Create a copy
+            shuffleArray(currentOptions); // Shuffle the fixed options for display order
+
+            // Create option buttons from the shuffled fixed options
+            currentOptions.forEach(optionText => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = optionText;
+                // The checkAnswer function will compare this text content to the correct_ending
+                button.onclick = () => checkAnswer(button, exercise.correct_ending); 
+                exerciseOptionsDiv.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, correctAnswer) {
+            const selectedAnswer = selectedButton.textContent;
+            exerciseOptionsDiv.classList.add('disabled'); 
+
+            if (selectedAnswer === correctAnswer) {
+                selectedButton.classList.add('correct');
+                exerciseFeedbackEl.textContent = 'ڕاستە! زۆر باشە!';
+                exerciseFeedbackEl.className = 'feedback-correct'; 
+            } else {
+                selectedButton.classList.add('incorrect');
+                 exerciseFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتییە لە: ${correctAnswer}`;
+                 exerciseFeedbackEl.className = 'feedback-incorrect'; 
+                // Highlight the correct button from the displayed options
+                const correctButton = Array.from(exerciseOptionsDiv.querySelectorAll('.option-btn')).find(btn => btn.textContent === correctAnswer);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+            }
+
+            currentExerciseIndex++; 
+            nextExerciseBtn.style.display = 'block'; 
+            nextExerciseBtn.focus(); 
+        }
+
+
+        // --- UTILITY FUNCTIONS ---
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

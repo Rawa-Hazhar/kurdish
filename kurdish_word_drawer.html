@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وێنەکێشی وشەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; 
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; 
+            --secondary-color: #e67e22; 
+            --accent-color: #3498db;
+            --accent-hover-color: #2980b9; 
+            --light-bg-color: #ecf0f1; 
+            --card-bg-color: white;
+            --text-color: #34495e; 
+            --muted-text-color: #7f8c8d; 
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --warning-color: #f39c12;
+            --white-color: #ffffff; 
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px; 
+            --border-radius-lg: 12px; 
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); 
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background-color: var(--light-bg-color); 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 950px; /* Adjusted for drawing area */
+            margin: 20px auto; 
+            padding: 25px; 
+            background-color: var(--card-bg-color); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--box-shadow); 
+            flex-grow: 1; 
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.3rem; 
+            font-weight: 700; 
+        }
+        header h1 i { 
+            margin-left: 10px; 
+            color: var(--secondary-color); 
+        }
+        
+        /* START: Added Navigation Bar CSS - Paste this section */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px; /* Added margin-top to space it from header */
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link-button i {
+            margin-left: 8px; 
+        }
+
+        .nav-link-button:hover, 
+        .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+        /* END: Added Navigation Bar CSS */
+        
+        #theme-selection { 
+            margin-bottom: 30px; 
+            padding: 20px; 
+            background-color: #f8f9f9; 
+            border-radius: var(--border-radius-md); 
+            border: 1px solid var(--light-bg-color); 
+        }
+        #theme-selection h2 { 
+            text-align: center; 
+            color: var(--primary-color); 
+            margin-bottom: 20px; 
+            font-size: 1.4rem; 
+        }
+
+        .button-group { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 12px; 
+        }
+        .btn { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); 
+            color: var(--white-color); 
+            border: none; 
+            border-radius: var(--border-radius-sm); 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            transition: all var(--transition-speed) ease; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+        }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3); 
+            outline: none; 
+        }
+        .btn.active { 
+            filter: brightness(1.1); 
+            transform: translateY(-1px); 
+            box-shadow: 0 0 0 2px var(--white-color), 0 3px 6px rgba(52, 152, 219, 0.3); 
+        }
+         .btn.danger { background: linear-gradient(135deg, var(--danger-color), #c23a2c); } /* Darker danger */
+         .btn.warning { background: linear-gradient(135deg, var(--warning-color), #d98c0f); } /* Darker warning */
+
+        #word-drawer-activity { 
+            animation: fadeInContent 0.5s ease-out; 
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @keyframes fadeInContent { from { opacity: 0; } to { opacity: 1; } }
+        
+        .activity-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .activity-header #activity-instructions {
+            font-size: 1rem;
+            color: var(--muted-text-color);
+            margin-bottom: 10px;
+        }
+        #target-word-display {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+            display: inline-block; /* To fit content */
+            min-width: 200px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .drawing-area-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center; /* Center items if they wrap */
+        }
+
+        #drawing-canvas-container {
+            position: relative; /* For potential overlays or tooltips if added later */
+            margin-bottom: 20px;
+             display: flex;
+             justify-content: center; /* Center canvas */
+        }
+        #drawing-canvas {
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius-md);
+            background-color: var(--white-color);
+            cursor: crosshair; /* Indicate drawable area */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        #canvas-tools {
+            display: flex;
+            flex-direction: column; /* Stack tool groups */
+            gap: 20px;
+            padding: 15px;
+            background-color: #f8f9f9;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            align-self: flex-start; /* Align to top if wrapping occurs */
+            min-width: 200px; /* Ensure it has some width */
+        }
+        #canvas-tools h4 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            text-align: right;
+        }
+        .tool-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start; /* Align items to the start */
+        }
+        .color-btn, .size-btn, .tool-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem; /* For icons if used */
+        }
+        .color-btn:hover, .size-btn:hover, .tool-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--box-shadow);
+        }
+        .color-btn.active, .size-btn.active, .tool-btn.active {
+            border-width: 2px;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+        /* Specific tool styles */
+        .size-btn { background-color: var(--white-color); color: var(--primary-color); font-weight: bold; }
+        .tool-btn { background-color: var(--light-bg-color); color: var(--primary-color); }
+
+
+        #game-controls {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        #example-image-area {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border: 1px dashed var(--border-color);
+            border-radius: var(--border-radius-md);
+        }
+        #example-image-area img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--box-shadow);
+        }
+        #example-image-area p { /* For text hints/meanings */
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 15px; 
+            font-size: 0.9rem; 
+            color: var(--muted-text-color); 
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            #target-word-display { font-size: 2.2rem; }
+            .drawing-area-container { flex-direction: column; align-items: center; }
+            #canvas-tools { width: 100%; max-width: 400px; /* Fit canvas width */ }
+        }
+         @media (max-width: 480px) {
+             #drawing-canvas { width: 300px; height: 250px; }
+             #target-word-display { font-size: 1.8rem; }
+             .color-btn, .size-btn, .tool-btn { width: 30px; height: 30px; }
+             .btn { padding: 8px 15px; font-size: 0.9rem; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-palette"></i> چالاکی وێنەکێشی وشەکان</h1>
+        </header>
+
+        
+        <section id="theme-selection">
+            <h2>بابەتێک هەڵبژێرە:</h2>
+            <div class="button-group" id="theme-buttons">
+                </div>
+        </section>
+
+        <main id="word-drawer-activity" style="display: none;">
+            <div class="activity-header">
+                <p id="activity-instructions">ئەم وشەیە بکێشە:</p>
+                <div id="target-word-display">...</div>
+            </div>
+
+            <div class="drawing-area-container">
+                <div id="drawing-canvas-container">
+                    <canvas id="drawing-canvas" width="450" height="350"></canvas>
+                </div>
+                <aside id="canvas-tools">
+                    <div>
+                        <h4>ڕەنگەکان:</h4>
+                        <div class="tool-group" id="color-palette">
+                            </div>
+                    </div>
+                    <div>
+                        <h4>قەبارەی فڵچە:</h4>
+                        <div class="tool-group" id="brush-sizes">
+                            </div>
+                    </div>
+                    <div>
+                        <h4>ئامرازەکان:</h4>
+                        <div class="tool-group">
+                            <button class="tool-btn" id="eraser-btn" title="سڕەرەوە"><i class="fa-solid fa-eraser"></i></button>
+                            <button class="tool-btn" id="clear-canvas-btn" title="پاککردنەوەی تەختە"><i class="fa-solid fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            
+            <div id="game-controls">
+                <button id="new-word-btn" class="btn"><i class="fa-solid fa-lightbulb"></i> وشەی نوێ</button>
+                <button id="show-hint-btn" class="btn warning"><i class="fa-solid fa-image"></i> پیشاندانی وێنەی نموونە</button>
+                <button id="show-meaning-btn" class="btn warning"><i class="fa-solid fa-comment-dots"></i> واتای وشە</button>
+            </div>
+
+            <div id="example-image-area" style="display: none;">
+                </div>
+        </main>
+    </div>
+
+    <footer class="site-footer"> <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        // --- DATA STRUCTURE (Can reuse/adapt from secondabc.html) ---
+        const vocabularyData = {
+            'خواردن': [
+                { id: 1, word_ku: "نان", image_src: "img/bread.png", meaning: "خواردنێکی سەرەکییە کە لە ئارد دروست دەکرێت." },
+                { id: 2, word_ku: "ئاو", image_src: "img/water.png", meaning: "شلەیەکی بێ ڕەنگ و بۆنە، پێویستە بۆ ژیان." },
+                { id: 3, word_ku: "سێو", image_src: "img/apple.png", meaning: "میوەیەکی خڕ و بەتامە، ڕەنگی جیاوازی هەیە." },
+                { id: 4, word_ku: "ماسی", image_src: "img/fish.png", meaning: "ئاژەڵێکی ئاوییە، وەک خواردن بەکاردێت." },
+                { id: 5, word_ku: "قاوە", image_src: "img/coffee.png", meaning: "خواردنەوەیەکی تاڵە وزەبەخشە." },
+            ],
+            'ئاژەڵان': [
+                 { id: 9, word_ku: "پشیلە", image_src: "img/cat.png", meaning: "ئاژەڵێکی ماڵی قشتە، میاوە میاوی دەکات." },
+                 { id: 10, word_ku: "سەگ", image_src: "img/dog.png", meaning: "ئاژەڵێکی ماڵی وەفادارە، زۆر کەس بۆ پاسەوانی بەکاری دێنن." },
+                 { id: 11, word_ku: "ئەسپ", image_src: "img/horse.png", meaning: "ئاژەڵێکە بۆ سواری و بار هەڵگرتن بەکاردێت." },
+                 { id: 12, word_ku: "شێر", image_src: "img/lion.png", meaning: "ئاژەڵێکی گۆشتخۆری بەهێزە، پاشای دارستانە." }
+            ],
+            'جل و بەرگ': [
+                {id: 22, word_ku: "کراس", image_src: "img/shirt.png", meaning: "پارچە جلێکە بۆ بەشی سەرەوەی لەش."},
+                {id: 23, word_ku: "پانتۆڵ", image_src: "img/pants.png", meaning: "جلێکە بۆ داپۆشینی قاچەکان."},
+                {id: 24, word_ku: "کڵاو", image_src: "img/hat.png", meaning: "بۆ داپۆشینی سەر بەکاردێت."},
+                {id: 25, word_ku: "پێڵاو", image_src: "img/shoes.png", meaning: "بۆ لەپێکردن و پاراستنی پێیەکانە."}
+            ]
+            // Add more themes and words with image_src and meaning
+        };
+
+        // --- STATE VARIABLES ---
+        let currentSelectedTheme = null;
+        let currentWordsForTheme = [];
+        let currentDrawingWord = null;
+        
+        let canvas, ctx;
+        let isDrawing = false;
+        let currentBrushColor = '#2c3e50'; // Default: primary-color
+        let currentBrushSize = 5;
+        let lastX = 0;
+        let lastY = 0;
+
+        // --- DOM Elements Cache ---
+        const themeButtonsContainer = document.getElementById('theme-buttons');
+        const wordDrawerActivityDiv = document.getElementById('word-drawer-activity');
+        const targetWordDisplayEl = document.getElementById('target-word-display');
+        const drawingCanvasEl = document.getElementById('drawing-canvas');
+        const colorPaletteDiv = document.getElementById('color-palette');
+        const brushSizesDiv = document.getElementById('brush-sizes');
+        const eraserBtn = document.getElementById('eraser-btn');
+        const clearCanvasBtn = document.getElementById('clear-canvas-btn');
+        const newWordBtn = document.getElementById('new-word-btn');
+        const showHintBtn = document.getElementById('show-hint-btn');
+        const showMeaningBtn = document.getElementById('show-meaning-btn');
+        const exampleImageAreaEl = document.getElementById('example-image-area');
+        const currentYearEl = document.getElementById('current-year');
+
+        const availableColors = ['#2c3e50', '#e67e22', '#3498db', '#27ae60', '#c0392b', '#f39c12', '#8e44ad', '#7f8c8d']; // Primary, Secondary, Accent, Success, Danger, Warning, Purple, Muted
+        const availableBrushSizes = [{name:'بچووک', size:3}, {name:'ناوەند', size:8}, {name:'گەورە', size:15}];
+
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateThemeButtons();
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+
+            canvas = drawingCanvasEl;
+            ctx = canvas.getContext('2d');
+            setupCanvasEventListeners();
+            populateDrawingTools();
+
+            newWordBtn.addEventListener('click', loadNewWordToDraw);
+            showHintBtn.addEventListener('click', showExampleImageHint);
+            showMeaningBtn.addEventListener('click', showWordMeaningHint);
+            clearCanvasBtn.addEventListener('click', clearDrawingSurface);
+            eraserBtn.addEventListener('click', activateEraser);
+        });
+
+        function populateThemeButtons() { /* Similar to other files, adapted for vocabularyData */
+            themeButtonsContainer.innerHTML = '';
+            for (const themeName in vocabularyData) {
+                if (vocabularyData[themeName] && vocabularyData[themeName].length > 0) {
+                    const button = document.createElement('button');
+                    button.className = 'btn';
+                    let iconClass = 'fa-solid fa-swatchbook'; // Default icon
+                    if (themeName === 'خواردن') iconClass = 'fa-solid fa-utensils';
+                    else if (themeName === 'ئاژەڵان') iconClass = 'fa-solid fa-paw';
+                    else if (themeName === 'جل و بەرگ') iconClass = 'fa-solid fa-shirt';
+
+                    button.innerHTML = `<i class="${iconClass}"></i> ${themeName}`;
+                    button.onclick = (function(name, btnEl) {
+                        return function() { selectThemeForDrawing(name, btnEl); };
+                    })(themeName, button);
+                    themeButtonsContainer.appendChild(button);
+                }
+            }
+        }
+
+        function selectThemeForDrawing(themeName, clickedButton) {
+            currentSelectedTheme = themeName;
+            currentWordsForTheme = vocabularyData[themeName] || [];
+
+            document.querySelectorAll('#theme-buttons .btn').forEach(btn => btn.classList.remove('active'));
+            if (clickedButton) clickedButton.classList.add('active');
+            
+            wordDrawerActivityDiv.style.display = 'block';
+            loadNewWordToDraw();
+        }
+
+        function populateDrawingTools() {
+            // Colors
+            colorPaletteDiv.innerHTML = '';
+            availableColors.forEach(color => {
+                const colorBtn = document.createElement('button');
+                colorBtn.className = 'color-btn';
+                colorBtn.style.backgroundColor = color;
+                colorBtn.dataset.color = color;
+                if (color === currentBrushColor) colorBtn.classList.add('active');
+                colorBtn.addEventListener('click', () => changeBrushColor(color, colorBtn));
+                colorPaletteDiv.appendChild(colorBtn);
+            });
+
+            // Brush Sizes
+            brushSizesDiv.innerHTML = '';
+            availableBrushSizes.forEach(brush => {
+                const sizeBtn = document.createElement('button');
+                sizeBtn.className = 'size-btn';
+                sizeBtn.textContent = brush.name.substring(0,1); // First letter for small button
+                sizeBtn.title = brush.name;
+                sizeBtn.dataset.size = brush.size;
+                if (brush.size === currentBrushSize) sizeBtn.classList.add('active');
+                sizeBtn.addEventListener('click', () => changeBrushSize(brush.size, sizeBtn));
+                brushSizesDiv.appendChild(sizeBtn);
+            });
+        }
+
+        // --- CANVAS DRAWING LOGIC ---
+        function setupCanvasEventListeners() {
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', drawOnCanvas);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing); // Stop if mouse leaves canvas
+
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', drawOnCanvas, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+            canvas.addEventListener('touchcancel', stopDrawing); // Handle cancelled touches
+        }
+
+        function getMousePos(event) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getMousePos(e);
+            [lastX, lastY] = [pos.x, pos.y];
+            if (e.touches) e.preventDefault(); // Prevent page scroll on touch
+        }
+
+        function drawOnCanvas(e) {
+            if (!isDrawing) return;
+            const pos = getMousePos(e);
+            ctx.beginPath();
+            ctx.strokeStyle = currentBrushColor;
+            ctx.lineWidth = currentBrushSize;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            [lastX, lastY] = [pos.x, pos.y];
+            if (e.touches) e.preventDefault();
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.beginPath(); // Reset path
+            }
+        }
+        
+        function clearDrawingSurface() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function changeBrushColor(color, clickedBtn) {
+            currentBrushColor = color;
+            document.querySelectorAll('#color-palette .color-btn').forEach(btn => btn.classList.remove('active'));
+            if(clickedBtn) clickedBtn.classList.add('active');
+            eraserBtn.classList.remove('active'); // Deactivate eraser if color is chosen
+        }
+
+        function changeBrushSize(size, clickedBtn) {
+            currentBrushSize = size;
+            document.querySelectorAll('#brush-sizes .size-btn').forEach(btn => btn.classList.remove('active'));
+            if(clickedBtn) clickedBtn.classList.add('active');
+        }
+        
+        function activateEraser() {
+            changeBrushColor(getComputedStyle(canvas).backgroundColor || '#ffffff', null); // Eraser uses canvas background color
+            eraserBtn.classList.add('active');
+            document.querySelectorAll('#color-palette .color-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+
+        // --- GAME LOGIC ---
+        function loadNewWordToDraw() {
+            if (!currentWordsForTheme || currentWordsForTheme.length === 0) {
+                targetWordDisplayEl.textContent = "بابەت وشەی نییە";
+                currentDrawingWord = null;
+                return;
+            }
+            // Select a random word that hasn't been drawn recently (simple random for now)
+            currentDrawingWord = currentWordsForTheme[Math.floor(Math.random() * currentWordsForTheme.length)];
+            targetWordDisplayEl.textContent = currentDrawingWord.word_ku;
+            clearDrawingSurface();
+            exampleImageAreaEl.style.display = 'none'; // Hide hint
+            exampleImageAreaEl.innerHTML = ''; // Clear previous hint
+        }
+
+        function showExampleImageHint() {
+            if (currentDrawingWord && currentDrawingWord.image_src) {
+                exampleImageAreaEl.innerHTML = `<img src="${currentDrawingWord.image_src}" alt="وێنەی نموونەی ${currentDrawingWord.word_ku}">`;
+                exampleImageAreaEl.style.display = 'block';
+            } else if (currentDrawingWord) {
+                 exampleImageAreaEl.innerHTML = `<p>وێنەی نموونە بۆ '${currentDrawingWord.word_ku}' بەردەست نییە.</p>`;
+                 exampleImageAreaEl.style.display = 'block';
+            }
+        }
+        
+        function showWordMeaningHint() {
+            if (currentDrawingWord && currentDrawingWord.meaning) {
+                exampleImageAreaEl.innerHTML = `<p><strong>${currentDrawingWord.word_ku}:</strong> ${currentDrawingWord.meaning}</p>`;
+                exampleImageAreaEl.style.display = 'block';
+            } else if (currentDrawingWord) {
+                exampleImageAreaEl.innerHTML = `<p>واتا بۆ '${currentDrawingWord.word_ku}' بەردەست نییە.</p>`;
+                exampleImageAreaEl.style.display = 'block';
+            }
+        }
+
+        // --- UTILITY FUNCTIONS ---
+        function shuffleArray(array) { /* Standard shuffle function */
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

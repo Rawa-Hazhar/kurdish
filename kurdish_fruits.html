@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی ناوی میوەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #e74c3c; /* A fruity red/coral accent */
+            --accent-hover-color: #c0392b;
+            --light-bg-color: #fef5f3; /* Light peach background */
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b; /* Keeping danger distinct */
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 1000px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--accent-color); }
+
+        .page-navigation { display: flex; justify-content: center; gap: 15px; margin-top: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); width: 100%; }
+        .nav-link-button { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 8px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); outline: none; background: linear-gradient(135deg, #d35400, var(--secondary-color)); }
+
+        nav.tab-navigation { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-button { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-button i { margin-left: 8px; font-size: 0.9em;}
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .activity-section { padding: 25px; background-color: #fdfdfd; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); text-align: center; margin-bottom: 20px; box-shadow: var(--box-shadow); }
+        .activity-section h3 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 15px; }
+        .activity-description { font-size: 1rem; color: var(--muted-text-color); margin-bottom: 25px; }
+
+        /* Activity 1: Fruit Orchard - Interactive Exploration */
+        .fruit-orchard-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .orchard-scene { width: 100%; max-width: 700px; height: 350px; background-color: #e6f9e6; border-radius: var(--border-radius-md); position: relative; margin-bottom: 20px; background-image: none; background-size:cover; background-position:center; border: 2px solid var(--accent-color); }
+        .fruit-hotspot { position: absolute; width: 60px; height: 60px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .fruit-hotspot img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3)); }
+        .fruit-hotspot:hover { transform: scale(1.15); }
+        /* Example positions for hotspots */
+        #hotspot-sew { top: 30%; left: 15%; }
+        #hotspot-henar { top: 50%; left: 35%; }
+        #hotspot-tre { top: 25%; left: 60%; }
+        #hotspot-moz { top: 65%; left: 75%; }
+        #hotspot-shuti { top: 70%; left: 10%; }
+
+        .fruit-info-panel { min-height: 180px; width:100%; max-width:500px; padding: 20px; background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); text-align: center; box-shadow: var(--box-shadow-hover); }
+        .fruit-info-panel img { width: 100px; height: 100px; object-fit: contain; border-radius: var(--border-radius-sm); margin-bottom: 10px; }
+        .fruit-info-panel .fruit-name-display { font-size: 1.7rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 5px; }
+        .fruit-info-panel .fruit-fact-display { font-size: 1rem; color: var(--text-color); margin-bottom: 15px; }
+
+        /* Activity 2: Hide and Find Fruits (Memory Game) */
+        .memory-game-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 500px; margin: 20px auto; perspective: 1000px; }
+        .memory-card { background-color: var(--accent-color); border-radius: var(--border-radius-sm); cursor: pointer; position: relative; aspect-ratio: 3/4; transform-style: preserve-3d; transition: transform 0.5s; box-shadow: var(--box-shadow); display:flex; align-items:center; justify-content:center;}
+        .memory-card .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: var(--border-radius-sm); padding: 5px; }
+        .memory-card .card-front { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); transform: rotateY(0deg); }
+        .memory-card .card-front i {font-size: 2rem; color:var(--white-color);}
+        .memory-card .card-back { background-color: var(--white-color); transform: rotateY(180deg); border: 1px solid var(--border-color); }
+        .memory-card .card-back img { max-width: 80%; max-height: 60%; object-fit: contain; }
+        .memory-card .card-back span { font-size: 1rem; font-weight: 600; color:var(--primary-color); text-align: center; }
+        .memory-card.flipped { transform: rotateY(180deg); }
+        .memory-card.matched { transform: rotateY(180deg) scale(0.95); opacity: 0.6; cursor: default; pointer-events:none; background-color: var(--success-color) !important; }
+        .memory-card.matched .card-back {border-color:var(--success-hover-color);}
+        #memory-game-feedback { margin-top:15px; font-weight: bold;}
+
+        /* Activity 3: Fill My Fruit Basket */
+        .fruit-basket-game { display: flex; flex-direction: column; align-items: center; }
+        .fruit-basket-instruction { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 15px; }
+        .fruit-palette { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; background-color: var(--light-bg-color); border-radius: var(--border-radius-md); margin-bottom:20px; border: 1px solid var(--border-color); min-height: 80px; width:100%; max-width:600px;}
+        .draggable-fruit { cursor: grab; transition: transform 0.2s; text-align: center;}
+        .draggable-fruit img { width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.2)); }
+        .draggable-fruit:hover { transform: scale(1.1); }
+        .draggable-fruit.dragging { opacity: 0.5; }
+        .fruit-basket-dropzone { width: 200px; height: 150px; background-image: none; background-size: contain; background-repeat: no-repeat; background-position: center; border: 2px dashed var(--accent-color); border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; padding: 10px; margin-bottom: 20px; }
+        .fruit-basket-dropzone.over { background-color: rgba(231, 76, 60, 0.1); border-style: solid; }
+        .fruit-basket-dropzone img { width: 40px; height: 40px; margin: 5px; animation: bounceIn 0.5s; }
+        @keyframes bounceIn { 0% {transform: scale(0.3); opacity: 0;} 50% {transform: scale(1.05);} 70% {transform: scale(0.9);} 100% {transform: scale(1); opacity: 1;} }
+        #fruit-basket-feedback {font-weight:bold;}
+        #fruits-to-collect-list { margin-bottom: 15px; font-size: 1rem; color: var(--muted-text-color); }
+
+        /* General Styles */
+        .feedback-area-activity { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; padding: 10px; border-radius: var(--border-radius-sm); }
+        .btn-next-activity { margin-top: 15px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3); outline: none; }
+        .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); }
+        .btn.danger:hover {box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+        @media (max-width: 768px) { .memory-game-grid { grid-template-columns: repeat(3, 1fr); max-width: 350px;} .fruit-orchard-container .orchard-scene {height:250px;} .fruit-hotspot{width:50px;height:50px;} }
+        @media (max-width: 480px) { .memory-game-grid { grid-template-columns: repeat(2, 1fr); max-width: 250px;} .fruit-orchard-container .orchard-scene {height:200px;} .fruit-hotspot{width:40px;height:40px;} }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-apple-whole"></i> فێربوونی ناوی میوەکان</h1>
+        </header>
+        
+
+
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('fruitOrchardTab', this)"><i class="fa-solid fa-tree"></i> باخچەی میوە</button>
+            <button class="tab-button" onclick="showTab('fruitMemoryGameTab', this)"><i class="fa-solid fa-brain"></i> یاری بیرەوەری</button>
+            <button class="tab-button" onclick="showTab('fillBasketTab', this)"><i class="fa-solid fa-shopping-basket"></i> سەبەتەکە پڕ بکە</button>
+        </nav>
+
+        <main>
+            <section id="fruitOrchardTab" class="tab-content active">
+                <div class="activity-section">
+                    <h3>باخچەی میوەی کوردستان</h3>
+                    <p class="activity-description">کرتە لەسەر هەر میوەیەک بکە لە دیمەنەکەدا بۆ زانینی ناو و تایبەتمەندییەکانی.</p>
+                    <div class="fruit-orchard-container">
+                        <div class="orchard-scene" id="orchard-scene-container">
+                            </div>
+                        <div class="fruit-info-panel" id="fruit-info-panel-display">
+                            <p>کرتە لە میوەیەک بکە...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fruitMemoryGameTab" class="tab-content">
+                <div class="activity-section">
+                    <h3>یاری بیرەوەری میوەکان</h3>
+                    <p class="activity-description">دوو کارتی هاوشێوە (وێنە و ناو) بدۆزەرەوە.</p>
+                    <div class="memory-game-grid" id="memory-game-grid-container">
+                        </div>
+                    <div id="memory-game-feedback" class="feedback-area-activity"></div>
+                    <button class="btn danger btn-next-activity" onclick="setupFruitMemoryGame()" style="margin-top:15px;"><i class="fa-solid fa-redo"></i> دووبارە یاری بکە</button>
+                </div>
+            </section>
+
+            <section id="fillBasketTab" class="tab-content">
+                 <div class="activity-section">
+                    <h3>سەبەتەی میوەکەم پڕ بکە!</h3>
+                    <p class="activity-description">گوێ لە ناوی میوەکە بگرە و ڕایکێشە بۆ ناو سەبەتەکە.</p>
+                    <div class="fruit-basket-game">
+                        <div id="fruits-to-collect-list">داواکراوەکان: </div>
+                        <button class="btn" id="play-basket-instruction-btn" style="margin-bottom: 15px;"><i class="fa-solid fa-volume-high"></i> داواکارییەکە ببیستە</button>
+                        <div class="fruit-palette" id="fruit-palette-container">
+                            </div>
+                        <div class="fruit-basket-dropzone" id="fruit-basket-dropzone-area">
+                            </div>
+                        <div id="fruit-basket-feedback" class="feedback-area-activity"></div>
+                        <button id="next-basket-item-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> میوەی داهاتوو</button>
+                        <button id="reset-basket-game-btn" class="btn danger btn-next-activity" onclick="startFillBasketGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+
+                    </div>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const fruitsData = [
+            { id: 701, name_ku: "سێو", fact_ku: "سێوی سوور و سەوز و زەرد هەیە.", image_src: "img/fruits/apple.png", audio_src: "audio/fruits/sew.mp3", hotspot_pos: {top: '30%', left: '15%'} },
+            { id: 702, name_ku: "هەرمێ", fact_ku: "هەرمێ میوەیەکی ئاودار و خۆشە.", image_src: "img/fruits/pear.png", audio_src: "audio/fruits/herme.mp3", hotspot_pos: {top: '60%', left: '25%'} },
+            { id: 703, name_ku: "ترێ", fact_ku: "ترێ بۆ دروستکردنی شەربەت و مێوژ بەکاردێت.", image_src: "img/fruits/grapes.png", audio_src: "audio/fruits/tre.mp3", hotspot_pos: {top: '25%', left: '60%'} },
+            { id: 704, name_ku: "هەنار", fact_ku: "هەنار پڕە لە دەنکی سووری یاقووتی.", image_src: "img/fruits/pomegranate.png", audio_src: "audio/fruits/henar.mp3", hotspot_pos: {top: '50%', left: '40%'} },
+            { id: 705, name_ku: "پرتەقاڵ", fact_ku: "پرتەقاڵ ڤیتامین سی زۆری تێدایە.", image_src: "img/fruits/orange.png", audio_src: "audio/fruits/pirteqal.mp3", hotspot_pos: {top: '70%', left: '55%'} },
+            { id: 706, name_ku: "مۆز", fact_ku: "مۆز میوەیەکی درێژکۆلەی زەردە.", image_src: "img/fruits/banana.png", audio_src: "audio/fruits/moz.mp3", hotspot_pos: {top: '35%', left: '80%'} },
+            { id: 707, name_ku: "شووتی", fact_ku: "شووتی لە هاویندا زۆر دەخورێت و فێنککەرەوەیە.", image_src: "img/fruits/watermelon.png", audio_src: "audio/fruits/shuti.mp3", hotspot_pos: {top: '75%', left: '10%'} },
+            { id: 708, name_ku: "قۆخ", fact_ku: "قۆخ توکنە و ناوکێکی گەورەی هەیە.", image_src: "img/fruits/peach.png", audio_src: "audio/fruits/qox.mp3", hotspot_pos: {top: '15%', left: '35%'} }
+        ];
+
+        let currentFruitAudioPlayer = null;
+        
+        // Activity 1: Orchard State
+        let activeFruitHotspot = null;
+
+        // Activity 2: Memory Game State
+        let memoryCards = [];
+        let firstFlippedCard = null;
+        let secondFlippedCard = null;
+        let lockBoardMemory = false;
+        let matchedMemoryPairs = 0;
+
+        // Activity 3: Fill Basket State
+        let fruitsToCollect = [];
+        let currentFruitToCollect = null;
+        let collectedFruitsInBasket = 0;
+        let draggedFruitElement = null;
+
+
+        // DOM Cache
+        const orchardSceneContainer = document.getElementById('orchard-scene-container');
+        const fruitInfoPanelDisplay = document.getElementById('fruit-info-panel-display');
+        
+        const memoryGameGridContainer = document.getElementById('memory-game-grid-container');
+        const memoryGameFeedbackEl = document.getElementById('memory-game-feedback');
+        
+        const fruitsToCollectListEl = document.getElementById('fruits-to-collect-list');
+        const playBasketInstructionBtn = document.getElementById('play-basket-instruction-btn');
+        const fruitPaletteContainer = document.getElementById('fruit-palette-container');
+        const fruitBasketDropzoneArea = document.getElementById('fruit-basket-dropzone-area');
+        const fruitBasketFeedbackEl = document.getElementById('fruit-basket-feedback');
+        const nextBasketItemBtn = document.getElementById('next-basket-item-btn');
+        const resetBasketGameBtn = document.getElementById('reset-basket-game-btn');
+        
+        const currentYearFruitsEl = document.getElementById('current-year');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearFruitsEl) { currentYearFruitsEl.textContent = new Date().getFullYear(); }
+            
+            setupFruitOrchard();
+            setupFruitMemoryGame();
+            startFillBasketGame();
+
+            playBasketInstructionBtn.addEventListener('click', playCurrentBasketInstruction);
+            nextBasketItemBtn.addEventListener('click', nextFruitInBasket);
+            resetBasketGameBtn.addEventListener('click', startFillBasketGame);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'fruitOrchardTab') {
+                fruitInfoPanelDisplay.innerHTML = '<p>کرتە لە میوەیەک بکە...</p>';
+                if(activeFruitHotspot) activeFruitHotspot.classList.remove('active'); // Example if active class was used
+            } else if (tabId === 'fruitMemoryGameTab') {
+                setupFruitMemoryGame();
+            } else if (tabId === 'fillBasketTab') {
+                startFillBasketGame();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid: ${src}`); return; }
+            if (currentFruitAudioPlayer) { currentFruitAudioPlayer.pause(); currentFruitAudioPlayer.currentTime = 0; }
+            try {
+                currentFruitAudioPlayer = new Audio(src);
+                currentFruitAudioPlayer.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- Activity 1: Fruit Orchard ---
+        function setupFruitOrchard() {
+            orchardSceneContainer.innerHTML = ''; 
+            fruitsData.forEach(fruit => {
+                const hotspot = document.createElement('div');
+                hotspot.className = 'fruit-hotspot';
+                hotspot.style.top = fruit.hotspot_pos.top;
+                hotspot.style.left = fruit.hotspot_pos.left;
+                hotspot.innerHTML = `<img src="${fruit.image_src || 'img/fruits/placeholder_fruit.png'}" alt="${fruit.name_ku}">`;
+                hotspot.onclick = () => displayFruitInfo(fruit.id);
+                orchardSceneContainer.appendChild(hotspot);
+            });
+            fruitInfoPanelDisplay.innerHTML = '<p>کرتە لە میوەیەک بکە لە باخچەکەدا بۆ زانیاری زیاتر...</p>';
+        }
+
+        function displayFruitInfo(fruitId) {
+            const fruit = fruitsData.find(f => f.id === fruitId);
+            if (!fruit) return;
+
+            fruitInfoPanelDisplay.innerHTML = `
+                <img src="${fruit.image_src || 'img/fruits/placeholder_fruit.png'}" alt="${fruit.name_ku}">
+                <div class="fruit-name-display">${fruit.name_ku}</div>
+                <div class="fruit-fact-display">${fruit.fact_ku}</div>
+                <button class="btn play-btn-activity" onclick="playAudio('${fruit.audio_src}')" ${!fruit.audio_src ? 'disabled' : ''}>
+                    <i class="fa-solid fa-volume-high"></i> گوێگرتن
+                </button>
+            `;
+            if (fruit.audio_src) playAudio(fruit.audio_src);
+        }
+
+        // --- Activity 2: Hide and Find Fruits (Memory Game) ---
+        function setupFruitMemoryGame() {
+            memoryGameGridContainer.innerHTML = '';
+            memoryGameFeedbackEl.textContent = '';
+            matchedMemoryPairs = 0;
+            firstFlippedCard = null;
+            secondFlippedCard = null;
+            lockBoardMemory = false;
+
+            let selectedFruits = shuffleArray([...fruitsData]).slice(0, 6); // Use 6 fruits for a 4x3 grid (12 cards)
+            if (selectedFruits.length < 2) { // Need at least 2 fruits for pairs
+                memoryGameFeedbackEl.textContent = "میوەی پێویست بۆ یارییەکە بەردەست نییە.";
+                return;
+            }
+            
+            let gameCardsData = [];
+            selectedFruits.forEach(fruit => {
+                gameCardsData.push({ type: 'image', content: fruit.image_src || 'img/fruits/placeholder_fruit.png', id: fruit.id });
+                gameCardsData.push({ type: 'name', content: fruit.name_ku, id: fruit.id });
+            });
+            shuffleArray(gameCardsData);
+
+            gameCardsData.forEach(cardData => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.id = cardData.id;
+                cardElement.innerHTML = `
+                    <div class="card-face card-front"><i class="fa-solid fa-question"></i></div>
+                    <div class="card-face card-back">
+                        ${cardData.type === 'image' ? `<img src="${cardData.content}" alt="میوە">` : `<span>${cardData.content}</span>`}
+                    </div>
+                `;
+                cardElement.addEventListener('click', () => flipMemoryCard(cardElement));
+                memoryGameGridContainer.appendChild(cardElement);
+            });
+        }
+
+        function flipMemoryCard(card) {
+            if (lockBoardMemory || card === firstFlippedCard || card.classList.contains('flipped')) return;
+
+            card.classList.add('flipped');
+
+            if (!firstFlippedCard) {
+                firstFlippedCard = card;
+                return;
+            }
+            secondFlippedCard = card;
+            lockBoardMemory = true;
+            checkForMemoryMatch();
+        }
+
+        function checkForMemoryMatch() {
+            const isMatch = firstFlippedCard.dataset.id === secondFlippedCard.dataset.id;
+            if (isMatch) {
+                memoryGameFeedbackEl.textContent = "دەستخۆش، هاوشێوە بوون!";
+                memoryGameFeedbackEl.className = "feedback-area-activity feedback-correct";
+                disableMatchedCards();
+                matchedMemoryPairs++;
+                if (matchedMemoryPairs === memoryGameGridContainer.children.length / 2) {
+                    memoryGameFeedbackEl.textContent = "پیرۆزە! هەموو جووتەکانت دۆزییەوە!";
+                }
+            } else {
+                memoryGameFeedbackEl.textContent = "هاوشێوە نەبوون، جارێکی تر!";
+                memoryGameFeedbackEl.className = "feedback-area-activity feedback-incorrect";
+                unflipMemoryCards();
+            }
+        }
+
+        function disableMatchedCards() {
+            firstFlippedCard.classList.add('matched');
+            secondFlippedCard.classList.add('matched');
+            resetMemoryBoard();
+        }
+
+        function unflipMemoryCards() {
+            setTimeout(() => {
+                if (firstFlippedCard) firstFlippedCard.classList.remove('flipped');
+                if (secondFlippedCard) secondFlippedCard.classList.remove('flipped');
+                resetMemoryBoard();
+            }, 1000);
+        }
+
+        function resetMemoryBoard() {
+            [firstFlippedCard, secondFlippedCard, lockBoardMemory] = [null, null, false];
+        }
+
+
+        // --- Activity 3: Fill My Fruit Basket ---
+        function startFillBasketGame() {
+            fruitBasketDropzoneArea.innerHTML = '';
+            fruitBasketFeedbackEl.textContent = '';
+            fruitBasketFeedbackEl.className = 'feedback-area-activity';
+            nextBasketItemBtn.style.display = 'none';
+            collectedFruitsInBasket = 0;
+
+            fruitsToCollect = shuffleArray([...fruitsData]).slice(0, 3); // Ask for 3 random fruits
+            if(fruitsToCollect.length === 0) {
+                fruitsToCollectListEl.textContent = "هیچ میوەیەک بۆ کۆکردنەوە نییە.";
+                playBasketInstructionBtn.disabled = true;
+                return;
+            }
+            
+            updateFruitsToCollectList();
+            populateFruitPalette();
+            loadNextFruitToCollect();
+        }
+        
+        function updateFruitsToCollectList() {
+            const remainingToCollect = fruitsToCollect.filter(f => !f.collected);
+            if (remainingToCollect.length > 0) {
+                fruitsToCollectListEl.textContent = "داواکراوەکان: " + remainingToCollect.map(f => f.name_ku).join("، ");
+            } else {
+                fruitsToCollectListEl.textContent = "هەموو میوەکان کۆکرانەوە!";
+            }
+        }
+
+
+        function populateFruitPalette() {
+            fruitPaletteContainer.innerHTML = '';
+            // Show more fruits in palette than needed for collection, for distraction
+            const paletteFruits = shuffleArray([...fruitsData]).slice(0, Math.max(5, fruitsToCollect.length + 2) );
+            paletteFruits.forEach(fruit => {
+                const fruitDiv = document.createElement('div');
+                fruitDiv.className = 'draggable-fruit';
+                fruitDiv.draggable = true;
+                fruitDiv.id = `fruit-palette-${fruit.id}`;
+                fruitDiv.dataset.fruitId = fruit.id;
+                fruitDiv.innerHTML = `<img src="${fruit.image_src || 'img/fruits/placeholder_fruit.png'}" alt="${fruit.name_ku}">`;
+                
+                fruitDiv.addEventListener('dragstart', (e) => {
+                    draggedFruitElement = e.target.closest('.draggable-fruit');
+                    e.dataTransfer.setData('text/plain', draggedFruitElement.dataset.fruitId);
+                    e.dataTransfer.effectAllowed = 'move';
+                    setTimeout(() => { if(draggedFruitElement) draggedFruitElement.classList.add('dragging')}, 0);
+                });
+                fruitDiv.addEventListener('dragend', () => {
+                     if(draggedFruitElement) draggedFruitElement.classList.remove('dragging');
+                });
+                fruitPaletteContainer.appendChild(fruitDiv);
+            });
+        }
+
+        function loadNextFruitToCollect() {
+            const remainingFruits = fruitsToCollect.filter(f => !f.collected);
+            if (remainingFruits.length > 0) {
+                currentFruitToCollect = remainingFruits[0];
+                fruitBasketFeedbackEl.textContent = `تکایە "${currentFruitToCollect.name_ku}" بخە ناو سەبەتەکەوە.`;
+                playCurrentBasketInstruction();
+                playBasketInstructionBtn.disabled = false;
+                nextBasketItemBtn.style.display = 'none';
+            } else {
+                fruitBasketFeedbackEl.textContent = "دەستخۆش! سەبەتەکەت پڕ کرد!";
+                fruitBasketFeedbackEl.className = "feedback-area-activity feedback-correct";
+                playBasketInstructionBtn.disabled = true;
+                nextBasketItemBtn.style.display = 'none';
+            }
+            updateFruitsToCollectList();
+        }
+        
+        function playCurrentBasketInstruction() {
+            if (currentFruitToCollect && currentFruitToCollect.audio_src) {
+                playAudio(currentFruitToCollect.audio_src);
+            } else if (currentFruitToCollect) {
+                 // Fallback if audio is not available, speak the name
+                const utterance = new SpeechSynthesisUtterance(`تکایە ${currentFruitToCollect.name_ku} بخە ناو سەبەتەکەوە`);
+                utterance.lang = 'ku';
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+
+        fruitBasketDropzoneArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fruitBasketDropzoneArea.classList.add('over');
+            e.dataTransfer.dropEffect = 'move';
+        });
+        fruitBasketDropzoneArea.addEventListener('dragleave', () => {
+            fruitBasketDropzoneArea.classList.remove('over');
+        });
+
+        fruitBasketDropzoneArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fruitBasketDropzoneArea.classList.remove('over');
+            const droppedFruitId = parseInt(e.dataTransfer.getData('text/plain'));
+            
+            if (currentFruitToCollect && droppedFruitId === currentFruitToCollect.id) {
+                const droppedFruitData = fruitsData.find(f => f.id === droppedFruitId);
+                const fruitImgInBasket = document.createElement('img');
+                fruitImgInBasket.src = droppedFruitData.image_src;
+                fruitImgInBasket.alt = droppedFruitData.name_ku;
+                fruitBasketDropzoneArea.appendChild(fruitImgInBasket);
+                
+                currentFruitToCollect.collected = true;
+                collectedFruitsInBasket++;
+                
+                fruitBasketFeedbackEl.textContent = `زۆر باشە! "${currentFruitToCollect.name_ku}" خرایە ناو سەبەتەکەوە.`;
+                fruitBasketFeedbackEl.className = 'feedback-area-activity feedback-correct';
+                
+                // Remove collected fruit from palette to avoid re-dragging (optional, can be tricky if multiple of same fruit needed)
+                // For simplicity, we'll just allow it to be dragged again but it won't count further for this specific request.
+                // A more robust solution would disable or hide the specific dragged item from the palette.
+                
+                if (fruitsToCollect.every(f => f.collected)) {
+                    loadNextFruitToCollect(); // This will show the final success message
+                } else {
+                    nextBasketItemBtn.style.display = 'inline-flex';
+                }
+
+            } else {
+                fruitBasketFeedbackEl.textContent = 'ئەوە میوە داواکراوەکە نەبوو. جارێکی تر هەوڵبدەرەوە!';
+                fruitBasketFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+            }
+             if(draggedFruitElement) draggedFruitElement.classList.remove('dragging');
+            draggedFruitElement = null;
+        });
+
+        function nextFruitInBasket(){
+            loadNextFruitToCollect();
+        }
+
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

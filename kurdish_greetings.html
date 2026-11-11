@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سڵاو و دەستەواژە بنەڕەتییەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; 
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; 
+            --secondary-color: #e67e22; 
+            --accent-color: #16a085; /* Teal accent for this module */
+            --accent-hover-color: #1abc9c; 
+            --light-bg-color: #ecf0f1; 
+            --card-bg-color: white;
+            --text-color: #34495e; 
+            --muted-text-color: #7f8c8d; 
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff; 
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px; 
+            --border-radius-lg: 12px; 
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); 
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background-color: var(--light-bg-color); 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 900px; 
+            margin: 20px auto; 
+            padding: 25px; 
+            background-color: var(--card-bg-color); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--box-shadow); 
+            flex-grow: 1; 
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.3rem; 
+            font-weight: 700; 
+        }
+        header h1 i { 
+            margin-left: 10px; 
+            color: var(--accent-color); /* Use module accent */
+        }
+        
+        /* Navigation Bar Styles */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px; 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+        
+        /* Tab Navigation */
+         nav.tab-navigation { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            margin-bottom: 40px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-3px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+        
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Phrase List Styles */
+        .phrase-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .phrase-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            transition: box-shadow var(--transition-speed);
+        }
+         .phrase-list li:hover {
+             box-shadow: var(--box-shadow-hover);
+         }
+        .phrase-text {
+            flex-grow: 1;
+            margin-right: 15px; /* Space before button */
+        }
+        .phrase-kurdish {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .phrase-english {
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+            font-family: var(--font-latin), sans-serif; /* Use Latin font */
+            display: block; /* Ensure it's on its own line */
+        }
+        .play-phrase-btn {
+            background: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50%; /* Circle button */
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+        .play-phrase-btn:hover {
+            background-color: var(--accent-hover-color);
+            transform: scale(1.1);
+        }
+        .play-phrase-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Matching Game Styles */
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+         .matching-column h3 {
+             text-align: center;
+             font-size: 1.1rem;
+             color: var(--primary-color);
+             margin-bottom: 10px;
+             font-weight: 600;
+         }
+        .match-item {
+            padding: 10px 15px;
+            background-color: var(--white-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: center;
+            font-size: 1.05rem;
+        }
+        .match-item.kurdish { font-weight: 600; color: var(--primary-color); }
+        .match-item.english { font-family: var(--font-latin), sans-serif; color: var(--text-color); }
+        .match-item:hover {
+            border-color: var(--accent-color);
+            background-color: #f0f9ff; /* Light accent color */
+        }
+        .match-item.selected {
+            border-color: var(--accent-hover-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            font-weight: bold; /* Make selected text bold */
+        }
+        .match-item.matched {
+            border-color: var(--success-color);
+            background-color: var(--success-color);
+            color: var(--white-color);
+            cursor: default;
+            opacity: 0.7;
+            pointer-events: none; /* Disable clicks after match */
+        }
+        .match-item.incorrect {
+             border-color: var(--danger-color);
+             background-color: var(--danger-color);
+             color: var(--white-color);
+             animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        #matching-feedback {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em; 
+        }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        /* Dialogue Completion Styles */
+        .dialogue-completion-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .dialogue-display {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-sm);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dialogue-line {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .dialogue-line .speaker {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .dialogue-line .blank-space {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dotted var(--muted-text-color);
+            margin: 0 5px;
+            text-align: center;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        #dialogue-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .dialogue-option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: var(--border-radius-md);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .dialogue-option-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+        }
+        .dialogue-option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+        }
+        .dialogue-option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+        #dialogue-options.disabled .dialogue-option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        #dialogue-feedback {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+        #next-dialogue-btn {
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 15px; 
+            font-size: 0.9rem; 
+            color: var(--muted-text-color); 
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .matching-area { grid-template-columns: 1fr; } /* Stack columns */
+            .phrase-kurdish { font-size: 1.1rem; }
+            .dialogue-line { font-size: 1rem; }
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .match-item { font-size: 1rem; }
+             .dialogue-option-btn { font-size: 0.95rem; padding: 6px 15px;}
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-comments"></i> سڵاو و دەستەواژە بنەڕەتییەکان</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('listenRepeatTab', this)"><i class="fa-solid fa-headphones"></i> گوێبگرە و دووبارەی بکەرەوە</button>
+            <button class="tab-button" onclick="showTab('matchingTab', this)"><i class="fa-solid fa-link"></i> گونجاندن</button>
+            <button class="tab-button" onclick="showTab('dialogueTab', this)"><i class="fa-solid fa-comments-question"></i> تەواوکردنی گفتوگۆ</button>
+        </nav>
+
+        <main>
+            <section id="listenRepeatTab" class="tab-content active">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 20px;">دەستەواژە باوەکان</h2>
+                 <div class="phrase-list">
+                     <ul id="phrase-list-ul">
+                         </ul>
+                 </div>
+            </section>
+
+            <section id="matchingTab" class="tab-content">
+                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 20px;">دەستەواژە کوردییەکان بە ئینگلیزییەکانیان بگونجێنە</h2>
+                <div class="matching-area">
+                    <div class="matching-column" id="kurdish-column">
+                        <h3>کوردی</h3>
+                        </div>
+                    <div class="matching-column" id="english-column">
+                        <h3>ئینگلیزی</h3>
+                        </div>
+                </div>
+                <div id="matching-feedback"></div>
+                 <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn danger" onclick="resetMatchingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                 </div>
+            </section>
+
+            <section id="dialogueTab" class="tab-content">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 20px;">گفتوگۆکە تەواو بکە</h2>
+                 <div class="dialogue-completion-area">
+                     <div class="dialogue-display" id="dialogue-display-area">
+                         </div>
+                     <div id="dialogue-options">
+                         </div>
+                     <div id="dialogue-feedback"></div>
+                     <button id="next-dialogue-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> گفتوگۆی داهاتوو</button>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer"> 
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        // --- DATA STRUCTURE ---
+        const phrasesData = [
+            { id: 1, kurdish: "سڵاو", english: "Hello / Hi", audio: "audio/greetings/slaw.mp3" },
+            { id: 2, kurdish: "چۆنی؟", english: "How are you?", audio: "audio/greetings/choni.mp3" },
+            { id: 3, kurdish: "باشم", english: "I am fine / good", audio: "audio/greetings/bashm.mp3" },
+            { id: 4, kurdish: "سپاس", english: "Thanks / Thank you", audio: "audio/greetings/spas.mp3" },
+            { id: 5, kurdish: "زۆر سپاس", english: "Thank you very much", audio: "audio/greetings/zor_spas.mp3" },
+            { id: 6, kurdish: "بەیانی باش", english: "Good morning", audio: "audio/greetings/bayani_bash.mp3" },
+            { id: 7, kurdish: "ئێوارە باش", english: "Good evening", audio: "audio/greetings/ewara_bash.mp3" },
+            { id: 8, kurdish: "شەو شاد", english: "Good night", audio: "audio/greetings/shaw_shad.mp3" },
+            { id: 9, kurdish: "خوات لەگەڵ", english: "Goodbye", audio: "audio/greetings/xwat_lagal.mp3" },
+            { id: 10, kurdish: "ببورە", english: "Excuse me / Sorry", audio: "audio/greetings/bbura.mp3" },
+            { id: 11, kurdish: "بەڵێ", english: "Yes", audio: "audio/greetings/bale.mp3" },
+            { id: 12, kurdish: "نەخێر", english: "No", audio: "audio/greetings/naxer.mp3" }
+        ];
+
+        const dialoguesData = [
+            { 
+                id: 'd1', 
+                lines: [
+                    { speaker: "کەس ١", text: "سڵاو!" },
+                    { speaker: "کەس ٢", text: null } // Blank to be filled
+                ],
+                options: ["باشم", "سڵاو", "سپاس"],
+                correct_answer: "سڵاو"
+            },
+            { 
+                id: 'd2', 
+                lines: [
+                    { speaker: "ئارام", text: "چۆنی؟" },
+                    { speaker: "ژیلە", text: null } 
+                ],
+                options: ["بەیانی باش", "باشم، سپاس", "نەخێر"],
+                correct_answer: "باشم، سپاس" // Combine for natural response
+            },
+             { 
+                id: 'd3', 
+                lines: [
+                    { speaker: "کەس ١", text: "تکایە، یارمەتیم بدە." },
+                    { speaker: "کەس ٢", text: null } 
+                ],
+                options: ["خوات لەگەڵ", "بەڵێ، فەرموو", "شەو شاد"],
+                correct_answer: "بەڵێ، فەرموو" // Yes, please (go ahead)
+            },
+            { 
+                id: 'd4', 
+                lines: [
+                    { speaker: "نەسرین", text: "زۆر سپاس بۆ یارمەتییەکەت." },
+                    { speaker: "بەختیار", text: null } 
+                ],
+                options: ["شایەنی نییە", "ببورە", "چۆنی؟"], // You're welcome
+                correct_answer: "شایەنی نییە" 
+            }
+        ];
+
+        // --- STATE VARIABLES ---
+        let currentAudio = null;
+        let selectedKurdishItem = null;
+        let selectedEnglishItem = null;
+        let matchedPairs = 0;
+        let totalPairs = 0;
+        let currentDialogueIndex = 0;
+        let shuffledDialogues = [];
+
+        // --- DOM Elements Cache ---
+        const phraseListUl = document.getElementById('phrase-list-ul');
+        const kurdishColumnDiv = document.getElementById('kurdish-column');
+        const englishColumnDiv = document.getElementById('english-column');
+        const matchingFeedbackEl = document.getElementById('matching-feedback');
+        const dialogueDisplayArea = document.getElementById('dialogue-display-area');
+        const dialogueOptionsDiv = document.getElementById('dialogue-options');
+        const dialogueFeedbackEl = document.getElementById('dialogue-feedback');
+        const nextDialogueBtn = document.getElementById('next-dialogue-btn');
+        const currentYearEl = document.getElementById('current-year');
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            
+            populatePhraseList();
+            setupMatchingGame();
+            startDialogueQuiz(); // Initial load for dialogue tab
+            
+            nextDialogueBtn.addEventListener('click', loadNextDialogue);
+        });
+
+        // --- TAB SWITCHING ---
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+                // button.setAttribute('aria-selected', 'false'); // Optional ARIA
+            });
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) activeTab.classList.add('active');
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+                // clickedButton.setAttribute('aria-selected', 'true'); // Optional ARIA
+            }
+            // Reset games if switching to them
+            if (tabId === 'matchingTab') {
+                resetMatchingGame();
+            } else if (tabId === 'dialogueTab') {
+                 startDialogueQuiz(); // Restart dialogue quiz when tab is shown
+            }
+        }
+
+        // --- LISTEN AND REPEAT ---
+        function populatePhraseList() {
+            phraseListUl.innerHTML = ''; // Clear existing
+            phrasesData.forEach(phrase => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="phrase-text">
+                        <span class="phrase-kurdish">${phrase.kurdish}</span>
+                        <span class="phrase-english">${phrase.english}</span>
+                    </div>
+                    <button class="play-phrase-btn" onclick="playAudio('${phrase.audio}')" aria-label="گوێگرتن لە ${phrase.kurdish}">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                `;
+                phraseListUl.appendChild(li);
+            });
+        }
+
+        function playAudio(src) {
+            // Simple audio playback (can be enhanced)
+            if (!src || !src.includes('.mp3')) { console.warn(`Invalid audio source: ${src}`); return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            try {
+                currentAudio = new Audio(src);
+                currentAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- MATCHING GAME ---
+        function setupMatchingGame() {
+            kurdishColumnDiv.innerHTML = '<h3>کوردی</h3>'; // Add headers back
+            englishColumnDiv.innerHTML = '<h3>ئینگلیزی</h3>';
+            matchingFeedbackEl.textContent = '';
+            selectedKurdishItem = null;
+            selectedEnglishItem = null;
+            matchedPairs = 0;
+
+            const shuffledPhrases = shuffleArray([...phrasesData]);
+            totalPairs = shuffledPhrases.length;
+
+            // Create separate shuffled arrays for each column to ensure random order
+            const kurdishItems = shuffleArray(shuffledPhrases.map(p => ({ id: p.id, text: p.kurdish })));
+            const englishItems = shuffleArray(shuffledPhrases.map(p => ({ id: p.id, text: p.english })));
+
+            kurdishItems.forEach(item => createMatchItem(item, 'kurdish', kurdishColumnDiv));
+            englishItems.forEach(item => createMatchItem(item, 'english', englishColumnDiv));
+        }
+
+        function createMatchItem(itemData, type, columnDiv) {
+            const div = document.createElement('div');
+            div.className = `match-item ${type}`;
+            div.textContent = itemData.text;
+            div.dataset.matchId = itemData.id; // Store the original phrase ID
+            div.onclick = () => handleMatchItemClick(div, type);
+            columnDiv.appendChild(div);
+        }
+
+        function handleMatchItemClick(itemElement, type) {
+            if (itemElement.classList.contains('matched')) return; // Ignore matched items
+
+            // Deselect if clicking the same item again
+            if (itemElement.classList.contains('selected')) {
+                 itemElement.classList.remove('selected');
+                 if (type === 'kurdish') selectedKurdishItem = null;
+                 else selectedEnglishItem = null;
+                 return;
+            }
+
+            // Select the item
+            if (type === 'kurdish') {
+                // Deselect previous Kurdish selection
+                if (selectedKurdishItem) selectedKurdishItem.classList.remove('selected');
+                selectedKurdishItem = itemElement;
+            } else {
+                // Deselect previous English selection
+                if (selectedEnglishItem) selectedEnglishItem.classList.remove('selected');
+                selectedEnglishItem = itemElement;
+            }
+            itemElement.classList.add('selected');
+            itemElement.classList.remove('incorrect'); // Remove incorrect style if re-selected
+            matchingFeedbackEl.textContent = ''; // Clear feedback on new selection
+
+            // Check for match if both types are selected
+            if (selectedKurdishItem && selectedEnglishItem) {
+                checkForMatch();
+            }
+        }
+
+        function checkForMatch() {
+            if (!selectedKurdishItem || !selectedEnglishItem) return;
+
+            const kurdishId = selectedKurdishItem.dataset.matchId;
+            const englishId = selectedEnglishItem.dataset.matchId;
+
+            if (kurdishId === englishId) {
+                // Correct Match
+                selectedKurdishItem.classList.remove('selected');
+                selectedEnglishItem.classList.remove('selected');
+                selectedKurdishItem.classList.add('matched');
+                selectedEnglishItem.classList.add('matched');
+                matchingFeedbackEl.textContent = 'گونجا! 👍';
+                matchingFeedbackEl.className = 'feedback-correct';
+                matchedPairs++;
+                
+                // Reset selection
+                selectedKurdishItem = null;
+                selectedEnglishItem = null;
+
+                if (matchedPairs === totalPairs) {
+                     matchingFeedbackEl.textContent = "پیرۆزە! هەمووت گونجاند! 🎉";
+                }
+
+            } else {
+                // Incorrect Match
+                selectedKurdishItem.classList.add('incorrect');
+                selectedEnglishItem.classList.add('incorrect');
+                matchingFeedbackEl.textContent = 'هەوڵبدەرەوە! 🤔';
+                matchingFeedbackEl.className = 'feedback-incorrect';
+
+                // Deselect after a short delay
+                setTimeout(() => {
+                    if (selectedKurdishItem) selectedKurdishItem.classList.remove('selected', 'incorrect');
+                    if (selectedEnglishItem) selectedEnglishItem.classList.remove('selected', 'incorrect');
+                    selectedKurdishItem = null;
+                    selectedEnglishItem = null;
+                }, 800); 
+            }
+        }
+        
+        function resetMatchingGame() {
+             setupMatchingGame(); // Just re-run the setup
+        }
+
+        // --- DIALOGUE COMPLETION ---
+         function startDialogueQuiz() {
+            currentDialogueIndex = 0;
+            shuffledDialogues = shuffleArray([...dialoguesData]);
+            loadNextDialogue();
+        }
+
+        function loadNextDialogue() {
+             if (currentDialogueIndex >= shuffledDialogues.length) {
+                dialogueDisplayArea.innerHTML = '<p style="text-align:center; font-weight:bold;">پیرۆزە! هەموو گفتوگۆکانت تەواو کرد.</p>';
+                dialogueOptionsDiv.innerHTML = '';
+                dialogueFeedbackEl.textContent = '';
+                nextDialogueBtn.style.display = 'none';
+                return;
+            }
+
+            const dialogue = shuffledDialogues[currentDialogueIndex];
+            dialogueDisplayArea.innerHTML = ''; // Clear previous lines
+            dialogueFeedbackEl.textContent = '';
+            dialogueFeedbackEl.className = ''; // Reset feedback style
+            dialogueOptionsDiv.innerHTML = '';
+            dialogueOptionsDiv.classList.remove('disabled');
+            nextDialogueBtn.style.display = 'none';
+
+            // Display dialogue lines
+            dialogue.lines.forEach(line => {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'dialogue-line';
+                if (line.text === null) { // This is the blank line
+                    lineDiv.innerHTML = `<span class="speaker">${line.speaker}:</span> <span class="blank-space">...</span>`;
+                } else {
+                    lineDiv.innerHTML = `<span class="speaker">${line.speaker}:</span> ${line.text}`;
+                }
+                dialogueDisplayArea.appendChild(lineDiv);
+            });
+
+            // Display options
+            const shuffledOptions = shuffleArray([...dialogue.options]);
+            shuffledOptions.forEach(optionText => {
+                const button = document.createElement('button');
+                button.className = 'dialogue-option-btn';
+                button.textContent = optionText;
+                button.onclick = () => checkDialogueAnswer(button, dialogue.correct_answer);
+                dialogueOptionsDiv.appendChild(button);
+            });
+        }
+
+        function checkDialogueAnswer(selectedButton, correctAnswer) {
+             const selectedAnswer = selectedButton.textContent;
+             dialogueOptionsDiv.classList.add('disabled');
+
+             if (selectedAnswer === correctAnswer) {
+                 selectedButton.classList.add('correct');
+                 dialogueFeedbackEl.textContent = 'ڕاستە! زۆر باشە!';
+                 dialogueFeedbackEl.className = 'feedback-correct'; 
+                 // Fill the blank
+                 const blankSpace = dialogueDisplayArea.querySelector('.blank-space');
+                 if(blankSpace) blankSpace.textContent = correctAnswer;
+
+             } else {
+                 selectedButton.classList.add('incorrect');
+                 dialogueFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست: ${correctAnswer}`;
+                 dialogueFeedbackEl.className = 'feedback-incorrect'; 
+                 // Highlight correct option
+                 const correctButton = Array.from(dialogueOptionsDiv.querySelectorAll('.dialogue-option-btn')).find(btn => btn.textContent === correctAnswer);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+             }
+             
+             nextDialogueBtn.style.display = 'block';
+             nextDialogueBtn.focus();
+             currentDialogueIndex++; // Prepare for next dialogue
+        }
+
+
+        // --- UTILITY FUNCTIONS ---
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

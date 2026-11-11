@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی مانگە کوردییەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #27ae60; /* Green accent for months, distinct from greetings */
+            --accent-hover-color: #2ecc71;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+        header h1 i {
+            margin-left: 10px;
+            color: var(--accent-color);
+        }
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-3px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Month List Styles (similar to phrase-list) */
+        .month-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .month-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            transition: box-shadow var(--transition-speed);
+        }
+         .month-list li:hover {
+             box-shadow: var(--box-shadow-hover);
+         }
+        .month-text {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        .month-kurdish {
+            font-size: 1.3rem; /* Slightly larger for emphasis */
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .month-number {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 10px;
+             font-feature-settings: "kern" 0; /* For Eastern Arabic Numerals */
+            -moz-font-feature-settings: "kern" 0;
+            -webkit-font-feature-settings: "kern" 0;
+        }
+        .play-month-btn {
+            background: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .play-month-btn:hover {
+            background-color: var(--accent-hover-color);
+            transform: scale(1.1);
+        }
+        .play-month-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Matching Game Styles (similar to kurdish_greetings) */
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px; /* Slightly less gap for month names */
+            margin-top: 20px;
+        }
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+         .matching-column h3 {
+             text-align: center;
+             font-size: 1.2rem; /* Slightly larger for section titles */
+             color: var(--primary-color);
+             margin-bottom: 15px;
+             font-weight: 600;
+         }
+        .match-item {
+            padding: 12px 18px; /* Adjusted padding */
+            background-color: var(--white-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: center;
+            font-size: 1.1rem; /* Adjusted font size */
+        }
+        .match-item.kurdish-month { font-weight: 600; color: var(--primary-color); }
+        .match-item.month-order { font-family: var(--font-kurdish), sans-serif; color: var(--text-color); font-weight: bold; font-size: 1.2rem; }
+        .match-item:hover {
+            border-color: var(--accent-color);
+            background-color: #e8f8f5; /* Light accent color */
+        }
+        .match-item.selected {
+            border-color: var(--accent-hover-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            font-weight: bold;
+        }
+        .match-item.matched {
+            border-color: var(--success-color);
+            background-color: var(--success-color);
+            color: var(--white-color);
+            cursor: default;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .match-item.incorrect {
+             border-color: var(--danger-color);
+             background-color: var(--danger-color);
+             color: var(--white-color);
+             animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        #matching-feedback {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        /* Quiz Styles (similar to kurdish_numbers or abc) */
+        .quiz-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+         .quiz-area h3 {
+             font-size: 1.5rem;
+             color: var(--primary-color);
+             margin-bottom: 25px;
+         }
+        .quiz-question-display {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .quiz-question-display .target-value {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin: 0 5px;
+        }
+        .quiz-options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .quiz-option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--box-shadow);
+        }
+        .quiz-option-btn:hover, .quiz-option-btn:focus-visible {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-hover);
+            outline: none;
+        }
+        .quiz-option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+            transform: scale(1.05);
+        }
+         .quiz-option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+        .quiz-options-container.disabled .quiz-option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .quiz-feedback-area {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(39, 174, 96, 0.2); /* Accent color shadow */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+         .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); }
+         .btn i { margin-left: 8px; }
+         .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3); outline: none; }
+
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .matching-area { grid-template-columns: 1fr; }
+            .month-kurdish { font-size: 1.1rem; }
+            .quiz-question-display { font-size: 1.2rem; }
+            .quiz-question-display .target-value { font-size: 1.8rem; }
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .match-item { font-size: 1rem; }
+             .quiz-option-btn { font-size: 1rem; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-calendar-days"></i> فێربوونی مانگە کوردییەکان</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('listMonthsTab', this)"><i class="fa-solid fa-list-ol"></i> لیستی مانگەکان</button>
+            <button class="tab-button" onclick="showTab('matchingGameTab', this)"><i class="fa-solid fa-link"></i> یاریی گونجاندن</button>
+            <button class="tab-button" onclick="showTab('quizTab', this)"><i class="fa-solid fa-question-circle"></i> تاقیکردنەوە</button>
+        </nav>
+
+        <main>
+            <section id="listMonthsTab" class="tab-content active">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">مانگەکانی ساڵ بە کوردی</h2>
+                 <div class="month-list">
+                     <ul id="month-list-ul">
+                         </ul>
+                 </div>
+            </section>
+
+            <section id="matchingGameTab" class="tab-content">
+                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">ناوی مانگ بە ژمارەکەی بگونجێنە</h2>
+                <div class="matching-area">
+                    <div class="matching-column" id="kurdish-months-column">
+                        <h3>مانگەکان</h3>
+                        </div>
+                    <div class="matching-column" id="month-order-column">
+                        <h3>ژمارەی مانگ</h3>
+                        </div>
+                </div>
+                <div id="matching-feedback"></div>
+                 <div style="text-align: center; margin-top: 25px;">
+                    <button class="btn danger" onclick="resetMatchingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                 </div>
+            </section>
+
+            <section id="quizTab" class="tab-content">
+                <div class="quiz-area">
+                    <h3>تاقیکردنەوەی مانگەکان</h3>
+                    <div id="quiz-question-display" class="quiz-question-display">
+                        مانگی <span class="target-value" id="quiz-target-value">...</span> کامەیە؟
+                    </div>
+                    <div id="quiz-options-container" class="quiz-options-container">
+                    </div>
+                    <div id="quiz-feedback-area" class="quiz-feedback-area"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="next-quiz-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const soraniMonths = [
+            { id: 1, name: "خاکەلێوە", order: "١", audio: "audio/months/xakelewe.mp3" },
+            { id: 2, name: "گوڵان", order: "٢", audio: "audio/months/gullan.mp3" },
+            { id: 3, name: "جۆزەردان", order: "٣", audio: "audio/months/jozardan.mp3" },
+            { id: 4, name: "پووشپەڕ", order: "٤", audio: "audio/months/pushpar.mp3" },
+            { id: 5, name: "گەلاوێژ", order: "٥", audio: "audio/months/gelawej.mp3" },
+            { id: 6, name: "خەرمانان", order: "٦", audio: "audio/months/xermanan.mp3" },
+            { id: 7, name: "ڕەزبەر", order: "٧", audio: "audio/months/rezber.mp3" },
+            { id: 8, name: "خەزەڵوەر", order: "٨", audio: "audio/months/xezellwer.mp3" },
+            { id: 9, name: "سەرماوەز", order: "٩", audio: "audio/months/sermawez.mp3" },
+            { id: 10, name: "بەفرانبار", order: "١٠", audio: "audio/months/befranbar.mp3" },
+            { id: 11, name: "ڕێبەندان", order: "١١", audio: "audio/months/rebendan.mp3" },
+            { id: 12, name: "ڕەشەمە", order: "١٢", audio: "audio/months/resheme.mp3" }
+        ];
+
+        let currentAudio = null;
+        let selectedKurdishMonthItem = null;
+        let selectedMonthOrderItem = null;
+        let matchedPairs = 0;
+        let totalPairs = soraniMonths.length;
+
+        let currentQuizQuestion = null;
+        let quizMode = 'nameToOrder'; // or 'orderToName'
+
+        // DOM Cache
+        const monthListUl = document.getElementById('month-list-ul');
+        const kurdishMonthsColumnDiv = document.getElementById('kurdish-months-column');
+        const monthOrderColumnDiv = document.getElementById('month-order-column');
+        const matchingFeedbackEl = document.getElementById('matching-feedback');
+        const quizTargetValueEl = document.getElementById('quiz-target-value');
+        const quizQuestionDisplayEl = document.getElementById('quiz-question-display');
+        const quizOptionsContainerEl = document.getElementById('quiz-options-container');
+        const quizFeedbackAreaEl = document.getElementById('quiz-feedback-area');
+        const nextQuizBtn = document.getElementById('next-quiz-btn');
+        const currentYearEl = document.getElementById('current-year');
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            populateMonthList();
+            setupMatchingGame();
+            loadQuizQuestion();
+            nextQuizBtn.addEventListener('click', loadQuizQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            clickedButton.classList.add('active');
+
+            if (tabId === 'matchingGameTab') {
+                resetMatchingGame();
+            } else if (tabId === 'quizTab') {
+                loadQuizQuestion();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid or not provided: ${src}`); return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            try {
+                currentAudio = new Audio(src); // Assuming audio files are in 'audio/months/'
+                currentAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        function populateMonthList() {
+            monthListUl.innerHTML = '';
+            soraniMonths.forEach(month => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="month-number">${month.order}</span>
+                    <div class="month-text">
+                        <span class="month-kurdish">${month.name}</span>
+                    </div>
+                    <button class="play-month-btn" onclick="playAudio('${month.audio}')" aria-label="گوێگرتن لە ${month.name}">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                `;
+                monthListUl.appendChild(li);
+            });
+        }
+
+        function setupMatchingGame() {
+            kurdishMonthsColumnDiv.innerHTML = '<h3>مانگەکان</h3>';
+            monthOrderColumnDiv.innerHTML = '<h3>ژمارەی مانگ</h3>';
+            matchingFeedbackEl.textContent = '';
+            selectedKurdishMonthItem = null;
+            selectedMonthOrderItem = null;
+            matchedPairs = 0;
+
+            const shuffledMonths = shuffleArray([...soraniMonths]);
+            const shuffledOrders = shuffleArray([...soraniMonths]);
+
+            shuffledMonths.forEach(month => createMatchItem(month.name, month.id, 'kurdish-month', kurdishMonthsColumnDiv));
+            shuffledOrders.forEach(month => createMatchItem(month.order, month.id, 'month-order', monthOrderColumnDiv));
+        }
+
+        function createMatchItem(text, id, type, columnDiv) {
+            const div = document.createElement('div');
+            div.className = `match-item ${type}`;
+            div.textContent = text;
+            div.dataset.matchId = id;
+            div.onclick = () => handleMatchItemClick(div, type);
+            columnDiv.appendChild(div);
+        }
+
+        function handleMatchItemClick(itemElement, type) {
+            if (itemElement.classList.contains('matched')) return;
+
+            if (itemElement.classList.contains('selected')) {
+                 itemElement.classList.remove('selected');
+                 if (type === 'kurdish-month') selectedKurdishMonthItem = null;
+                 else selectedMonthOrderItem = null;
+                 return;
+            }
+
+            if (type === 'kurdish-month') {
+                if (selectedKurdishMonthItem) selectedKurdishMonthItem.classList.remove('selected');
+                selectedKurdishMonthItem = itemElement;
+            } else {
+                if (selectedMonthOrderItem) selectedMonthOrderItem.classList.remove('selected');
+                selectedMonthOrderItem = itemElement;
+            }
+            itemElement.classList.add('selected');
+            itemElement.classList.remove('incorrect');
+            matchingFeedbackEl.textContent = '';
+
+            if (selectedKurdishMonthItem && selectedMonthOrderItem) {
+                checkForMatch();
+            }
+        }
+
+        function checkForMatch() {
+            const kurdishId = selectedKurdishMonthItem.dataset.matchId;
+            const orderId = selectedMonthOrderItem.dataset.matchId;
+
+            if (kurdishId === orderId) {
+                selectedKurdishMonthItem.classList.remove('selected');
+                selectedMonthOrderItem.classList.remove('selected');
+                selectedKurdishMonthItem.classList.add('matched');
+                selectedMonthOrderItem.classList.add('matched');
+                matchingFeedbackEl.textContent = 'گونجا! 👍';
+                matchingFeedbackEl.className = 'feedback-correct';
+                matchedPairs++;
+                selectedKurdishMonthItem = null;
+                selectedMonthOrderItem = null;
+                if (matchedPairs === totalPairs) {
+                     matchingFeedbackEl.textContent = "پیرۆزە! هەمووت گونجاند! 🎉";
+                }
+            } else {
+                selectedKurdishMonthItem.classList.add('incorrect');
+                selectedMonthOrderItem.classList.add('incorrect');
+                matchingFeedbackEl.textContent = 'هەوڵبدەرەوە! 🤔';
+                matchingFeedbackEl.className = 'feedback-incorrect';
+                setTimeout(() => {
+                    if(selectedKurdishMonthItem) selectedKurdishMonthItem.classList.remove('selected', 'incorrect');
+                    if(selectedMonthOrderItem) selectedMonthOrderItem.classList.remove('selected', 'incorrect');
+                    selectedKurdishMonthItem = null;
+                    selectedMonthOrderItem = null;
+                }, 800);
+            }
+        }
+
+        function resetMatchingGame() {
+             setupMatchingGame();
+        }
+
+        function loadQuizQuestion() {
+            quizFeedbackAreaEl.textContent = '';
+            quizFeedbackAreaEl.className = 'quiz-feedback-area';
+            quizOptionsContainerEl.innerHTML = '';
+            quizOptionsContainerEl.classList.remove('disabled');
+            nextQuizBtn.style.display = 'none';
+
+            currentQuizQuestion = soraniMonths[Math.floor(Math.random() * soraniMonths.length)];
+            quizMode = Math.random() < 0.5 ? 'nameToOrder' : 'orderToName';
+
+            if (quizMode === 'nameToOrder') {
+                quizQuestionDisplayEl.innerHTML = `ژمارەی مانگی <span class="target-value">${currentQuizQuestion.name}</span> کامەیە؟`;
+            } else {
+                quizQuestionDisplayEl.innerHTML = `مانگی ژمارە <span class="target-value">${currentQuizQuestion.order}</span> کامەیە؟`;
+            }
+
+            let options = [currentQuizQuestion];
+            let distractors = shuffleArray([...soraniMonths].filter(m => m.id !== currentQuizQuestion.id));
+            for(let i = 0; options.length < 4 && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option-btn';
+                button.textContent = (quizMode === 'nameToOrder') ? option.order : option.name;
+                button.dataset.id = option.id;
+                button.onclick = () => checkQuizAnswer(button, currentQuizQuestion.id);
+                quizOptionsContainerEl.appendChild(button);
+            });
+        }
+
+        function checkQuizAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            quizOptionsContainerEl.classList.add('disabled');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                quizFeedbackAreaEl.textContent = 'ڕاستە! زۆر باشە!';
+                quizFeedbackAreaEl.className = 'quiz-feedback-area feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                const correctAnswerText = (quizMode === 'nameToOrder') ? currentQuizQuestion.order : currentQuizQuestion.name;
+                quizFeedbackAreaEl.textContent = `هەڵەیە. وەڵامی ڕاست: ${correctAnswerText}`;
+                quizFeedbackAreaEl.className = 'quiz-feedback-area feedback-incorrect';
+                const correctButton = Array.from(quizOptionsContainerEl.querySelectorAll('.quiz-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+            }
+            nextQuizBtn.style.display = 'inline-flex';
+        }
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماڵپەڕی سەرەکی - پڕۆژەی فێربوونی زمانی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; 
+            --secondary-color: #e67e22; 
+            --accent-color: #3498db;
+            --accent-hover-color: #2980b9; 
+            --light-bg-color: #ecf0f1; 
+            --card-bg-color: white;
+            --text-color: #34495e; 
+            --muted-text-color: #7f8c8d; 
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --white-color: #ffffff; 
+            --border-radius-sm: 5px;
+            --border-radius-md: 10px; 
+            --border-radius-lg: 15px; 
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12); 
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+        }
+
+        .page-container { /* Renamed from .container for clarity on index page */
+            width: 100%;
+            max-width: 1000px; /* Slightly wider for an index page */
+            margin: 20px auto;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+        }
+        
+        /* Styles For The Dynamically Loaded Navigation Bar */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+
+        .site-header { /* Renamed for index page header */
+            text-align: center;
+            margin-bottom: 40px; /* More space for main page */
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .site-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem; /* Slightly larger for main page */
+            font-weight: 700;
+        }
+
+        .site-header h1 i {
+            margin-left: 12px; /* Adjusted margin */
+            color: var(--secondary-color);
+        }
+        
+        .site-header p {
+            font-size: 1.1rem;
+            color: var(--muted-text-color);
+            margin-top: 10px;
+        }
+
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive cards */
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .nav-card {
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-md);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 5px solid transparent; /* For hover effect */
+        }
+
+        .nav-card:hover, .nav-card:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: var(--box-shadow-hover);
+            border-top-color: var(--accent-color); /* Accent border on hover */
+            outline: none;
+        }
+
+        .nav-card-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .nav-card:hover .nav-card-icon, .nav-card:focus-visible .nav-card-icon {
+            color: var(--secondary-color);
+        }
+
+        .nav-card h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .nav-card p {
+            font-size: 0.95rem;
+            color: var(--muted-text-color);
+            line-height: 1.6;
+        }
+
+        .site-footer { /* Renamed for index page footer */
+            text-align: center;
+            margin-top: 50px; /* More space */
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .site-header h1 { font-size: 2rem; }
+            .navigation-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+            .nav-card { padding: 20px; }
+            .nav-card-icon { font-size: 2.5rem; }
+            .nav-card h2 { font-size: 1.3rem; }
+        }
+
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="page-container">
+        <header class="site-header">
+            <h1><i class="fa-solid fa-school"></i> پڕۆژەی فێربوونی زمانی کوردی</h1>
+            <p>بەخێربێن! یەکێک لەم بەشانە هەڵبژێرن بۆ دەستپێکردن بە فێربوون.</p>
+        </header>
+
+        
+
+        <main>
+            <nav class="navigation-grid" aria-label="بەشەکانی فێربوون">
+                <a href="abc.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-feather-pointed"></i></div>
+                    <h2>فێرکاریی ئەلفبێ</h2>
+                    <p>بناغەی زمانی کوردی بناسە، پیتەکان و دەنگەکانیان و شێوازی نووسینیان فێربە.</p>
+                </a>
+
+                <a href="secondabc.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-book-reader"></i></div>
+                    <h2>فێرگەی پێشکەوتووی وشە</h2>
+                    <p>وشەکان فراوان بکە لەڕێگەی چالاکی جۆراوجۆرەوە وەک فلاشکارت و یاریی گونجاندن.</p>
+                </a>
+
+                <a href="kurdish_story_sequencer.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-stream"></i></div>
+                    <h2>ڕیزبەندی ڕووداوەکان</h2>
+                    <p>تێگەیشتنت لە چیرۆک و ڕستەسازی پەرەپێبدە بە ڕیزکردنی ڕووداوەکانی چیرۆک.</p>
+                </a>
+                <a href="kurdish_word_drawer.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h2>وێنەکێشی وشەکان</h2>
+                    <p>وشەکان فێربە بە کێشانی وێنەکانیان و داهێنەربە لە دەربڕینی دیداری خۆت.</p>
+                </a>
+                <a href="kurdish_grammar_focus.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <h2>تەرکیزی ڕێزمان</h2>
+                    <p>یاساکانی ڕێزمان وەک ئیزافە فێرببە لە ڕێگەی ڕوونکردنەوە و ڕاهێنانی کارلێکەرەوە.</p>
+                </a>
+
+                <a href="kurdish_sentence_builder.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <h2>ڕستە دروستکەر</h2>
+                    <p>ڕستەی کوردی واتادار دروست بکە بە ڕاکێشانی وشەکان بۆ شوێنی گونجاوی خۆیان.</p>
+                </a>
+                <a href="kurdish_greetings.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-comments"></i></div>
+                    <h2>سڵاو و دەستەواژەکان</h2>
+                    <p>فێری سڵاوکردن و دەستەواژە بنەڕەتییەکانی ڕۆژانە ببە لە ڕێگەی گوێگرتن و ڕاهێنانی کارلێکەرەوە.</p>
+                </a>
+
+                <a href="kurdish_numbers.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <h2>ناسینی ژمارە و ژماردن</h2>
+                    <p>ژمارە کوردییەکان (١-٢٠) بناسە و فێری ژماردن ببە لە ڕێگەی یاری جۆراوجۆرەوە.</p>
+                </a>
+                <a href="kurdish_months.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-calendar-alt"></i></div>
+                    <h2>ناوی مانگەکان</h2>
+                    <p>فێربوونی ناوی مانگە کوردییەکان لە ڕێگەی لیست، یاری، و تاقیکردنەوەوە.</p>
+                </a>
+                <a href="kurdish_weekdays.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                    <h2>ڕۆژەکانی هەفتە</h2>
+                    <p>فێربوونی ناوی ڕۆژەکانی هەفتە بە کوردی و تاقیکردنەوەی زانیارییەکانت.</p>
+                </a>
+                <a href="kurdish_colors.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-paint-brush"></i></div>
+                    <h2>ڕەنگەکان</h2>
+                    <p>فێربوونی ناوی ڕەنگەکان بە کوردی لەگەڵ یاری و تاقیکردنەوەی خۆشیبەخش.</p>
+                </a>
+                <a href="kurdish_professions.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h2>فێربوونی پیشەکان</h2>
+                    <p>وشەکانی پەیوەست بە پیشە جۆراوجۆرەکان فێرببە لەگەڵ چالاکی هەمەڕەنگ.</p>
+                </a>
+                <a href="kurdish_weather.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-cloud-sun"></i></div> <h2>کەش و هەوا</h2>
+                    <p>فێربوونی وشەکانی تایبەت بە کەش و هەوا و تاقیکردنەوەی زانیارییەکانت.</p>
+                </a>
+                <a href="kurdish_places.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-map-location-dot"></i></div> <h2>ناوی شوێنەکان</h2>
+                    <p>فێربوونی ناوی شوێنە گشتییەکان و چۆنیەتی پرسیارکردن دەربارەیان.</p>
+                </a>
+                <a href="kurdish_times_of_day.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-hourglass-half"></i></div> <h2>کاتەکانی ڕۆژ</h2>
+                    <p>فێربوونی ناوی کاتەکانی ڕۆژ و شەو لەگەڵ چالاکی و یاریی هەمەجۆر.</p>
+                </a>
+                <a href="kurdish_cities.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-mountain-city"></i></div> <h2>ناوی شارەکان</h2>
+                    <p>ناوی شارە ناسراوەکانی کوردستان و زانیاری دەربارەیان فێرببە.</p>
+                </a>
+                <a href="kurdish_trees.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-tree"></i></div>
+                    <h2>ناوی دارەکان</h2>
+                    <p>ناوی دارە باوەکانی کوردستان و تایبەتمەندییەکانیان بناسە لە ڕێگەی چالاکی سەرنجڕاکێشەوە.</p>
+                </a>
+                <a href="kurdish_fruits.html" class="nav-card">
+                    <div class="nav-card-icon"><i class="fa-solid fa-apple-whole"></i></div>
+                    <h2>ناوی میوەکان</h2>
+                    <p>فێربوونی ناوی میوەکان بە کوردی لەگەڵ یاری و چالاکی خۆش.</p>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentYearEl = document.getElementById('current-year');
+            if (currentYearEl) {
+                currentYearEl.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="kmr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endamên Laş - Kurmancî | Hîngeha Zimanê Kurdî</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-main: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #3498db;
+            --accent-hover-color: #2980b9;
+            --light-bg-color: #f4f6f7;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --white-color: #ffffff;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --transition-speed: 0.3s;
+            --border-color: #e0e6e8;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-main), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.7; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 950px; margin: 20px auto; padding: 30px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); }
+        
+        header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.6rem; font-weight: 700; }
+        header h1 i { margin-right: 12px; color: var(--accent-color); }
+        #user-score-display { text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--secondary-color); background-color: #fdf2e9; padding: 8px 15px; border-radius: var(--border-radius-md); margin: -10px auto 20px auto; width: fit-content; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        .page-navigation { display: flex; justify-content: center; gap: 15px; width: 100%; flex-wrap: wrap; margin-bottom: 30px; }
+        .nav-link-button { font-family: var(--font-main); background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+        
+        nav.tab-navigation { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-button { background-color: var(--white-color); color: var(--primary-color); border: 1px solid var(--border-color); border-radius: 5px; padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 500; }
+        .tab-button.active, .tab-button:hover { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-color); }
+        
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Learning Grid Styles */
+        .bodypart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .bodypart-card { background-color: #f9f9f9; border-radius: var(--border-radius-md); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s; }
+        .bodypart-card:hover { transform: translateY(-3px); }
+        .bodypart-kurmanji { font-weight: 600; font-size: 1.1rem; }
+        .bodypart-english { font-size: 0.9rem; color: var(--muted-text-color); }
+        
+        /* Interactive Game Styles */
+        .game-wrapper { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+        .game-container { position: relative; width: 100%; max-width: 400px; user-select: none; flex-shrink: 0; }
+        .game-container img { width: 100%; display: block; height: auto; }
+        .game-prompt { text-align: center; font-size: 1.8rem; margin-bottom: 20px; font-weight: 500; flex-basis: 100%; }
+        .game-prompt .kurmanji-word { color: var(--accent-color); font-weight: 700; }
+        .clickable-area { position: absolute; /* border: 1px dashed rgba(0, 0, 0, 0.3); */ cursor: pointer; }
+        .feedback-marker { position: absolute; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold; transform: translate(-50%, -50%); pointer-events: none; animation: pop-in 0.3s; }
+        .feedback-marker.correct { background-color: rgba(39, 174, 96, 0.8); }
+        .feedback-marker.incorrect { background-color: rgba(192, 57, 43, 0.8); }
+        @keyframes pop-in { from { transform: translate(-50%, -50%) scale(0); } to { transform: translate(-50%, -50%) scale(1); } }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-child-reaching"></i> Endamên Laşê Mirovan</h1>
+            <div id="user-score-display"><i class="fa-solid fa-star"></i> Pûan: <span id="score-value">0</span></div>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('learnTab', this)">Fêrbûn</button>
+            <button class="tab-button" onclick="showTab('gameTab', this)">Lîstik (Game)</button>
+        </nav>
+
+        <main>
+            <section id="learnTab" class="tab-content active">
+                <div class="bodypart-grid" id="bodypart-grid-container"></div>
+            </section>
+            <section id="gameTab" class="tab-content">
+                <div class="game-prompt" id="game-prompt">Klîk bike ser: <span class="kurmanji-word">...</span></div>
+                <div class="game-wrapper">
+                    <div class="game-container" id="game-container-front">
+                        <img src="img/body_front.png" alt="Nexşeya laşê mirovan - Pêş" id="body-image-front">
+                    </div>
+                    <div class="game-container" id="game-container-back" style="display:none;">
+                        <img src="img/body_back.png" alt="Nexşeya laşê mirovan - Paş" id="body-image-back">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Data for body parts including their English translations and precise coordinates.
+        // These coordinates are based on the specific images you provided.
+        const bodyParts = [
+            // Front View Parts
+            { kmr: "Ser", eng: "Head", img: "front", coords: { top: '0%', left: '15%', width: '70%', height: '22%' } },
+            { kmr: "Por", eng: "Hair", img: "front", coords: { top: '0%', left: '20%', width: '60%', height: '10%' } },
+            { kmr: "Brû", eng: "Eyebrow", img: "front", coords: { top: '9%', left: '50%', width: '15%', height: '2%' } },
+            { kmr: "Çav", eng: "Eye", img: "front", coords: { top: '12%', left: '50%', width: '15%', height: '3%' } },
+            { kmr: "Poz", eng: "Nose", img: "front", coords: { top: '15%', left: '46%', width: '10%', height: '6%' } },
+            { kmr: "Dev", eng: "Mouth", img: "front", coords: { top: '18%', left: '46%', width: '10%', height: '4%' } },
+            { kmr: "Çene", eng: "Chin", img: "front", coords: { top: '21%', left: '46%', width: '10%', height: '3%' } },
+            { kmr: "Mêl", eng: "Neck/Throat", img: "front", coords: { top: '23%', left: '40%', width: '20%', height: '5%' } },
+            { kmr: "Sing", eng: "Chest", img: "front", coords: { top: '27%', left: '35%', width: '30%', height: '10%' } },
+            { kmr: "Zêk", eng: "Arm", img: "front", coords: { top: '30%', left: '60%', width: '15%', height: '20%' } },
+            { kmr: "Çîp", eng: "Hip/Thigh", img: "front", coords: { top: '48%', left: '35%', width: '30%', height: '10%' } },
+            { kmr: "Çok", eng: "Knee", img: "front", coords: { top: '65%', left: '50%', width: '15%', height: '8%' } },
+            { kmr: "Nîg", eng: "Calf", img: "front", coords: { top: '75%', left: '50%', width: '15%', height: '10%' } },
+            { kmr: "Pê", eng: "Foot", img: "front", coords: { top: '90%', left: '50%', width: '20%', height: '10%' } },
+
+            // Back View Parts
+            { kmr: "Goh", eng: "Ear", img: "back", coords: { top: '10%', left: '42%', width: '10%', height: '5%' } },
+            { kmr: "Stû", eng: "Neck (back)", img: "back", coords: { top: '20%', left: '40%', width: '20%', height: '5%' } },
+            { kmr: "Sermil", eng: "Shoulder", img: "back", coords: { top: '25%', left: '55%', width: '20%', height: '10%' } },
+            { kmr: "Pişt", eng: "Back", img: "back", coords: { top: '30%', left: '35%', width: '30%', height: '20%' } },
+            { kmr: "Enişk", eng: "Elbow", img: "back", coords: { top: '42%', left: '20%', width: '10%', height: '8%' } },
+            { kmr: "Dest", eng: "Hand", img: "back", coords: { top: '50%', left: '20%', width: '15%', height: '10%' } },
+            { kmr: "Tilî", eng: "Finger", img: "back", coords: { top: '70%', left: '70%', width: '10%', height: '8%' } }
+        ];
+
+        // --- CORE ELEMENTS & STATE ---
+        const scoreValueEl = document.getElementById('score-value');
+        const learnGrid = document.getElementById('bodypart-grid-container');
+        const gamePrompt = document.getElementById('game-prompt');
+        const gameContainerFront = document.getElementById('game-container-front');
+        const gameContainerBack = document.getElementById('game-container-back');
+        let currentPartIndex = 0;
+        let shuffledParts = [];
+        let activeGameContainer = null;
+
+        // --- TTS & GAMIFICATION ---
+        const synth = window.speechSynthesis;
+        let kurdishVoice = null;
+        function loadVoices() { kurdishVoice = synth.getVoices().find(v => v.lang.startsWith('ku') || v.lang.startsWith('tr')); }
+        loadVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) { speechSynthesis.onvoiceschanged = loadVoices; }
+        function speak(text) {
+            if (synth.speaking) synth.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            if (kurdishVoice) utter.voice = kurdishVoice; else utter.lang = 'tr-TR';
+            synth.speak(utter);
+        }
+        function getScore() { return parseInt(localStorage.getItem('kurmanji_user_score') || '0'); }
+        function displayScore() { if (scoreValueEl) scoreValueEl.textContent = getScore(); }
+        function updateScore(points) { localStorage.setItem('kurmanji_user_score', getScore() + points); displayScore(); }
+        
+        // --- UI & TABS ---
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            if(tabId === 'gameTab') startGame();
+        }
+
+        function populateLearnGrid() {
+            learnGrid.innerHTML = '';
+            bodyParts.forEach(part => {
+                const card = document.createElement('div');
+                card.className = 'bodypart-card';
+                card.innerHTML = `<div><p class="bodypart-kurmanji">${part.kmr}</p><p class="bodypart-english">${part.eng}</p></div><i class="fa-solid fa-volume-high"></i>`;
+                card.addEventListener('click', () => speak(part.kmr));
+                learnGrid.appendChild(card);
+            });
+        }
+
+        // --- INTERACTIVE GAME LOGIC ---
+        function setupClickableAreas(container, partData, currentCorrectPart) {
+            container.querySelectorAll('.clickable-area').forEach(el => el.remove());
+
+            const area = document.createElement('div');
+            area.className = 'clickable-area';
+            area.dataset.part = partData.kmr;
+            area.style.top = partData.coords.top;
+            area.style.left = partData.coords.left;
+            area.style.width = partData.coords.width;
+            area.style.height = partData.coords.height;
+            area.onclick = (e) => handleBodyClick(e, currentCorrectPart, partData.kmr);
+            container.appendChild(area);
+        }
+
+        function nextPart() {
+            gameContainerFront.style.display = 'none';
+            gameContainerBack.style.display = 'none';
+
+            if (currentPartIndex >= shuffledParts.length) {
+                gamePrompt.innerHTML = '<span class="kurmanji-word">Lîstik Bi Dawî Bû! (Game Over!)</span>';
+                speak('Lîstik Bi Dawî Bû');
+                gameContainerFront.querySelectorAll('.feedback-marker').forEach(el => el.remove());
+                gameContainerBack.querySelectorAll('.feedback-marker').forEach(el => el.remove());
+                return;
+            }
+
+            const currentQuestion = shuffledParts[currentPartIndex];
+            gamePrompt.innerHTML = `Klîk bike ser: <span class="kurmanji-word">${currentQuestion.kmr}</span>`;
+            speak(currentQuestion.kmr);
+
+            activeGameContainer = (currentQuestion.img === 'front') ? gameContainerFront : gameContainerBack;
+            activeGameContainer.style.display = 'block';
+
+            setupClickableAreas(activeGameContainer, currentQuestion, currentQuestion.kmr);
+        }
+
+        function handleBodyClick(event, correctPartKmr, clickedPartKmr) {
+            activeGameContainer.querySelectorAll('.feedback-marker').forEach(el => el.remove());
+
+            const marker = document.createElement('div');
+            const rect = activeGameContainer.querySelector('img').getBoundingClientRect();
+            const imgLeft = rect.left + window.scrollX;
+            const imgTop = rect.top + window.scrollY;
+
+            marker.style.left = `${event.clientX - imgLeft}px`;
+            marker.style.top = `${event.clientY - imgTop}px`;
+
+            if (clickedPartKmr === correctPartKmr) {
+                marker.className = 'feedback-marker correct';
+                marker.innerHTML = '✔';
+                updateScore(10);
+                speak('Rast e');
+                currentPartIndex++;
+                setTimeout(nextPart, 1000);
+            } else {
+                marker.className = 'feedback-marker incorrect';
+                marker.innerHTML = '✘';
+                speak('Şaş e');
+            }
+            
+            activeGameContainer.appendChild(marker);
+            setTimeout(() => marker.remove(), 1000);
+        }
+
+        function startGame() {
+            const playableParts = bodyParts.filter(part => {
+                const difficultParts = ["Brû", "Çav", "Dev", "Çene", "Mêl"];
+                return !difficultParts.includes(part.kmr);
+            });
+
+            shuffledParts = [...playableParts].sort(() => 0.5 - Math.random());
+            currentPartIndex = 0;
+            nextPart();
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            displayScore();
+            populateLearnGrid();
+            gameContainerFront.addEventListener('click', (e) => {
+                if (activeGameContainer === gameContainerFront) handleBodyClick(e, shuffledParts[currentPartIndex].kmr, e.target.dataset.part);
+            });
+            gameContainerBack.addEventListener('click', (e) => {
+                if (activeGameContainer === gameContainerBack) handleBodyClick(e, shuffledParts[currentPartIndex].kmr, e.target.dataset.part);
+            });
+        });
+    </script>
+</body>
+</html>

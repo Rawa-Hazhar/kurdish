@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێرکاریی ئینتەرئاکتیڤی ئەلفوبێی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        /* CSS styles remain largely the same as the previous version */
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif; /* Keep for potential Latin display in data */
+            --primary-color: #2c3e50; --secondary-color: #e67e22; --accent-color: #3498db;
+            --accent-hover-color: #2980b9; --light-bg-color: #ecf0f1; --card-bg-color: white;
+            --text-color: #34495e; --muted-text-color: #7f8c8d; --success-color: #27ae60;
+            --success-hover-color: #2ecc71; --danger-color: #c0392b; --danger-hover-color: #e74c3c;
+            --warning-color: #f39c12; --white-color: #ffffff; --border-radius-sm: 5px;
+            --border-radius-md: 10px; --border-radius-lg: 15px; --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12); --transition-speed: 0.3s;
+            --border-color: #dfe4e7; /* Added for consistency */
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-kurdish), sans-serif; max-width: 1300px; margin: 0 auto; padding: 30px;
+            background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8;
+        }
+        h1, h2, h3 { font-family: var(--font-kurdish), sans-serif; color: var(--primary-color); text-align: center; margin-bottom: 0.5em; }
+        h1 { font-size: 2.5rem; font-weight: 700;}
+        h2 { font-size: 1.5rem; font-weight: 400; color: var(--muted-text-color); margin-bottom: 1.5em;}
+        h3 { font-size: 1.3rem; font-weight: 600; text-align: right; margin-bottom: 1em;}
+        main { margin-top: 30px; }
+        section { padding: 20px 0; }
+
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-3px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link-button i {
+            margin-left: 8px;
+        }
+
+        .nav-link-button:hover,
+        .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .search-bar { display: flex; justify-content: center; margin-bottom: 40px; position: relative; }
+        #searchInput { padding: 15px 50px 15px 25px; border: 1px solid #bdc3c7; border-radius: 30px; width: 90%; max-width: 500px; font-size: 1rem; transition: all var(--transition-speed) ease; font-family: var(--font-kurdish), sans-serif; }
+        #searchInput:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); }
+        .search-bar::before { font-family: "Font Awesome 6 Free"; content: "\f002"; font-weight: 900; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--muted-text-color); font-size: 1.1rem; pointer-events: none; }
+        .letter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; margin-top: 30px; }
+        .letter-card {
+            background: var(--card-bg-color); border-radius: var(--border-radius-md); padding: 20px; box-shadow: var(--box-shadow);
+            cursor: pointer; transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; min-height: 240px; border: 1px solid transparent;
+            overflow: hidden; position: relative;
+        }
+        .letter-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 5px; background: linear-gradient(to right, var(--accent-color), var(--secondary-color)); opacity: 0; transition: opacity var(--transition-speed) ease; }
+        .letter-card:hover, .letter-card:focus-visible { transform: translateY(-8px) scale(1.03); box-shadow: var(--box-shadow-hover); border-color: var(--accent-color); outline: none; }
+        .letter-card:hover::before { opacity: 1; }
+        .letter-main { font-size: 3.8rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 5px; line-height: 1.2; }
+        .letter-info { margin-bottom: 15px; }
+        .letter-name { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; color: var(--primary-color); }
+        .letter-latin, .letter-ipa { display: none; } /* Hide Latin/IPA by default */
+        .letter-forms { display: flex; justify-content: space-around; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--light-bg-color); font-size: 1.1rem; width: 100%; }
+        .form-container { text-align: center; }
+        .form-letter { font-weight: 600; }
+        .form-label { font-size: 0.7rem; color: var(--muted-text-color); margin-top: 2px; letter-spacing: 0.5px;}
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(44, 62, 80, 0.85); animation: fadeInModalBg 0.4s ease-out; }
+        @keyframes fadeInModalBg { from { background-color: rgba(44, 62, 80, 0); } to { background-color: rgba(44, 62, 80, 0.85); } }
+        .modal-content { background-color: var(--white-color); margin: 4% auto; padding: 30px 45px 40px; border-radius: var(--border-radius-lg); width: 90%; max-width: 850px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: slideDownModal 0.5s ease-out forwards; opacity: 0; }
+        @keyframes slideDownModal { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-button { position: absolute; top: 15px; left: 20px; font-size: 2rem; font-weight: bold; color: var(--muted-text-color); cursor: pointer; line-height: 1; background: none; border: none; padding: 5px; transition: color var(--transition-speed) ease, transform var(--transition-speed) ease; }
+        .close-button:hover, .close-button:focus-visible { color: var(--danger-color); transform: rotate(90deg); outline: none; }
+        .modal-header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--light-bg-color); }
+        .modal-letter { font-size: 8rem; font-weight: 700; color: var(--secondary-color); line-height: 1; margin-bottom: 10px; }
+        #modalName { font-size: 1.8rem; margin-bottom: 15px; color: var(--primary-color); }
+        #modalLatin, #modalIPA { display: none; }
+        .modal-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .modal-section { background-color: #f8f9f9; padding: 25px; border-radius: var(--border-radius-md); border: 1px solid var(--light-bg-color); }
+        .modal-section h3 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; display: flex; align-items: center; text-align: right; }
+        .modal-section h3 i { margin-left: 10px; color: var(--accent-color); font-size: 1.1em; }
+        .modal-forms { display: flex; justify-content: space-around; font-size: 2.8rem; margin: 10px 0; text-align: center; }
+        .modal-forms .form-label { font-size: 0.8rem; }
+        .word-examples { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .example-word { background-color: var(--warning-color); color: var(--primary-color); padding: 8px 18px; border-radius: 20px; font-size: 1rem; font-weight: 600; transition: transform var(--transition-speed) ease; }
+        .example-word:hover { transform: scale(1.05); }
+        .pronunciation { text-align: center; }
+        #modalPronunciation { font-size: 1rem; margin-bottom: 15px; color: var(--text-color); }
+        button.btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 12px 25px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3); display: inline-flex; align-items: center; justify-content: center; }
+        button.btn i { margin-left: 8px; }
+        button.btn:hover, button.btn:focus-visible { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4); outline: none; }
+        button.btn:active { transform: translateY(0); box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3); }
+        button.play-sound { background: linear-gradient(135deg, var(--success-hover-color), var(--success-color)); box-shadow: 0 3px 8px rgba(39, 174, 96, 0.3); }
+        button.play-sound:hover { box-shadow: 0 6px 12px rgba(39, 174, 96, 0.4); }
+        button.play-sound.playing { animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        button.clear-btn { background: linear-gradient(135deg, var(--muted-text-color), #95a5a6); box-shadow: 0 3px 8px rgba(127, 140, 141, 0.3); }
+        button.clear-btn:hover { box-shadow: 0 6px 12px rgba(127, 140, 141, 0.4); }
+        .controls { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+        .canvas-container { display: flex; justify-content: center; margin-top: 15px; position: relative; }
+        #practiceCanvas, #drawingCanvas { border: 2px dashed var(--accent-color); border-radius: var(--border-radius-md); background-color: #fdfdfd; cursor: crosshair; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); }
+        .game-area { margin-top: 30px; }
+        .quiz-container, .writing-game { background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); padding: 30px 40px; box-shadow: var(--box-shadow); max-width: 700px; margin: 30px auto; }
+        #quizSetup { text-align: center; padding: 20px 0; }
+        #quizSetup h3 { font-size: 1.5rem; }
+        #quizSetup p { font-size: 1.1rem; margin-bottom: 20px; }
+        #quizSetup label { margin-left: 10px; font-weight: 600; font-size: 1rem;}
+        #quizSetup select { padding: 8px 12px; border-radius: var(--border-radius-sm); border: 1px solid #bdc3c7; margin-left: 15px; font-family: var(--font-kurdish); font-size: 1rem;}
+        #quizSetup button { margin-top: 20px; }
+        .quiz-question { font-size: 1.6rem; margin-bottom: 30px; text-align: center; color: var(--primary-color); font-weight: 400; line-height: 1.5; }
+        #quizLetter { font-size: 5rem; color: var(--secondary-color); font-weight: 700; display: inline-block; margin: 0 10px; transform: scale(1); transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        #quizLetter.pop { transform: scale(1.2); }
+        .quiz-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px; }
+        .quiz-option { background-color: var(--white-color); padding: 18px; border-radius: var(--border-radius-md); text-align: center; cursor: pointer; transition: all var(--transition-speed) ease; border: 1px solid #dce0e2; font-size: 1.2rem; font-weight: 600; color: var(--text-color); position: relative; overflow: hidden; }
+        .quiz-option::before { content: ''; position: absolute; top: 0; right: 0; width: 0; height: 100%; background-color: rgba(52, 152, 219, 0.1); transition: width var(--transition-speed) ease; z-index: 0; border-radius: var(--border-radius-md); }
+        .quiz-option:hover, .quiz-option:focus-visible { border-color: var(--accent-color); color: var(--accent-hover-color); transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.05); outline: none; }
+        .quiz-option:hover::before { width: 100%; }
+        .quiz-option span { position: relative; z-index: 1; }
+        .quiz-option.correct, .quiz-option.incorrect { color: var(--white-color); border-width: 2px; transform: scale(1.02); animation-duration: 0.5s; animation-timing-function: ease-out; animation-fill-mode: forwards; }
+        .quiz-option.correct { background-color: var(--success-color); border-color: var(--success-hover-color); animation-name: pulseCorrect; }
+        @keyframes pulseCorrect { 0% { transform: scale(1.02); } 50% { transform: scale(1.08); } 100% { transform: scale(1.02); } }
+        .quiz-option.incorrect { background-color: var(--danger-color); border-color: var(--danger-hover-color); animation-name: shakeIncorrect; }
+        @keyframes shakeIncorrect { 0%, 100% { transform: translateX(0) scale(1.02); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-6px) scale(1.02); } 20%, 40%, 60%, 80% { transform: translateX(6px) scale(1.02); } }
+        .quiz-options.disabled .quiz-option:not(.correct):not(.incorrect) { pointer-events: none; opacity: 0.6; background-color: var(--light-bg-color); }
+        .quiz-result { margin-top: 25px; text-align: center; font-size: 1.2rem; font-weight: 600; min-height: 30px; line-height: 1.6;}
+        #progressBarContainer { width: 100%; background-color: #dce0e2; height: 25px; border-radius: 15px; margin-top: 30px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        #progressFill { height: 100%; background: linear-gradient(to left, var(--accent-color), var(--accent-hover-color)); width: 0%; transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 0 15px 15px 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600; text-shadow: 1px 1px 1px rgba(0,0,0,0.2); font-family: var(--font-latin); }
+        .writing-game h3 { text-align: center; font-size: 1.5rem; }
+        .writing-game p:first-of-type { text-align: center; font-size: 1.1rem; margin-bottom: 15px;}
+        .target-letter { font-size: 9rem; color: var(--secondary-color); margin: 20px 0 30px; min-height: 160px; line-height: 1; font-weight: 700; transition: transform 0.4s ease-in-out; text-align: center;}
+        .target-letter.pop { transform: rotate(-5deg) scale(1.1); }
+        .hint { font-size: 0.9rem; color: var(--muted-text-color); margin-top: 20px; font-style: italic; text-align: center;}
+        @media (max-width: 992px) {}
+        @media (max-width: 768px) { .modal-section h3 i { margin-left: 8px; } .quiz-options { grid-template-columns: 1fr; } #progressFill { font-size: 0.75rem; } }
+        @media (max-width: 480px) {}
+        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-feather-pointed"></i> فێرکاریی ئەلفبێی کوردی</h1>
+    </header>
+    
+
+
+    <nav class="tab-navigation"> <button class="tab-button active" onclick="showTab('alphabetTab', this)" aria-controls="alphabetTab" role="tab" aria-selected="true"><i class="fa-solid fa-list-ul"></i> پیتەکان</button>
+        <button class="tab-button" onclick="showTab('quizTab', this)" aria-controls="quizTab" role="tab" aria-selected="false"><i class="fa-solid fa-question-circle"></i> تاقیکردنەوە</button>
+        <button class="tab-button" onclick="showTab('writingTab', this)" aria-controls="writingTab" role="tab" aria-selected="false"><i class="fa-solid fa-pencil-alt"></i> نووسین</button>
+    </nav>
+
+    <main>
+        <section id="alphabetTab" class="tab-content active" role="tabpanel">
+            <div class="search-bar">
+                <label for="searchInput" class="visually-hidden">گەڕان بۆ پیت</label>
+                <input type="search" id="searchInput" placeholder="گەڕان بۆ پیتێک..." onkeyup="searchLetters()" aria-label="گەڕان بۆ پیتێک">
+            </div>
+            <div class="letter-grid" id="letterGrid">
+                <p>پیتەکان بار دەکرێن...</p>
+            </div>
+        </section>
+
+        <section id="quizTab" class="tab-content game-area" role="tabpanel">
+             <div class="quiz-container">
+                 <div id="quizSetup">
+                     <h3><i class="fa-solid fa-graduation-cap"></i> تاقیکردنەوەی پیتەکان</h3>
+                     <p>ئاستی زانیاری خۆت دەربارەی پیتە کوردییەکان تاقی بکەرەوە!</p>
+                     <label for="quizLength">ژمارەی پرسیارەکان:</label>
+                     <select id="quizLength" name="quizLength">
+                         <option value="5">٥</option>
+                         <option value="10" selected>١٠</option>
+                         <option value="15">١٥</option>
+                         <option value="-1">هەموو</option>
+                     </select>
+                     <button class="btn" onclick="startQuiz()"><i class="fa-solid fa-play"></i> دەستپێکردن</button>
+                 </div>
+                 <div id="quizArea" style="display: none;">
+                    <div class="quiz-question" id="quizQuestion">
+                        ناوی ئەم پیتە چییە: <span id="quizLetter" aria-live="polite"></span>؟
+                    </div>
+                    <div class="quiz-options" id="quizOptions" role="radiogroup" aria-labelledby="quizQuestion">
+                    </div>
+                    <div class="quiz-result" id="quizResult" aria-live="polite"></div>
+                    <div id="progressBarContainer">
+                        <div id="progressFill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+                    <div class="controls">
+                        <button id="nextQuestionBtn" class="btn next-btn" onclick="nextQuestion()" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <section id="writingTab" class="tab-content game-area" role="tabpanel">
+            <div class="writing-game">
+                <h3><i class="fa-solid fa-pen-nib"></i> ڕاهێنانی نووسین</h3>
+                <p>لەسەر شاشەکە شوێن پێی پیتەکە بکەوە.</p>
+                <div class="target-letter" id="targetLetter" aria-live="polite">ئ</div>
+                <div class="canvas-container">
+                    <canvas id="drawingCanvas" width="400" height="300" aria-label="شوێنی نووسین بۆ ڕاهێنانی پیتە کوردییەکان"></canvas>
+                </div>
+                <div class="controls">
+                    <button class="btn clear-btn" onclick="clearDrawingCanvas()"><i class="fa-solid fa-eraser"></i> سڕینەوە</button>
+                    <button class="btn next-btn" onclick="nextWritingLetter()"><i class="fa-solid fa-forward"></i> پیتی داهاتوو</button>
+                </div>
+                <p class="hint">بەکارهێنانی ماوس یان پەنجە بۆ نووسین.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="letterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName" style="display: none;">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()" aria-label="داخستن">&times;</button>
+
+             <div class="modal-header">
+                 <div class="modal-letter" id="modalLetter" aria-label="پیتی هەڵبژێردراو"></div>
+                 <h3 id="modalName"></h3>
+                 <span id="modalLatin" style="display: none;"></span> <span id="modalIPA" style="display: none;"></span>
+             </div>
+
+            <div class="modal-body">
+                 <div class="modal-section">
+                    <h3><i class="fa-solid fa-shapes"></i> شێوەکان</h3>
+                    <div class="modal-forms" id="modalForms">
+                    </div>
+                </div>
+
+                 <div class="modal-section">
+                     <h3><i class="fa-solid fa-book-open"></i> وشەی نموونە</h3>
+                     <div class="word-examples" id="modalExamples"></div>
+                 </div>
+
+                 <div class="modal-section pronunciation">
+                     <h3><i class="fa-solid fa-volume-high"></i> دەربڕین</h3>
+                     <p id="modalPronunciation"></p>
+                     <button type="button" class="btn play-sound" onclick="playSound(this)" data-letter-index=""><i class="fa-solid fa-play"></i> گوێگرتن</button>
+                 </div>
+
+                 <div class="modal-section practice-area">
+                     <h3><i class="fa-solid fa-pencil"></i> ڕاهێنانی نووسین</h3>
+                     <div class="canvas-container">
+                         <canvas id="practiceCanvas" width="400" height="200" aria-label="شوێنی ڕاهێنانی نووسینی ئەم پیتە"></canvas>
+                     </div>
+                     <div class="controls">
+                         <button type="button" class="btn clear-btn" onclick="clearPracticeCanvas()"><i class="fa-solid fa-eraser"></i> سڕینەوە</button>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA (Requires expert verification)
+        // <<<< MODIFICATION START >>>>
+        // Now, each letter object has a 'soundFile' property.
+        // YOU NEED TO FILL IN THE PATHS TO YOUR MP3 FILES HERE.
+        // Example: soundFile: "sounds/letters/awelbizwen.mp3"
+        const kurdishAlphabet = [
+             { name: "ئاوەڵبزوێن", latin: "' / A a", ipa: "/ʔ/, /a/", forms: ["ئـ", "ئا", "ـئا", "ـا"], examples: ["ئاو", "ئەسپ", "نان"], type: "vowel/consonant", soundFile: "" },
+             { name: "کورتە 'ە'", latin: "E e", ipa: "/ɛ/", forms: ["ە", "ئە", "ـە", "ـە"], examples: ["دەست", "سەر", "ئەسپ"], type: "vowel", soundFile: "" },
+             { name: "درێژە 'ێ'", latin: "Ê ê", ipa: "/eː/", forms: ["ـێ", "ئێـ", "ـێـ", "ـێ"], examples: ["شێر", "ئێوارە", "نێر"], type: "vowel", soundFile: "" },
+             { name: "درێژە 'ا'", latin: "A a", ipa: "/aː/", forms: ["ا", "ئا", "ـا", "ـا"], examples: ["ئاو", "با", "نان"], type: "vowel", soundFile: "" },
+             { name: "کورتە 'ۆ'", latin: "O o", ipa: "/o/", forms: ["ۆ", "ئۆ", "ـۆ", "ـۆ"], examples: ["تۆپ", "زۆر", "ئۆردوو"], type: "vowel", soundFile: "" },
+             { name: "درێژە 'وو'", latin: "Û û", ipa: "/uː/", forms: ["وو", "ئوو", "ـوو", "ـوو"], examples: ["دوور", "توو", "ئوردوون"], type: "vowel", soundFile: "" },
+             { name: "کورتە 'و'", latin: "U u", ipa: "/ʊ/", forms: ["و", "ئو", "ـو", "ـو"], examples: ["گورگ", "کوڵم", "ئوسترالیا"], type: "vowel", soundFile: "" },
+             { name: "درێژە 'ی'", latin: "Î î", ipa: "/iː/", forms: ["ی", "ئیـ", "ـیـ", "ـی"], examples: ["سی", "ئیتر", "پیر"], type: "vowel", soundFile: "" },
+             { name: "بێ", latin: "B b", ipa: "/b/", forms: ["ب", "بـ", "ـبـ", "ـب"], examples: ["باران", "سبەی", "کتێب"], type: "consonant", soundFile: "" },
+             { name: "پێ", latin: "P p", ipa: "/p/", forms: ["پ", "پـ", "ـپـ", "ـپ"], examples: ["پیاو", "سپێتی", "تۆپ"], type: "consonant", soundFile: "" },
+             { name: "تێ", latin: "T t", ipa: "/t/", forms: ["ت", "تـ", "ـتـ", "ـت"], examples: ["ترێ", "پەتاتە", "ماست"], type: "consonant", soundFile: "" },
+             { name: "جیم", latin: "C c", ipa: "/d͡ʒ/", forms: ["ج", "جـ", "ـجـ", "ـج"], examples: ["جوان", "پەنچەر", "تاج"], type: "consonant", soundFile: "" },
+             { name: "چیم", latin: "Ç ç", ipa: "/t͡ʃ/", forms: ["چ", "چـ", "ـچـ", "ـچ"], examples: ["چاو", "قوتابخانە", "هیچ"], type: "consonant", soundFile: "" },
+             { name: "حێ", latin: "H h / Ḧ ḧ", ipa: "/ħ/", forms: ["ح", "حـ", "ـحـ", "ـح"], examples: ["حەز", "ئەحمەد", "ڕەحمەت"], type: "consonant", soundFile: "" },
+             { name: "خێ", latin: "X x", ipa: "/x/", forms: ["خ", "خـ", "ـخـ", "ـخ"], examples: ["خۆش", "نەخۆش", "شێخ"], type: "consonant", soundFile: "" },
+             { name: "دال", latin: "D d", ipa: "/d/", forms: ["د", "د", "ـد", "ـد"], examples: ["دار", "مەرد", "دەرد"], type: "consonant", soundFile: "" }, // Example: "sounds/letters/dal.mp3"
+             { name: "ڕێ", latin: "R r", ipa: "/ɾ/", forms: ["ر", "ر", "ـر", "ـر"], examples: ["ڕێگا", "سەر", "برین"], type: "consonant", soundFile: "" },
+             { name: "ڕێی قەڵەو", latin: "RR rr", ipa: "/r/", forms: ["ڕ", "ڕ", "ـڕ", "ـڕ"], examples: ["کڕین", "بڕۆ", "فڕین"], type: "consonant", soundFile: "" },
+             { name: "زێ", latin: "Z z", ipa: "/z/", forms: ["ز", "ز", "ـز", "ـز"], examples: ["زمان", "مێز", "بەرز"], type: "consonant", soundFile: "" },
+             { name: "ژێ", latin: "J j", ipa: "/ʒ/", forms: ["ژ", "ژ", "ـژ", "ـژ"], examples: ["ژیان", "مژدە", "نوێژ"], type: "consonant", soundFile: "" },
+             { name: "سین", latin: "S s", ipa: "/s/", forms: ["س", "سـ", "ـسـ", "ـس"], examples: ["سارد", "ئاسان", "پارس"], type: "consonant", soundFile: "" },
+             { name: "شین", latin: "Ş ş", ipa: "/ʃ/", forms: ["ش", "شـ", "ـشـ", "ـش"], examples: ["شار", "کێشان", "خۆش"], type: "consonant", soundFile: "" },
+             { name: "عەین", latin: "' / 'E 'e", ipa: "/ʕ/", forms: ["ع", "عـ", "ـعـ", "ـع"], examples: ["عەلی", "سەعات", "قەناعەت"], type: "consonant", soundFile: "" },
+             { name: "غەین", latin: "X x / Ẍ ẍ", ipa: "/ɣ/", forms: ["غ", "غـ", "ـغـ", "ـغ"], examples: ["غەریب", "مەغریب", "باخ"], type: "consonant", soundFile: "" },
+             { name: "فێ", latin: "F f", ipa: "/f/", forms: ["ف", "فـ", "ـفـ", "ـف"], examples: ["فەرەح", "کەف", "سەفەر"], type: "consonant", soundFile: "" },
+             { name: "ڤێ", latin: "V v", ipa: "/v/", forms: ["ڤ", "ڤـ", "ـڤـ", "ـڤ"], examples: ["ڤیان", "حەڤدە", "تاڤگە"], type: "consonant", soundFile: "" },
+             { name: "قاف", latin: "Q q", ipa: "/q/", forms: ["ق", "قـ", "ـقـ", "ـق"], examples: ["قەڵەم", "عەقڵ", "ورق"], type: "consonant", soundFile: "" },
+             { name: "کاف", latin: "K k", ipa: "/k/", forms: ["ک", "کـ", "ـکـ", "ـک"], examples: ["کورد", "چەک", "بچووک"], type: "consonant", soundFile: "" },
+             { name: "گاف", latin: "G g", ipa: "/ɡ/", forms: ["گ", "گـ", "ـگـ", "ـگ"], examples: ["گوڵ", "گەرم", "ڕەنگ"], type: "consonant", soundFile: "" },
+             { name: "لام", latin: "L l", ipa: "/l/", forms: ["ل", "لـ", "ـلـ", "ـل"], examples: ["لاو", "بەلی", "ماڵ"], type: "consonant", soundFile: "" },
+             { name: "لامی قەڵەو", latin: "LL ll", ipa: "/ɫ/", forms: ["ڵ", "ڵـ", "ـڵـ", "ـڵ"], examples: ["گوڵ", "خۆڵ", "ساڵ"], type: "consonant", soundFile: "" },
+             { name: "میم", latin: "M m", ipa: "/m/", forms: ["م", "مـ", "ـمـ", "ـم"], examples: ["ماسی", "سەما", "ناوم"], type: "consonant", soundFile: "" },
+             { name: "نوون", latin: "N n", ipa: "/n/", forms: ["ن", "نـ", "ـنـ", "ـن"], examples: ["نان", "پەنجەرە", "ژین"], type: "consonant", soundFile: "" },
+             { name: "واو", latin: "W w", ipa: "/w/", forms: ["و", "و", "ـو", "ـو"], examples: ["واتا", "چاو", "هەوا"], type: "consonant", soundFile: "" },
+             { name: "ھێ", latin: "H h", ipa: "/h/", forms: ["هـ", "هـ", "ـهـ", "ـه"], examples: ["هەوا", "بەهار", "کۆتا"], type: "consonant", soundFile: "" },
+             { name: "یێ", latin: "Y y", ipa: "/j/", forms: ["ی", "یـ", "ـیـ", "ـی"], examples: ["یاری", "سەیارە", "چای"], type: "consonant", soundFile: "" }
+        ];
+        // <<<< MODIFICATION END >>>>
+
+        // DOM Elements Cache
+        const letterGrid = document.getElementById('letterGrid');
+        const searchInput = document.getElementById('searchInput');
+        const modal = document.getElementById('letterModal');
+        const modalLetter = document.getElementById('modalLetter');
+        const modalName = document.getElementById('modalName');
+        const modalLatin = document.getElementById('modalLatin');
+        const modalIPA = document.getElementById('modalIPA');
+        const modalForms = document.getElementById('modalForms');
+        const modalExamples = document.getElementById('modalExamples');
+        const modalPronunciation = document.getElementById('modalPronunciation');
+        const practiceCanvasEl = document.getElementById('practiceCanvas');
+        const drawingCanvasEl = document.getElementById('drawingCanvas');
+        const targetLetterEl = document.getElementById('targetLetter');
+        const quizSetupDiv = document.getElementById('quizSetup');
+        const quizAreaDiv = document.getElementById('quizArea');
+        const quizLetterEl = document.getElementById('quizLetter');
+        const quizOptionsDiv = document.getElementById('quizOptions');
+        const quizResultEl = document.getElementById('quizResult');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const progressFillEl = document.getElementById('progressFill');
+        const quizLengthSelect = document.getElementById('quizLength');
+
+        // Canvas Contexts & State
+        let practiceCtx, drawingCtx;
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalQuestions = 0;
+        let currentQuizLetter = null;
+        let currentAudio = null; // To keep track of the currently playing audio
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            if (letterGrid) {
+                createLetterCards();
+                letterGrid.addEventListener('click', handleGridClick);
+                letterGrid.addEventListener('keydown', handleGridKeydown);
+            } else {
+                console.error("Letter grid element not found.");
+            }
+
+            practiceCtx = setupCanvas(practiceCanvasEl);
+            drawingCtx = setupCanvas(drawingCanvasEl);
+
+            if (kurdishAlphabet.length > 0 && targetLetterEl) {
+                updateTargetLetter(0);
+            }
+
+            document.addEventListener('keydown', handleGlobalKeydown);
+        });
+
+        // Event Handlers
+        function handleGridClick(event) {
+            const card = event.target.closest('.letter-card');
+            if (card && card.dataset.index !== undefined) {
+                const index = parseInt(card.dataset.index, 10);
+                if (!isNaN(index)) {
+                     openModal(index);
+                } else {
+                    console.error("Invalid index found on card:", card.dataset.index);
+                }
+            }
+        }
+        function handleGridKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                const card = event.target.closest('.letter-card');
+                 if (card && card.dataset.index !== undefined) {
+                     event.preventDefault();
+                     const index = parseInt(card.dataset.index, 10);
+                     if (!isNaN(index)) {
+                         openModal(index);
+                     } else {
+                         console.error("Invalid index found on card:", card.dataset.index);
+                     }
+                 }
+            }
+        }
+        function handleGlobalKeydown(event) {
+            if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                closeModal();
+            }
+        }
+
+        // Alphabet Grid and Modal
+        function createLetterCards() {
+             if (!letterGrid) return;
+             letterGrid.innerHTML = '';
+             kurdishAlphabet.forEach((letter, index) => {
+                 const card = document.createElement('div');
+                 card.className = 'letter-card';
+                 card.dataset.index = index;
+                 card.tabIndex = 0;
+                 const mainDisplayForm = letter.forms[0] || '?';
+                 card.innerHTML = `
+                     <div class="letter-main">${mainDisplayForm}</div>
+                     <div class="letter-info">
+                          <div class="letter-name">${letter.name}</div>
+                     </div>
+                     <div class="letter-forms">
+                         ${letter.forms.map((form, formIndex) => `
+                             <div class="form-container">
+                                 <div class="form-letter">${form || '-'}</div>
+                                 <div class="form-label">${['سەربەخۆ', 'سەرەتا', 'ناوین', 'کۆتا'][formIndex]}</div>
+                             </div>
+                         `).join('')}
+                     </div>
+                 `;
+                 letterGrid.appendChild(card);
+             });
+        }
+
+        function openModal(index) {
+            if (!modal) {
+                console.error("Modal element not found.");
+                return;
+            }
+             if (index < 0 || index >= kurdishAlphabet.length) {
+                 console.error("Invalid index passed to openModal:", index);
+                 return;
+             }
+            const letter = kurdishAlphabet[index];
+
+            modalLetter.textContent = letter.forms[0] || '?';
+            modalName.textContent = letter.name;
+
+            modalForms.innerHTML = letter.forms.map((form, formIndex) => `
+                 <div class="form-container">
+                     <div class="form-letter">${form || '-'}</div>
+                     <div class="form-label">${['سەربەخۆ', 'سەرەتا', 'ناوین', 'کۆتا'][formIndex]}</div>
+                 </div>
+             `).join('');
+
+            modalExamples.innerHTML = letter.examples.map(example =>
+                `<div class="example-word">${example}</div>`
+            ).join('');
+
+            // Update pronunciation text, check if soundFile exists
+            if (letter.soundFile) {
+                modalPronunciation.textContent = `گوێ لە دەنگی پیتەکە بگرە. ${letter.ipa ? `(IPA: ${letter.ipa})` : ''}`;
+            } else {
+                modalPronunciation.textContent = `پەڕگەی دەنگی بۆ ئەم پیتە دانەنراوە. ${letter.ipa ? `(IPA: ${letter.ipa})` : ''}`;
+            }
+
+            const playBtn = modal.querySelector('.play-sound');
+            if(playBtn) {
+                playBtn.dataset.letterIndex = index;
+                playBtn.classList.remove('playing');
+                // Disable button if no sound file
+                playBtn.disabled = !letter.soundFile;
+            }
+
+            modal.style.display = 'block';
+             setTimeout(() => {
+                 modal.querySelector('.modal-content')?.focus();
+                 if (practiceCanvasEl && !practiceCtx) practiceCtx = setupCanvas(practiceCanvasEl);
+                 clearPracticeCanvas();
+             }, 50);
+        }
+
+        function closeModal() {
+            if (modal) {
+                modal.style.display = 'none';
+                 // Stop any playing sound when modal closes
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                    const playingButton = document.querySelector('.play-sound.playing');
+                    playingButton?.classList.remove('playing');
+                }
+            }
+        }
+        function searchLetters() {
+            const filter = searchInput.value.toUpperCase();
+            const cards = letterGrid.getElementsByClassName('letter-card');
+            for (let i = 0; i < cards.length; i++) {
+                const letterName = cards[i].querySelector('.letter-name').textContent.toUpperCase();
+                const letterMain = cards[i].querySelector('.letter-main').textContent.toUpperCase();
+                if (letterName.includes(filter) || letterMain.includes(filter)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // <<<< MODIFICATION START >>>>
+        // This is the new playSound function for playing MP3 files.
+        function playSound(buttonElement) {
+            const index = buttonElement?.dataset?.letterIndex;
+            if (index === undefined) {
+                console.error("Letter index not found on button.");
+                return;
+            }
+
+            const letter = kurdishAlphabet[parseInt(index, 10)];
+            if (letter && !letter.soundFile) { KU.speak([letter.name].concat(letter.examples || []).join('، ')); return; }
+            if (!letter) {
+                console.warn(`Sound file not specified for "${letter?.name || 'this letter'}" or letter not found.`);
+                alert(`پەڕگەی دەنگی بۆ "${letter?.name || 'ئەم پیتە'}" دانەنراوە.`);
+                return;
+            }
+
+            // Stop previously playing audio if any
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                // Remove 'playing' class from any other button that might still have it
+                document.querySelectorAll('.play-sound.playing').forEach(btn => btn.classList.remove('playing'));
+            }
+
+            console.log(`Attempting to play sound for: ${letter.name} from ${letter.soundFile}`);
+            buttonElement?.classList.add('playing');
+
+            currentAudio = new Audio(letter.soundFile);
+
+            currentAudio.oncanplaythrough = () => {
+                currentAudio.play()
+                    .catch(error => {
+                        console.error(`Error playing sound for ${letter.name}:`, error);
+                        alert(`نەتوانرا دەنگی "${letter.name}" لێبدرێت. کێشەیەک لە پەڕگەی دەنگیدا هەیە یان پەڕگەکە بوونی نییە.`);
+                        buttonElement?.classList.remove('playing');
+                        currentAudio = null;
+                    });
+            };
+
+            currentAudio.onended = () => {
+                buttonElement?.classList.remove('playing');
+                currentAudio = null;
+            };
+
+            currentAudio.onerror = (e) => {
+                console.error(`Error loading sound file ${letter.soundFile}:`, e);
+                alert(`نەتوانرا پەڕگەی دەنگی "${letter.name}" (${letter.soundFile}) باربکرێت. دڵنیابە لە بوونی پەڕگەکە و ڕاستی ناونیشانەکەی.`);
+                buttonElement?.classList.remove('playing');
+                currentAudio = null;
+            };
+        }
+        // <<<< MODIFICATION END >>>>
+
+
+        // Canvas Setup & Drawing
+        function setupCanvas(canvas) {
+            if (!canvas?.getContext) {
+                console.error("Canvas element not found or not supported:", canvas);
+                return null;
+            }
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 7;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = 'var(--primary-color)';
+
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            function getPos(event) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = event.touches?.[0]?.clientX ?? event.clientX;
+                const clientY = event.touches?.[0]?.clientY ?? event.clientY;
+                if (clientX === undefined || clientY === undefined) return null;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            function startDrawing(e) {
+                const pos = getPos(e);
+                if (!pos) return;
+                isDrawing = true;
+                [lastX, lastY] = [pos.x, pos.y];
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                if (e.touches) e.preventDefault();
+                const pos = getPos(e);
+                if (!pos) return;
+
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+                [lastX, lastY] = [pos.x, pos.y];
+            }
+
+            function stopDrawing() {
+                if (isDrawing) {
+                     isDrawing = false;
+                 }
+             }
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+             canvas.addEventListener('touchcancel', stopDrawing);
+
+            return ctx;
+        }
+
+        function clearCanvas(context, canvasEl) {
+             if (context && canvasEl) {
+                 context.clearRect(0, 0, canvasEl.width, canvasEl.height);
+             }
+         }
+        function clearPracticeCanvas() { clearCanvas(practiceCtx, practiceCanvasEl); }
+        function clearDrawingCanvas() { clearCanvas(drawingCtx, drawingCanvasEl); }
+
+        // Tab Switching
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-selected', 'false');
+            });
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) activeTab.classList.add('active');
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+                clickedButton.setAttribute('aria-selected', 'true');
+            }
+            if (tabId === 'writingTab') clearDrawingCanvas();
+        }
+
+        // Writing Practice Tab
+         function updateTargetLetter(index) {
+             if (!targetLetterEl || index < 0 || index >= kurdishAlphabet.length) return;
+             const letter = kurdishAlphabet[index];
+             targetLetterEl.textContent = letter.forms[0];
+             targetLetterEl.dataset.index = index;
+             targetLetterEl.classList.add('pop');
+             setTimeout(() => targetLetterEl.classList.remove('pop'), 400);
+         }
+         function nextWritingLetter() {
+             if (!targetLetterEl || kurdishAlphabet.length === 0) return;
+             let currentIndex = parseInt(targetLetterEl.dataset.index || '0', 10);
+             let nextIndex = (currentIndex + 1) % kurdishAlphabet.length;
+             updateTargetLetter(nextIndex);
+             clearDrawingCanvas();
+         }
+
+        // Quiz Tab
+         function startQuiz() {
+             const numQuestionsOption = quizLengthSelect.value;
+             score = 0;
+             currentQuestionIndex = 0;
+             let shuffledAlphabet = [...kurdishAlphabet].sort(() => 0.5 - Math.random());
+             if (numQuestionsOption === "-1" || parseInt(numQuestionsOption) >= shuffledAlphabet.length) {
+                 quizQuestions = shuffledAlphabet;
+             } else {
+                 totalQuestions = parseInt(numQuestionsOption);
+                 totalQuestions = (isNaN(totalQuestions) || totalQuestions <= 0) ? 10 : totalQuestions;
+                 quizQuestions = shuffledAlphabet.slice(0, totalQuestions);
+             }
+             totalQuestions = quizQuestions.length;
+             if (totalQuestions === 0) { quizResultEl.textContent = "هیچ پیتێک بۆ تاقیکردنەوە بەردەست نییە."; return; }
+             quizSetupDiv.style.display = 'none';
+             quizAreaDiv.style.display = 'block';
+             nextQuestionBtn.style.display = 'none';
+             displayQuestion();
+         }
+        function displayQuestion() {
+             if (currentQuestionIndex >= totalQuestions) { showQuizResults(); return; }
+             currentQuizLetter = quizQuestions[currentQuestionIndex];
+             quizLetterEl.textContent = currentQuizLetter.forms[0];
+             quizLetterEl.classList.add('pop');
+             setTimeout(() => quizLetterEl.classList.remove('pop'), 400);
+             quizResultEl.textContent = '';
+             quizOptionsDiv.innerHTML = '';
+             quizOptionsDiv.classList.remove('disabled');
+             let options = [currentQuizLetter];
+             let wrongAnswers = kurdishAlphabet.filter(l => l.name !== currentQuizLetter.name).sort(() => 0.5 - Math.random());
+             for (let i = 0; options.length < 4 && i < wrongAnswers.length; i++) { if (!options.some(opt => opt.name === wrongAnswers[i].name)) options.push(wrongAnswers[i]); }
+             while(options.length < 4 && kurdishAlphabet.length > 1) { options.push(kurdishAlphabet[Math.floor(Math.random() * kurdishAlphabet.length)]); }
+             options.sort(() => 0.5 - Math.random());
+             options.forEach(option => {
+                 const button = document.createElement('button');
+                 button.className = 'quiz-option';
+                 button.innerHTML = `<span>${option.name}</span>`;
+                 button.dataset.letterName = option.name;
+                 button.onclick = () => checkAnswer(button, currentQuizLetter.name);
+                 button.setAttribute('role', 'radio');
+                 button.setAttribute('aria-checked', 'false');
+                 quizOptionsDiv.appendChild(button);
+             });
+             updateProgressBar();
+             nextQuestionBtn.style.display = 'none';
+         }
+         function checkAnswer(selectedButton, correctAnswerName) {
+             const selectedAnswerName = selectedButton.dataset.letterName;
+             quizOptionsDiv.classList.add('disabled');
+             quizOptionsDiv.querySelectorAll('.quiz-option').forEach(btn => { btn.classList.remove('correct', 'incorrect'); btn.style.animationName = 'none'; });
+             if (selectedAnswerName === correctAnswerName) {
+                 score++;
+                 selectedButton.classList.add('correct');
+                 selectedButton.style.animationName = 'pulseCorrect';
+                 quizResultEl.textContent = 'ڕاستە! 🎉';
+                 quizResultEl.style.color = 'var(--success-color)';
+             } else {
+                 selectedButton.classList.add('incorrect');
+                 selectedButton.style.animationName = 'shakeIncorrect';
+                 quizResultEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتییە لە: ${correctAnswerName}`;
+                 quizResultEl.style.color = 'var(--danger-color)';
+                 const correctButton = Array.from(quizOptionsDiv.querySelectorAll('.quiz-option')).find(btn => btn.dataset.letterName === correctAnswerName);
+                 if (correctButton) correctButton.classList.add('correct');
+             }
+             quizOptionsDiv.querySelectorAll('.quiz-option').forEach(btn => btn.setAttribute('aria-checked', 'false'));
+             selectedButton.setAttribute('aria-checked', 'true');
+             currentQuestionIndex++;
+             updateProgressBar();
+             setTimeout(() => {
+                if (currentQuestionIndex < totalQuestions) {
+                     nextQuestionBtn.style.display = 'inline-flex';
+                     nextQuestionBtn.focus();
+                 } else {
+                     showQuizResults();
+                 }
+             }, 800);
+         }
+         function nextQuestion() { displayQuestion(); }
+         function updateProgressBar() {
+              const progressPercentage = totalQuestions > 0 ? ((currentQuestionIndex) / totalQuestions) * 100 : 0;
+              if (progressFillEl) {
+                  progressFillEl.style.width = `${progressPercentage}%`;
+                  progressFillEl.textContent = `${Math.round(progressPercentage)}%`; // Keep % Latin
+                  progressFillEl.setAttribute('aria-valuenow', progressPercentage);
+              }
+          }
+        function showQuizResults() {
+            quizLetterEl.textContent = '🏆';
+            quizOptionsDiv.innerHTML = '';
+             const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+              const scoreKurdish = score.toLocaleString('ku');
+              const totalKurdish = totalQuestions.toLocaleString('ku');
+              quizResultEl.innerHTML = `تاقیکردنەوە تەواو بوو! <br> نمرەکەت: ${scoreKurdish} لە ${totalKurdish} (%${percentage})`;
+            quizResultEl.style.color = 'var(--primary-color)';
+             nextQuestionBtn.innerHTML = '<i class="fa-solid fa-redo"></i> دەستپێکردنەوە';
+            nextQuestionBtn.style.display = 'inline-flex';
+            nextQuestionBtn.onclick = () => {
+                 quizAreaDiv.style.display = 'none';
+                 quizSetupDiv.style.display = 'block';
+                 nextQuestionBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو';
+                 nextQuestionBtn.onclick = nextQuestion;
+                 if (progressFillEl) progressFillEl.textContent = '0%';
+            };
+             if (progressFillEl) {
+                 progressFillEl.style.width = `100%`;
+                 progressFillEl.textContent = `100%`; // Keep % Latin
+                 progressFillEl.setAttribute('aria-valuenow', 100);
+             }
+        }
+
+    </script>
+
+</body>
+</html>

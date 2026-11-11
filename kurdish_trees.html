@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی ناوی دارەکانی کوردستان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #228B22; /* Forest Green */
+            --accent-hover-color: #3CB371; /* Medium Sea Green */
+            --light-bg-color: #f0f5f0; 
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 1000px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--accent-color); }
+
+        .page-navigation { display: flex; justify-content: center; gap: 15px; margin-top: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); width: 100%; }
+        .nav-link-button { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 8px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); outline: none; background: linear-gradient(135deg, #d35400, var(--secondary-color)); }
+
+        nav.tab-navigation { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-button { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-button i { margin-left: 8px; font-size: 0.9em;}
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .activity-section { padding: 25px; background-color: #fdfdfd; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); text-align: center; margin-bottom: 20px; box-shadow: var(--box-shadow); }
+        .activity-section h3 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 15px; }
+        .activity-description { font-size: 1rem; color: var(--muted-text-color); margin-bottom: 25px; }
+
+        /* Activity 1: Getting to Know the Trees (Enhanced List/Gallery) */
+        .tree-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .tree-card { background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 20px; text-align: center; box-shadow: var(--box-shadow); transition: transform 0.2s, box-shadow 0.2s; }
+        .tree-card:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-hover); }
+        .tree-card img.main-tree-img { width: 100%; height: 180px; object-fit: cover; border-radius: var(--border-radius-sm); margin-bottom: 15px; }
+        .tree-card .tree-name { font-size: 1.5rem; font-weight: 700; color: var(--accent-color); margin-bottom: 8px; }
+        .tree-card .tree-detail-img { width: 60px; height: 60px; object-fit: contain; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--light-bg-color); }
+        .tree-card .tree-characteristic { font-size: 0.95rem; color: var(--text-color); margin-bottom: 12px; min-height: 3em; }
+        .tree-card .play-btn-activity { margin-top: 10px; }
+
+        /* Activity 2: Forest Riddles */
+        .tree-riddle-area {}
+        .riddle-text-display { min-height: 70px; background-color: #f0f5e9; /* Lighter green for riddle box */ padding: 15px; border-radius: var(--border-radius-sm); margin-bottom: 20px; border: 1px dashed var(--accent-color); font-size: 1.2rem; line-height: 1.7; color: var(--primary-color); font-style: italic;}
+        .riddle-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .riddle-option-btn { font-size: 1.1rem; padding: 12px; } /* Reuses general .btn styles with specific class for targeting */
+
+        /* Activity 3: Choose a Tree, Write/Read a Story */
+        .tree-story-choice-area { margin-bottom: 20px; }
+        .tree-story-choice-area h4 { font-size: 1.2rem; margin-bottom: 15px; color: var(--primary-color); }
+        .tree-choice-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;}
+        .tree-choice-btn { padding: 10px 15px; font-size: 1rem; } /* Reuses .btn styles */
+        .tree-choice-btn img { width:30px; height:30px; margin-left:8px; border-radius:4px; vertical-align: middle;}
+
+        .tree-story-display { background-color: #fffaf0; /* Creamy */ border-left: 5px solid var(--secondary-color); padding: 20px; border-radius: var(--border-radius-sm); margin-top: 20px; text-align: right; line-height: 1.9; font-size: 1.1rem; min-height: 100px;}
+        .tree-story-display strong { color: var(--accent-color); }
+
+        /* General Feedback & Controls */
+        .feedback-area-activity { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; padding: 10px; border-radius: var(--border-radius-sm); }
+        .btn-next-activity { margin-top: 15px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(34, 139, 34, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(34, 139, 34, 0.3); outline: none; }
+        .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); }
+        .btn.danger:hover {box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); }
+        .btn.secondary-action { background: linear-gradient(135deg, var(--secondary-color), #d35400); color:var(--white-color);}
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+        @media (max-width: 768px) { .tree-gallery, .riddle-options {grid-template-columns: 1fr;} .tree-card img.main-tree-img {height:150px;} }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-tree"></i> فێربوونی ناوی دارەکانی کوردستان</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('treeGalleryTab', this)"><i class="fa-solid fa-images"></i> ناسینی دارەکان</button>
+            <button class="tab-button" onclick="showTab('treeRiddleTab', this)"><i class="fa-solid fa-puzzle-piece"></i> مەتەڵی دارستان</button>
+            <button class="tab-button" onclick="showTab('treeStoryTab', this)"><i class="fa-solid fa-book-open-reader"></i> چیرۆکی دارێک</button>
+        </nav>
+
+        <main>
+            <section id="treeGalleryTab" class="tab-content active">
+                <div class="activity-section">
+                    <h3>ناسینی دارەکان</h3>
+                    <p class="activity-description">کرتە لە دوگمەی گوێگرتن بکە و زانیاری دەربارەی دارەکان بخوێنەرەوە.</p>
+                    <div class="tree-gallery" id="tree-gallery-container">
+                        </div>
+                </div>
+            </section>
+
+            <section id="treeRiddleTab" class="tab-content">
+                <div class="activity-section">
+                    <h3>مەتەڵی دارستان</h3>
+                    <p class="activity-description">مەتەڵەکە بخوێنەرەوە و ناوی دارە ڕاستەکە هەڵبژێرە.</p>
+                    <div class="tree-riddle-area">
+                        <div id="riddle-text-display" class="riddle-text-display">
+                            <p>کرتە لە "مەتەڵی نوێ" بکە بۆ دەستپێکردن...</p>
+                        </div>
+                        <div class="riddle-options" id="tree-riddle-options-container" style="display:none;">
+                            </div>
+                        <div id="tree-riddle-feedback" class="feedback-area-activity"></div>
+                        <button id="next-tree-riddle-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> مەتەڵی داهاتوو</button>
+                        <button id="new-riddle-btn" class="btn secondary-action"><i class="fa-solid fa-lightbulb"></i> مەتەڵی نوێ</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="treeStoryTab" class="tab-content">
+                 <div class="activity-section">
+                    <h3>دارێک هەڵبژێرە، چیرۆکێک بخوێنەرەوە!</h3>
+                    <p class="activity-description">یەکێک لە دارەکان هەڵبژێرە بۆ خوێندنەوەی چیرۆکێکی کورت دەربارەی.</p>
+                    <div class="tree-story-choice-area">
+                        <h4>دارێک هەڵبژێرە:</h4>
+                        <div class="tree-choice-buttons" id="tree-choice-buttons-container">
+                            </div>
+                    </div>
+                    <div id="tree-story-display" class="tree-story-display" style="display:none;">
+                        </div>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const treesData = [
+            { id: 601, name_ku: "بەڕوو", characteristic_ku: "دارێکی زۆر بەهێز و تەمەن درێژە، بەرێکی خۆراکی هەیە.", image_tree_src: "img/trees/oak_tree.png", image_detail_src: "img/trees/oak_leaf_acorn.png", audio_src: "audio/trees/beru.mp3", riddle_ku: "دارێکی قایمم و گەڵاکانم لە پاییزدا دەوەرێت، بەرەکەم خۆراکی ئاژەڵانە. من چیم؟", story_template: "ڕۆژێک پیاوێکی ماندوو لە ژێر سێبەری دارێکی گەورەی _BLANK_دا پشووی دا. چەندین باڵندە لەسەر لقەکانی گۆرانیان دەوت." },
+            { id: 602, name_ku: "هەنار", characteristic_ku: "بەرێکی سووری پڕ لە دەنکی ئاودار و بەتامی هەیە.", image_tree_src: "img/trees/pomegranate_tree.png", image_detail_src: "img/trees/pomegranate_fruit.png", audio_src: "audio/trees/henar.mp3", riddle_ku: "بەرەکەم سوورە و وەک یاقووت دەدرەوشێتەوە، پڕە لە دەنکی شیرین. ناوم چییە؟", story_template: "لە باخچەکەدا، دارێکی جوانی _BLANK_ پڕ بوو لە میوەی سوور. منداڵەکان بە پەرۆشەوە چاوەڕێی پێگەیشتنی بوون." },
+            { id: 603, name_ku: "هەنجیر", characteristic_ku: "بەرێکی شیرین و گەڵای گەورە و پەنجەیی هەیە.", image_tree_src: "img/trees/fig_tree.png", image_detail_src: "img/trees/fig_leaf_fruit.png", audio_src: "audio/trees/henjir.mp3", riddle_ku: "گەڵاکانم پانن و بەرەکەم زۆر شیرینە، هاوینان پێدەگەم. من چیم؟", story_template: "لە گەرمای هاویندا، هیچ شتێک وەک خواردنی _BLANK_ێکی شیرین لە ژێر سێبەرە گەڵاپانەکەیدا خۆش نییە." },
+            { id: 604, name_ku: "گوێز", characteristic_ku: "دارێکی گەورەیە و بەرەکەی ناوکێکی بەهێز و بەتام و بەسوودی هەیە.", image_tree_src: "img/trees/walnut_tree.png", image_detail_src: "img/trees/walnut_fruit_leaf.png", audio_src: "audio/trees/gwez.mp3", riddle_ku: "دارێکی بەرز و گەڵاپانم، بەرەکەم مێشک دەچێت و زۆر بەسوودە. من چیم؟", story_template: "باپیرەم دارێکی گەورەی _BLANK_ی لە باخچەکەماندا چاندبوو. هەموو پاییزێک پێکەوە بەرەکەیمان کۆدەکردەوە." },
+            { id: 605, name_ku: "توو", characteristic_ku: "بەرێکی بچووک و شیرینی هەیە، ڕەنگی سپی، سوور، یان ڕەشە.", image_tree_src: "img/trees/mulberry_tree.png", image_detail_src: "img/trees/mulberry_fruit.png", audio_src: "audio/trees/tu.mp3", riddle_ku: "بەرەکەم بچووک و شیرینە، کرمی ئاوریشم گەڵاکانم دەخوات. ناوم چییە؟", story_template: "منداڵەکان بە پەلەپەل بەرەو دار _BLANK_ەکە ڕایاندەکرد بۆ ئەوەی لە بەرە شیرینەکەی بخۆن." },
+            { id: 606, name_ku: "چنار", characteristic_ku: "دارێکی زۆر باڵابەرز و گەڵاپانە، سێبەرێکی فێنک و خۆشی هەیە.", image_tree_src: "img/trees/plane_tree.png", image_detail_src: "img/trees/plane_leaf.png", audio_src: "audio/trees/chnar.mp3", riddle_ku: "دارێکی زۆر گەورە و بەتەمەنم، گەڵاکانم وەک لەپی دەستە و سێبەرێکی فێنکم هەیە. من چیم؟", story_template: "لە ناوەڕاستی گوندەکەدا، دارێکی کۆنی _BLANK_ وەستابوو، شوێنی کۆبوونەوە و پشوودانی خەڵک بوو." },
+            { id: 607, name_ku: "سنەوبەر", characteristic_ku: "دارێکی هەمیشە سەوزە و گەڵاکانی دەرزیلین، بۆنی خۆشە.", image_tree_src: "img/trees/pine_tree.png", image_detail_src: "img/trees/pine_cone_needles.png", audio_src: "audio/trees/sinewber.mp3", riddle_ku: "هەمیشە سەوزم و گەڵاکانم وەک دەرزی وایە، لە چیاکان زۆر دەبینرێم. من ناوم چییە؟", story_template: "بۆنی خۆشی دارەکانی _BLANK_ هەوای دارستانەکەی پڕ کردبوو. ڕێڕەوەکە بە قەوزاخی بچووک داپۆشرابوو." },
+            { id: 608, name_ku: "سپیندار", characteristic_ku: "دارێکی باڵابەرز و قەد ڕێکە، گەڵاکانی لەبەر شنەبا دەلەرنەوە.", image_tree_src: "img/trees/poplar_tree.png", image_detail_src: "img/trees/poplar_leaf.png", audio_src: "audio/trees/spindar.mp3", riddle_ku: "قەدم سپی و ڕێکە، گەڵاکانم لە بەر با دەلەرنەوە و دەنگێکی خۆشیان هەیە. من چیم؟", story_template: "لە کەناری ڕووبارەکەدا، ڕیزێک داری _BLANK_ی باڵابەرز بە جوانی دەهاتنە بەرچاو." }
+        ];
+
+        let currentTreeAudioPlayer_v3 = null;
+        
+        // Activity 1: Gallery State (already handled by direct population)
+        // Activity 2: Riddle State
+        let currentTreeRiddleItem_v2 = null;
+        // Activity 3: Story State
+        let currentStoryTree = null;
+
+
+        // DOM Cache
+        const treeGalleryContainer = document.getElementById('tree-gallery-container');
+        
+        const riddleTextDisplay = document.getElementById('riddle-text-display');
+        const treeRiddleOptionsContainer = document.getElementById('tree-riddle-options-container');
+        const treeRiddleFeedbackEl = document.getElementById('tree-riddle-feedback');
+        const nextTreeRiddleBtn = document.getElementById('next-tree-riddle-btn');
+        const newRiddleBtn = document.getElementById('new-riddle-btn');
+
+        const treeChoiceButtonsContainer = document.getElementById('tree-choice-buttons-container');
+        const treeStoryDisplay = document.getElementById('tree-story-display');
+        
+        const currentYearTreesEl_v3 = document.getElementById('current-year');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearTreesEl_v3) { currentYearTreesEl_v3.textContent = new Date().getFullYear(); }
+            
+            populateTreeGallery(); // Activity 1
+            loadTreeRiddleQuestion(); // Activity 2
+            populateTreeStoryChoices(); // Activity 3 Setup
+
+            if(newRiddleBtn) newRiddleBtn.addEventListener('click', loadTreeRiddleQuestion);
+            if(nextTreeRiddleBtn) nextTreeRiddleBtn.addEventListener('click', loadTreeRiddleQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'treeGalleryTab') {
+                // Gallery is populated on load, no specific action here
+            } else if (tabId === 'treeRiddleTab') {
+                loadTreeRiddleQuestion();
+            } else if (tabId === 'treeStoryTab') {
+                treeStoryDisplay.style.display = 'none'; // Hide story until a tree is chosen
+                treeStoryDisplay.innerHTML = '';
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid: ${src}`); return; }
+            if (currentTreeAudioPlayer_v3) { currentTreeAudioPlayer_v3.pause(); currentTreeAudioPlayer_v3.currentTime = 0; }
+            try {
+                currentTreeAudioPlayer_v3 = new Audio(src);
+                currentTreeAudioPlayer_v3.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- Activity 1: Getting to Know the Trees (Enhanced List/Gallery) ---
+        function populateTreeGallery() {
+            treeGalleryContainer.innerHTML = '';
+            treesData.forEach(tree => {
+                const card = document.createElement('div');
+                card.className = 'tree-card';
+                card.innerHTML = `
+                    <img src="${tree.image_tree_src || 'img/trees/placeholder_tree.png'}" alt="${tree.name_ku}" class="main-tree-img">
+                    <div class="tree-name">${tree.name_ku}</div>
+                    <img src="${tree.image_detail_src || 'img/trees/placeholder_leaf.png'}" alt="Detail of ${tree.name_ku}" class="tree-detail-img">
+                    <p class="tree-characteristic">${tree.characteristic_ku[0]}</p> <button class="btn play-btn-activity" onclick="playAudio('${tree.audio_src}')" ${!tree.audio_src ? 'disabled' : ''}>
+                        <i class="fa-solid fa-volume-high"></i> گوێگرتن
+                    </button>
+                `;
+                treeGalleryContainer.appendChild(card);
+            });
+        }
+
+        // --- Activity 2: Forest Riddles ---
+        function loadTreeRiddleQuestion() {
+            treeRiddleFeedbackEl.textContent = '';
+            treeRiddleFeedbackEl.className = 'feedback-area-activity';
+            treeRiddleOptionsContainer.innerHTML = '';
+            treeRiddleOptionsContainer.style.display = 'grid'; // Ensure it's visible
+            treeRiddleOptionsContainer.classList.remove('disabled');
+            nextTreeRiddleBtn.style.display = 'none';
+            newRiddleBtn.textContent = "مەتەڵی نوێ";
+
+
+            currentTreeRiddleItem_v2 = treesData[Math.floor(Math.random() * treesData.length)];
+            riddleTextDisplay.textContent = currentTreeRiddleItem_v2.riddle_ku;
+            if(currentTreeRiddleItem_v2.audio_src) playAudio(currentTreeRiddleItem_v2.audio_src);
+
+
+            let options = [currentTreeRiddleItem_v2];
+            let distractors = shuffleArray([...treesData].filter(t => t.id !== currentTreeRiddleItem_v2.id));
+            for (let i = 0; options.length < Math.min(3, treesData.length) && i < distractors.length; i++) { // Aim for 3-4 options total
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'btn riddle-option-btn';
+                button.textContent = option.name_ku;
+                button.dataset.id = option.id;
+                button.onclick = () => checkTreeRiddleAnswer(button, currentTreeRiddleItem_v2.id);
+                treeRiddleOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkTreeRiddleAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            treeRiddleOptionsContainer.classList.add('disabled'); // Disable options after answer
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                treeRiddleFeedbackEl.textContent = 'ڕاستە! وەڵامەکەت دۆزییەوە!';
+                treeRiddleFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                treeRiddleFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتی بوو لە: ${currentTreeRiddleItem_v2.name_ku}`;
+                treeRiddleFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctButton = Array.from(treeRiddleOptionsContainer.querySelectorAll('.riddle-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) correctButton.classList.add('correct');
+            }
+            nextTreeRiddleBtn.style.display = 'inline-flex';
+            newRiddleBtn.textContent = "مەتەڵی داهاتوو";
+        }
+        
+        // --- Activity 3: Choose a Tree, Read a Story ---
+        function populateTreeStoryChoices() {
+            treeChoiceButtonsContainer.innerHTML = '';
+            // Let's pick 3 random trees for choices to keep it simple
+            const storyChoiceTrees = shuffleArray([...treesData]).slice(0,3); 
+            storyChoiceTrees.forEach(tree => {
+                const button = document.createElement('button');
+                button.className = 'btn tree-choice-btn';
+                button.innerHTML = `<img src="${tree.image_detail_src || 'img/trees/tree_icon.png'}" alt="${tree.name_ku}"> ${tree.name_ku}`;
+                button.onclick = () => displayTreeStory(tree.id);
+                treeChoiceButtonsContainer.appendChild(button);
+            });
+        }
+
+        function displayTreeStory(treeId) {
+            currentStoryTree = treesData.find(t => t.id === treeId);
+            if (!currentStoryTree) return;
+
+            const storyText = currentStoryTree.story_template.replace('_BLANK_', `<strong>${currentStoryTree.name_ku}</strong>`);
+            treeStoryDisplay.innerHTML = `<p>${storyText}</p>`;
+            treeStoryDisplay.style.display = 'block';
+
+            if(currentStoryTree.audio_src) playAudio(currentStoryTree.audio_src); // Play tree name audio
+
+            // Highlight the chosen button (optional)
+            treeChoiceButtonsContainer.querySelectorAll('.tree-choice-btn').forEach(btn => {
+                btn.style.backgroundColor = ''; // Reset others
+                btn.style.borderColor = '';
+                if (btn.textContent.includes(currentStoryTree.name_ku)) {
+                    btn.style.backgroundColor = 'var(--accent-hover-color)';
+                    btn.style.borderColor = 'var(--accent-color)';
+                }
+            });
+        }
+
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>ستۆدیۆی دەنگ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+    :root { --green: #1f7a4d; --red: #c8312b; --ink: #1c2b26; --paper: #f1f5f1; --line: #d9e2db; --muted: #5a6c64; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.8; padding: 20px 16px 120px; }
+    .wrap { max-width: 860px; margin: 0 auto; }
+    h1 { font-size: 1.8rem; margin: 0 0 4px; }
+    p { margin: 0 0 10px; color: var(--muted); }
+    ol { color: var(--muted); padding-inline-start: 22px; margin: 0 0 18px; }
+    h2 { font: 600 1rem 'Poppins', sans-serif; direction: ltr; text-align: left; margin: 26px 0 8px; color: var(--green); }
+    .row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; margin-bottom: 6px; }
+    .row.done { border-color: var(--green); }
+    .row .t { font-size: 1.25rem; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+    .row .t[lang=kmr] { direction: ltr; font-family: 'Poppins', sans-serif; text-align: left; }
+    .row small { display: block; font: .72rem 'Poppins', monospace; color: var(--muted); direction: ltr; text-align: left; }
+    button { font: inherit; font-weight: 600; min-height: 42px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink); }
+    button.rec.on { background: var(--red); border-color: var(--red); color: #fff; }
+    button:disabled { opacity: .35; cursor: default; }
+    .bar { position: fixed; inset: auto 0 0 0; background: var(--ink); color: #fff; padding: 12px 16px; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .bar button { background: var(--green); border-color: var(--green); color: #fff; }
+    .filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .filter button.on { background: var(--ink); color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <h1>ستۆدیۆی دەنگ</h1>
+    <p>لێرە بە دەنگی خۆت هەموو وشە و ڕستەکانی ئەپەکە تۆمار بکە. تۆمارەکانت دەبنە دەنگی ڕاستەقینەی وانەکان.</p>
+    <ol>
+        <li>لە شوێنێکی بێدەنگ دابنیشە. لە «تۆمارکردن» بدە، وشەکە بڵێ، پاشان لە «وەستان» بدە.</li>
+        <li>بە «گوێگرتن» پشکنینی بکە. ئەگەر باش نەبوو، دووبارە تۆماری بکەرەوە.</li>
+        <li>لە کۆتاییدا «داگرتنی ZIP» دابگرە، ناوەڕۆکەکەی بخەرە ناو فۆڵدەری <span dir="ltr">source</span> و <span dir="ltr">python build.py</span> کارپێبکە.</li>
+    </ol>
+    <div class="filter" id="filter"></div>
+    <div id="list"></div>
+</div>
+<div class="bar"><span id="count"></span><button id="zip" disabled>داگرتنی ZIP</button></div>
+
+<script src="assets/audio-map.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(function () {
+    var MAP = window.KU_AUDIO || {}, paths = Object.keys(MAP), done = {}, stream = null, rec = null, active = null;
+    var groups = {};
+    paths.forEach(function (p) { var g = p.split('/').slice(0, -1).join('/'); (groups[g] = groups[g] || []).push(p); });
+    var list = document.getElementById('list'), filter = document.getElementById('filter');
+    function count() { var n = Object.keys(done).length; document.getElementById('count').textContent = n + ' / ' + paths.length; document.getElementById('zip').disabled = !n; }
+    function toMp3(blob) {
+        return blob.arrayBuffer().then(function (buf) {
+            var ctx = new (window.AudioContext || window.webkitAudioContext)();
+            return ctx.decodeAudioData(buf).then(function (a) {
+                var d = a.getChannelData(0), s = 0, e = d.length - 1, pad = Math.floor(a.sampleRate * 0.12);
+                while (s < e && Math.abs(d[s]) < 0.015) s++;      // trim silence at both ends
+                while (e > s && Math.abs(d[e]) < 0.015) e--;
+                s = Math.max(0, s - pad); e = Math.min(d.length, e + pad);
+                var peak = 0, i; for (i = s; i < e; i++) peak = Math.max(peak, Math.abs(d[i]));
+                var gain = peak > 0 ? 0.92 / peak : 1, pcm = new Int16Array(e - s);
+                for (i = s; i < e; i++) pcm[i - s] = Math.max(-1, Math.min(1, d[i] * gain)) * 32767;
+                var enc = new lamejs.Mp3Encoder(1, a.sampleRate, 96), out = [], k, c;
+                for (k = 0; k < pcm.length; k += 1152) { c = enc.encodeBuffer(pcm.subarray(k, k + 1152)); if (c.length) out.push(new Int8Array(c)); }
+                c = enc.flush(); if (c.length) out.push(new Int8Array(c));
+                ctx.close();
+                return new Blob(out, { type: 'audio/mpeg' });
+            });
+        });
+    }
+    function row(p) {
+        var el = document.createElement('div'); el.className = 'row';
+        var kmr = /kurmanji/.test(p);
+        el.innerHTML = '<div><div class="t"' + (kmr ? ' lang="kmr"' : '') + '></div><small></small></div><button class="rec">تۆمارکردن</button><button class="play" disabled>گوێگرتن</button>';
+        el.querySelector('.t').textContent = MAP[p]; el.querySelector('small').textContent = p;
+        var rb = el.querySelector('.rec'), pb = el.querySelector('.play');
+        rb.onclick = function () {
+            if (active === p) { rec.stop(); return; }
+            if (active) return;
+            (stream ? Promise.resolve(stream) : navigator.mediaDevices.getUserMedia({ audio: true })).then(function (s) {
+                stream = s; var chunks = []; rec = new MediaRecorder(s); active = p;
+                rec.ondataavailable = function (e) { chunks.push(e.data); };
+                rec.onstop = function () {
+                    active = null; rb.classList.remove('on'); rb.textContent = 'دووبارە';
+                    toMp3(new Blob(chunks, { type: rec.mimeType })).then(function (mp3) { done[p] = mp3; el.classList.add('done'); pb.disabled = false; count(); });
+                };
+                rec.start(); rb.classList.add('on'); rb.textContent = 'وەستان';
+            }).catch(function () { rb.textContent = 'مایکرۆفۆن ڕێگەپێنەدراوە'; });
+        };
+        pb.onclick = function () { if (done[p]) new Audio(URL.createObjectURL(done[p])).play(); };
+        return el;
+    }
+    function show(g) {
+        list.innerHTML = '';
+        [].forEach.call(filter.children, function (b) { b.classList.toggle('on', b.dataset.g === g); });
+        Object.keys(groups).filter(function (k) { return g === '*' || k === g; }).forEach(function (k) {
+            var h = document.createElement('h2'); h.textContent = k + '  (' + groups[k].length + ')'; list.appendChild(h);
+            groups[k].forEach(function (p) { var r = row(p); if (done[p]) { r.classList.add('done'); r.querySelector('.play').disabled = false; } list.appendChild(r); });
+        });
+    }
+    ['*'].concat(Object.keys(groups)).forEach(function (g) { var b = document.createElement('button'); b.dataset.g = g; b.textContent = g === '*' ? 'هەموو' : g.replace(/^audio\//, ''); b.dir = 'ltr'; b.onclick = function () { show(g); }; filter.appendChild(b); });
+    document.getElementById('zip').onclick = function () {
+        var z = new JSZip(); Object.keys(done).forEach(function (p) { z.file(p, done[p]); });
+        z.generateAsync({ type: 'blob' }).then(function (b) { var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'kurdish-audio.zip'; document.body.appendChild(a); a.click(); a.remove(); });
+    };
+    window.addEventListener('beforeunload', function (e) { if (Object.keys(done).length) { e.preventDefault(); e.returnValue = ''; } });
+    show(Object.keys(groups)[0] || '*'); count();
+})();
+</script>
+</body>
+</html>

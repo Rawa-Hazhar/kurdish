@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ناسینی ژمارە و ژماردن (١-٢٠) - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; 
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; 
+            --secondary-color: #e67e22; 
+            --accent-color: #e74c3c; /* Red accent for numbers */
+            --accent-hover-color: #c0392b; 
+            --light-bg-color: #ecf0f1; 
+            --card-bg-color: white;
+            --text-color: #34495e; 
+            --muted-text-color: #7f8c8d; 
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff; 
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px; 
+            --border-radius-lg: 12px; 
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); 
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background-color: var(--light-bg-color); 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 25px; 
+            background-color: var(--card-bg-color); 
+            border-radius: var(--border-radius-lg); 
+            box-shadow: var(--box-shadow); 
+            flex-grow: 1; 
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.3rem; 
+            font-weight: 700; 
+        }
+        header h1 i { 
+            margin-left: 10px; 
+            color: var(--accent-color); 
+        }
+        
+        /* Navigation Bar Styles */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px; 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+        
+        /* Tab Navigation */
+         nav.tab-navigation { 
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            flex-wrap: wrap; 
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 8px 15px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 6px; font-size: 0.9em;}
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+        
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* General Activity Styles */
+        .activity-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+         .activity-area h3 {
+             font-size: 1.4rem;
+             color: var(--primary-color);
+             margin-bottom: 25px;
+         }
+        .question-display {
+            font-size: 4rem; 
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-md);
+            display: inline-block;
+            min-width: 100px;
+            box-shadow: var(--box-shadow);
+            /* Ensure Kurdish numerals display correctly */
+            font-feature-settings: "kern" 0; 
+            -moz-font-feature-settings: "kern" 0;
+            -webkit-font-feature-settings: "kern" 0;
+            letter-spacing: 2px; /* Adjust spacing if needed */
+        }
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1.1rem; 
+            min-width: 90px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+        .option-btn:hover, .option-btn:focus-visible {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-hover);
+            outline: none;
+        }
+        .option-btn.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-hover-color);
+            color: var(--white-color);
+            transform: scale(1.05);
+        }
+         .option-btn.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-hover-color);
+            color: var(--white-color);
+            animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        
+        .options-container.disabled .option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: var(--light-bg-color);
+        }
+         .options-container.disabled .option-btn:hover {
+             transform: none;
+             box-shadow: var(--box-shadow);
+             background-color: var(--white-color); 
+             color: var(--primary-color);
+             border-color: var(--border-color);
+         }
+
+        .feedback-area {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em; 
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .feedback-correct { color: var(--success-color); background-color: #e8f8f5; border: 1px solid var(--success-color);}
+        .feedback-incorrect { color: var(--danger-color); background-color: #fdedec; border: 1px solid var(--danger-color); }
+
+        .next-btn {
+            display: inline-block; 
+            margin-top: 20px;
+        }
+        .btn { 
+            font-family: var(--font-kurdish), sans-serif; 
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); 
+            color: var(--white-color); 
+            border: none; 
+            border-radius: var(--border-radius-sm); 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            transition: all var(--transition-speed) ease; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+        }
+         .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); } 
+         .btn.success { background: linear-gradient(135deg, var(--success-color), var(--success-hover-color)); } 
+         .btn i { margin-left: 8px; }
+         .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3); outline: none; }
+
+        /* Listen & Choose Specific */
+        #listen-play-btn {
+            font-size: 1.5rem; 
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+        }
+        #listen-play-btn:hover {
+             background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        /* Counting Specific */
+        #counting-image-area {
+            min-height: 150px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; 
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        #counting-image-area span { 
+            font-size: 3.5rem; 
+            line-height: 1;
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 15px; 
+            font-size: 0.9rem; 
+            color: var(--muted-text-color); 
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .question-display { font-size: 3rem; }
+            #counting-image-area span { font-size: 2.5rem; }
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .option-btn { font-size: 1rem; padding: 10px 20px; }
+             .question-display { font-size: 2.5rem; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-calculator"></i> ناسینی ژمارە و ژماردن</h1>
+        </header>
+
+        
+
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('digitToWordTab', this)"><i class="fa-solid fa-font"></i> ژمارە بۆ وشە</button>
+            <button class="tab-button" onclick="showTab('wordToDigitTab', this)"><i class="fa-solid fa-hashtag"></i> وشە بۆ ژمارە</button>
+            <button class="tab-button" onclick="showTab('listenChooseTab', this)"><i class="fa-solid fa-headphones"></i> گوێگرتن و هەڵبژاردن</button>
+            <button class="tab-button" onclick="showTab('countingTab', this)"><i class="fa-solid fa-apple-whole"></i> ژماردن</button>
+        </nav>
+
+        <main>
+            <section id="digitToWordTab" class="tab-content active">
+                <div class="activity-area">
+                    <h3>ئەم ژمارەیە بە وشە چییە؟</h3>
+                    <div id="dtw-question-display" class="question-display">...</div>
+                    <div id="dtw-options-container" class="options-container"></div>
+                    <div id="dtw-feedback-area" class="feedback-area"></div>
+                    <button id="dtw-next-btn" class="btn next-btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="wordToDigitTab" class="tab-content">
+                 <div class="activity-area">
+                    <h3>ئەم وشەیە بە ژمارە چییە؟</h3>
+                    <div id="wtd-question-display" class="question-display" style="font-size: 2.5rem;">...</div> 
+                    <div id="wtd-options-container" class="options-container"></div>
+                    <div id="wtd-feedback-area" class="feedback-area"></div>
+                    <button id="wtd-next-btn" class="btn next-btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="listenChooseTab" class="tab-content">
+                 <div class="activity-area">
+                    <h3>گوێ لە ژمارەکە بگرە و هەڵیبژێرە:</h3>
+                    <button id="listen-play-btn" class="btn"><i class="fa-solid fa-volume-high"></i> لێدانی دەنگ</button>
+                    <div id="lc-options-container" class="options-container"></div>
+                    <div id="lc-feedback-area" class="feedback-area"></div>
+                    <button id="lc-next-btn" class="btn next-btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="countingTab" class="tab-content">
+                 <div class="activity-area">
+                    <h3>چەند دانە دەبینیت؟</h3>
+                    <div id="counting-image-area">
+                        </div>
+                    <div id="count-options-container" class="options-container"></div>
+                    <div id="count-feedback-area" class="feedback-area"></div>
+                    <button id="count-next-btn" class="btn next-btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer"> 
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    
+
+
+    <script>
+        // --- DATA STRUCTURE (Extended to 20 with Eastern Arabic Numerals) ---
+        const numbersData = [
+            { digit: 1, digit_ku: "١", word: "یەک", audio: "audio/numbers/yek.mp3", emoji: "🍎" },
+            { digit: 2, digit_ku: "٢", word: "دوو", audio: "audio/numbers/du.mp3", emoji: "🍊" },
+            { digit: 3, digit_ku: "٣", word: "سێ", audio: "audio/numbers/se.mp3", emoji: "🍋" },
+            { digit: 4, digit_ku: "٤", word: "چوار", audio: "audio/numbers/chwar.mp3", emoji: "🍌" },
+            { digit: 5, digit_ku: "٥", word: "پێنج", audio: "audio/numbers/penj.mp3", emoji: "🍉" },
+            { digit: 6, digit_ku: "٦", word: "شەش", audio: "audio/numbers/shash.mp3", emoji: "🍇" },
+            { digit: 7, digit_ku: "٧", word: "حەوت", audio: "audio/numbers/hawt.mp3", emoji: "🍓" },
+            { digit: 8, digit_ku: "٨", word: "هەشت", audio: "audio/numbers/hasht.mp3", emoji: "🥝" },
+            { digit: 9, digit_ku: "٩", word: "نۆ", audio: "audio/numbers/no.mp3", emoji: "🍍" },
+            { digit: 10, digit_ku: "١٠", word: "دە", audio: "audio/numbers/da.mp3", emoji: "🥥" },
+            { digit: 11, digit_ku: "١١", word: "یانزە", audio: "audio/numbers/yanzda.mp3", emoji: "🥕" }, // Example additions
+            { digit: 12, digit_ku: "١٢", word: "دوانزە", audio: "audio/numbers/dwanzda.mp3", emoji: "🥦" },
+            { digit: 13, digit_ku: "١٣", word: "سیانزە", audio: "audio/numbers/syanzda.mp3", emoji: "🌶️" },
+            { digit: 14, digit_ku: "١٤", word: "چواردە", audio: "audio/numbers/chwarda.mp3", emoji: "🌽" },
+            { digit: 15, digit_ku: "١٥", word: "پانزە", audio: "audio/numbers/panzda.mp3", emoji: "🍆" },
+            { digit: 16, digit_ku: "١٦", word: "شانزە", audio: "audio/numbers/shanzda.mp3", emoji: "🥑" },
+            { digit: 17, digit_ku: "١٧", word: "حەڤدە", audio: "audio/numbers/havda.mp3", emoji: "🥒" },
+            { digit: 18, digit_ku: "١٨", word: "هەژدە", audio: "audio/numbers/hazhda.mp3", emoji: "🥬" },
+            { digit: 19, digit_ku: "١٩", word: "نۆزدە", audio: "audio/numbers/nozda.mp3", emoji: "🍄" },
+            { digit: 20, digit_ku: "٢٠", word: "بیست", audio: "audio/numbers/bist.mp3", emoji: "🥔" }
+        ];
+
+        // --- STATE VARIABLES ---
+        let currentAudio = null;
+        let currentNumberData = [...numbersData]; 
+        let currentQuestion = null; 
+        let activeTabId = 'digitToWordTab'; 
+
+        // --- DOM Elements Cache ---
+        const dtwQuestionDisplay = document.getElementById('dtw-question-display');
+        const dtwOptionsContainer = document.getElementById('dtw-options-container');
+        const dtwFeedbackArea = document.getElementById('dtw-feedback-area');
+        const dtwNextBtn = document.getElementById('dtw-next-btn');
+
+        const wtdQuestionDisplay = document.getElementById('wtd-question-display');
+        const wtdOptionsContainer = document.getElementById('wtd-options-container');
+        const wtdFeedbackArea = document.getElementById('wtd-feedback-area');
+        const wtdNextBtn = document.getElementById('wtd-next-btn');
+        
+        const listenPlayBtn = document.getElementById('listen-play-btn');
+        const lcOptionsContainer = document.getElementById('lc-options-container');
+        const lcFeedbackArea = document.getElementById('lc-feedback-area');
+        const lcNextBtn = document.getElementById('lc-next-btn');
+
+        const countingImageArea = document.getElementById('counting-image-area');
+        const countOptionsContainer = document.getElementById('count-options-container');
+        const countFeedbackArea = document.getElementById('count-feedback-area');
+        const countNextBtn = document.getElementById('count-next-btn');
+
+        const currentYearEl = document.getElementById('current-year');
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            
+            loadDigitToWordQuestion(); 
+
+            dtwNextBtn.addEventListener('click', loadDigitToWordQuestion);
+            wtdNextBtn.addEventListener('click', loadWordToDigitQuestion);
+            lcNextBtn.addEventListener('click', loadListenChooseQuestion);
+            countNextBtn.addEventListener('click', loadCountingQuestion);
+            listenPlayBtn.addEventListener('click', playCurrentNumberAudio);
+
+        });
+
+        // --- TAB SWITCHING ---
+        function showTab(tabId, clickedButton) {
+            activeTabId = tabId; 
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) activeTab.classList.add('active');
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+            
+            // Load the first question for the activated tab
+            if (tabId === 'digitToWordTab') loadDigitToWordQuestion();
+            else if (tabId === 'wordToDigitTab') loadWordToDigitQuestion();
+            else if (tabId === 'listenChooseTab') loadListenChooseQuestion();
+            else if (tabId === 'countingTab') loadCountingQuestion();
+        }
+
+        // --- AUDIO PLAYBACK ---
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Invalid audio source: ${src}`); return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            try {
+                currentAudio = new Audio(src);
+                currentAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+         function playCurrentNumberAudio() {
+             if (currentQuestion && currentQuestion.audio) {
+                 playAudio(currentQuestion.audio);
+                 listenPlayBtn.disabled = true; 
+                 setTimeout(() => { if(listenPlayBtn) listenPlayBtn.disabled = false; }, 1500); 
+             }
+         }
+
+        // --- GENERAL GAME LOGIC ---
+        function generateOptions(correctItem, type) {
+            let options = [correctItem];
+            let distractors = shuffleArray([...numbersData].filter(n => n.digit !== correctItem.digit));
+            
+            for(let i = 0; options.length < 4 && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            
+            return shuffleArray(options); 
+        }
+
+        // Modified to accept digit_ku for display text when needed
+        function createOptionButton(item, textProperty, clickHandler, useKurdishDigit = false) {
+             const button = document.createElement('button');
+             button.className = 'option-btn';
+             // Use digit_ku if useKurdishDigit is true, otherwise use the specified textProperty
+             button.textContent = useKurdishDigit ? item.digit_ku : item[textProperty]; 
+             button.dataset.value = item.digit; // Always store the numerical digit for checking
+             button.onclick = () => clickHandler(button, currentQuestion.digit);
+             return button;
+        }
+
+        function disableOptions(container) {
+            container.classList.add('disabled');
+            container.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+        }
+
+        function enableOptions(container) {
+             container.classList.remove('disabled');
+             container.querySelectorAll('.option-btn').forEach(btn => btn.disabled = false);
+        }
+
+        // Modified to accept correctValueKu for display
+        function showFeedback(isCorrect, feedbackEl, correctValueDisplay, nextBtn) {
+             feedbackEl.className = isCorrect ? 'feedback-correct' : 'feedback-incorrect';
+             feedbackEl.textContent = isCorrect ? 'ڕاستە! 👍' : `هەڵەیە. وەڵامی ڕاست: ${correctValueDisplay}`;
+             nextBtn.style.display = 'inline-block';
+             nextBtn.focus();
+        }
+
+        function highlightCorrectAnswer(container, correctValue) {
+             // Find button based on the numerical data-value
+             const correctButton = container.querySelector(`.option-btn[data-value="${correctValue}"]`);
+             if (correctButton) {
+                 correctButton.classList.add('correct');
+             }
+        }
+        
+        // --- ACTIVITY 1: Digit to Word ---
+        function loadDigitToWordQuestion() {
+            currentNumberData = shuffleArray([...numbersData]);
+            currentQuestion = currentNumberData[0]; 
+            
+            dtwQuestionDisplay.textContent = currentQuestion.digit_ku; // Use Eastern Arabic numeral
+            dtwOptionsContainer.innerHTML = '';
+            dtwFeedbackArea.textContent = '';
+            dtwFeedbackArea.className = 'feedback-area';
+            dtwNextBtn.style.display = 'none';
+            enableOptions(dtwOptionsContainer);
+
+            const options = generateOptions(currentQuestion, 'word');
+            options.forEach(opt => {
+                // Display Kurdish word as option text
+                const btn = createOptionButton(opt, 'word', handleDigitToWordAnswer); 
+                dtwOptionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleDigitToWordAnswer(selectedButton, correctDigit) {
+            const selectedDigit = parseInt(selectedButton.dataset.value); // Check numerical value
+            disableOptions(dtwOptionsContainer);
+            const isCorrect = selectedDigit === correctDigit;
+            if (!isCorrect) selectedButton.classList.add('incorrect');
+            highlightCorrectAnswer(dtwOptionsContainer, correctDigit);
+            // Show correct Kurdish word in feedback
+            showFeedback(isCorrect, dtwFeedbackArea, numbersData.find(n=>n.digit===correctDigit).word, dtwNextBtn);
+        }
+
+        // --- ACTIVITY 2: Word to Digit ---
+        function loadWordToDigitQuestion() {
+            currentNumberData = shuffleArray([...numbersData]);
+            currentQuestion = currentNumberData[0]; 
+            
+            wtdQuestionDisplay.textContent = currentQuestion.word; // Show Kurdish word
+            wtdOptionsContainer.innerHTML = '';
+            wtdFeedbackArea.textContent = '';
+            wtdFeedbackArea.className = 'feedback-area';
+            wtdNextBtn.style.display = 'none';
+            enableOptions(wtdOptionsContainer);
+
+            const options = generateOptions(currentQuestion, 'digit');
+            options.forEach(opt => {
+                 // Display Eastern Arabic numeral as option text
+                const btn = createOptionButton(opt, 'digit_ku', handleWordToDigitAnswer, true); 
+                wtdOptionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleWordToDigitAnswer(selectedButton, correctDigit) {
+            const selectedDigit = parseInt(selectedButton.dataset.value); // Check numerical value
+            disableOptions(wtdOptionsContainer);
+            const isCorrect = selectedDigit === correctDigit;
+             if (!isCorrect) selectedButton.classList.add('incorrect');
+            highlightCorrectAnswer(wtdOptionsContainer, correctDigit);
+             // Show correct Eastern Arabic numeral in feedback
+            showFeedback(isCorrect, wtdFeedbackArea, numbersData.find(n=>n.digit===correctDigit).digit_ku, wtdNextBtn);
+        }
+
+        // --- ACTIVITY 3: Listen & Choose ---
+         function loadListenChooseQuestion() {
+            currentNumberData = shuffleArray([...numbersData]);
+            currentQuestion = currentNumberData[0]; 
+            
+            lcOptionsContainer.innerHTML = '';
+            lcFeedbackArea.textContent = '';
+            lcFeedbackArea.className = 'feedback-area';
+            lcNextBtn.style.display = 'none';
+            listenPlayBtn.disabled = false; 
+            enableOptions(lcOptionsContainer);
+            
+            playCurrentNumberAudio(); // Play audio when question loads
+
+            const options = generateOptions(currentQuestion, 'digit');
+            options.forEach(opt => {
+                // Display Eastern Arabic numeral as option text
+                const btn = createOptionButton(opt, 'digit_ku', handleListenChooseAnswer, true); 
+                lcOptionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleListenChooseAnswer(selectedButton, correctDigit) {
+            const selectedDigit = parseInt(selectedButton.dataset.value); // Check numerical value
+            disableOptions(lcOptionsContainer);
+            listenPlayBtn.disabled = true; 
+            const isCorrect = selectedDigit === correctDigit;
+             if (!isCorrect) selectedButton.classList.add('incorrect');
+            highlightCorrectAnswer(lcOptionsContainer, correctDigit);
+             // Show correct Eastern Arabic numeral in feedback
+            showFeedback(isCorrect, lcFeedbackArea, numbersData.find(n=>n.digit===correctDigit).digit_ku, lcNextBtn);
+        }
+
+        // --- ACTIVITY 4: Counting ---
+        function loadCountingQuestion() {
+             currentNumberData = shuffleArray([...numbersData]);
+             currentQuestion = currentNumberData[0]; 
+             
+             countingImageArea.innerHTML = ''; 
+             countOptionsContainer.innerHTML = '';
+             countFeedbackArea.textContent = '';
+             countFeedbackArea.className = 'feedback-area';
+             countNextBtn.style.display = 'none';
+             enableOptions(countOptionsContainer);
+
+             // Display emojis
+             for (let i = 0; i < currentQuestion.digit; i++) {
+                 const emojiSpan = document.createElement('span');
+                 emojiSpan.textContent = currentQuestion.emoji;
+                 countingImageArea.appendChild(emojiSpan);
+             }
+
+             // Generate word options
+             const options = generateOptions(currentQuestion, 'word');
+             options.forEach(opt => {
+                 const btn = createOptionButton(opt, 'word', handleCountingAnswer);
+                 countOptionsContainer.appendChild(btn);
+             });
+        }
+
+         function handleCountingAnswer(selectedButton, correctDigit) {
+            const selectedDigit = parseInt(selectedButton.dataset.value); // Check numerical value
+            disableOptions(countOptionsContainer);
+            const isCorrect = selectedDigit === correctDigit;
+            if (!isCorrect) selectedButton.classList.add('incorrect');
+            highlightCorrectAnswer(countOptionsContainer, correctDigit);
+            // Show correct Kurdish word in feedback
+            showFeedback(isCorrect, countFeedbackArea, numbersData.find(n=>n.digit===correctDigit).word, countNextBtn);
+        }
+
+
+        // --- UTILITY FUNCTIONS ---
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

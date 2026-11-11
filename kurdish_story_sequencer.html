@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ڕیزبەندی ڕووداوەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; --secondary-color: #e67e22; --accent-color: #3498db;
+            --accent-hover-color: #2980b9; --light-bg-color: #ecf0f1; --card-bg-color: white;
+            --text-color: #34495e; --muted-text-color: #7f8c8d; --success-color: #27ae60;
+            --success-hover-color: #2ecc71; --danger-color: #c0392b; --danger-hover-color: #e74c3c;
+            --warning-color: #f39c12; --white-color: #ffffff; --border-radius-sm: 5px;
+            --border-radius-md: 8px; --border-radius-lg: 12px; --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 900px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--secondary-color); }
+        
+        /* START: Added Navigation Bar CSS - Paste this section */
+        .page-navigation {
+            display: flex;
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px; /* Added margin-top to space it from header */
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            width: 100%; 
+        }
+
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400); 
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px; 
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem; 
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link-button i {
+            margin-left: 8px; 
+        }
+
+        .nav-link-button:hover, 
+        .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); 
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color)); 
+        }
+        /* END: Added Navigation Bar CSS */
+        
+        #theme-selection { margin-bottom: 30px; padding: 20px; background-color: #f8f9f9; border-radius: var(--border-radius-md); border: 1px solid var(--light-bg-color); }
+        #theme-selection h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; font-size: 1.4rem; }
+        .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3); outline: none; }
+        .btn:active { transform: translateY(0); box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); }
+        .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); }
+        .btn.danger:hover { box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); }
+        .btn.success { background: linear-gradient(135deg, var(--success-color), var(--success-hover-color)); box-shadow: 0 2px 5px rgba(39, 174, 96, 0.2); }
+        .btn.success:hover { box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3); }
+        .btn.active { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 0 0 2px var(--white-color), 0 3px 6px rgba(52, 152, 219, 0.3); }
+        button:disabled, .btn:disabled { background: #bdc3c7; cursor: not-allowed; box-shadow: none; transform: none; opacity: 0.7; }
+
+        #story-sequencer-activity { animation: fadeInContent 0.5s ease-out; }
+        @keyframes fadeInContent { from { opacity: 0; } to { opacity: 1; } }
+        #activity-title { text-align: center; font-size: 1.6rem; color: var(--secondary-color); margin-bottom: 15px; }
+        #story-title { text-align: center; font-size: 1.3rem; color: var(--primary-color); margin-bottom: 25px; font-weight: 600; }
+
+        .story-instructions { text-align: center; font-size: 1rem; color: var(--muted-text-color); margin-bottom: 20px; }
+        
+        .sequencing-areas-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        #scrambled-events-area, #ordered-events-dropzone {
+            padding: 20px;
+            border-radius: var(--border-radius-md);
+            min-height: 150px;
+        }
+
+        #scrambled-events-area {
+            background-color: #f0f4f8;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        #scrambled-events-area h3, #ordered-events-dropzone h3 {
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        #ordered-events-dropzone {
+            background-color: var(--white-color);
+            border: 2px dashed var(--accent-color);
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap if many */
+            gap: 10px; /* Gap between dropped items */
+            align-content: flex-start; /* Align wrapped lines to the start */
+        }
+        
+        .event-card {
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 12px 15px;
+            cursor: grab;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px; /* Ensure cards are not too narrow */
+            flex-basis: calc(50% - 10px); /* Two cards per row in dropzone, considering gap */
+            max-width: 100%;
+        }
+        .event-card:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--box-shadow-hover);
+        }
+        .event-card.dragging {
+            opacity: 0.5;
+            background-color: var(--accent-hover-color);
+            color: var(--white-color);
+        }
+        .event-card img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--light-bg-color);
+        }
+        .event-card span {
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        #ordered-events-dropzone .event-card { /* Styles for cards in the dropzone */
+            cursor: default; /* No longer grabbing */
+            background-color: var(--light-bg-color); /* Slightly different background */
+        }
+        #ordered-events-dropzone .event-card.correct {
+            border-left: 5px solid var(--success-color);
+        }
+        #ordered-events-dropzone .event-card.incorrect {
+            border-left: 5px solid var(--danger-color);
+        }
+
+
+        #controls-area {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        #feedback-area {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em; /* Prevent layout shift */
+        }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .btn { padding: 9px 16px; font-size: 0.9rem; }
+            #theme-selection h2 { font-size: 1.3rem; }
+            #activity-title { font-size: 1.5rem; }
+            #story-title { font-size: 1.2rem; }
+            .event-card { flex-basis: calc(100% - 10px); /* One card per row on smaller screens */ }
+
+        }
+        @media (max-width: 480px) {
+            .btn i { display: none; }
+            .btn { padding: 8px 12px; }
+        }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-stream"></i> ڕووداوەکان ڕیزبکە</h1>
+        </header>
+
+        
+        <section id="theme-selection">
+            <h2>بابەتێک هەڵبژێرە بۆ چیرۆک:</h2>
+            <div class="button-group" id="theme-buttons">
+                </div>
+        </section>
+
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid var(--light-bg-color); display: none;" id="activity-hr">
+
+        <main id="story-sequencer-activity" style="display: none;">
+            <h3 id="activity-title">یاری ڕیزکردنی چیرۆک</h3>
+            <p id="story-title"></p>
+            <p class="story-instructions">کارتەکانی ڕووداو ڕابکێشە و لە بۆکسی خوارەوە بە ڕیزبەندی دروست دایبنێ.</p>
+
+            <div class="sequencing-areas-container">
+                <div id="scrambled-events-area" ondragover="allowDrop(event)" ondrop="dropToScrambleArea(event)">
+                    <h3>کارتە تێکەڵکراوەکان:</h3>
+                    </div>
+                
+                <div id="ordered-events-dropzone" ondragover="allowDrop(event)" ondrop="dropToOrderArea(event)">
+                    <h3>ڕیزبەندی تۆ:</h3>
+                    </div>
+            </div>
+            
+            <div id="controls-area">
+                <button id="check-sequence-btn" class="btn success"><i class="fa-solid fa-check"></i> دڵنیابوونەوە لە ڕیزبەندی</button>
+                <button id="reset-story-btn" class="btn danger"><i class="fa-solid fa-arrows-rotate"></i> دووبارە دەستپێکردنەوە</button>
+                <button id="next-story-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> چیرۆکی داهاتوو</button>
+            </div>
+            <div id="feedback-area"></div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="current-year">2025</span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        // --- DATA STRUCTURE FOR STORY SEQUENCING ---
+        const storySequencingData = {
+            'گەشت و گوزار': [ // Theme: Travel & Tourism
+                {
+                    story_id: 'travel_story_1',
+                    title_ku: 'گەشتێک بۆ هەولێر',
+                    events: [
+                        { id: 'ts1_e1', text_ku: "بەیانی زوو لە خەو هەستاین و خۆمان ئامادەکرد بۆ گەشتەکە.", image_src: "img/travel_morning.png", order: 1 },
+                        { id: 'ts1_e2', text_ku: "بەرەو فڕۆکەخانە ڕۆیشتین و بلیتی فڕۆکەکەمان وەرگرت.", image_src: "img/travel_airport.png", order: 2 },
+                        { id: 'ts1_e3', text_ku: "دوای گەشتێکی ئاسوودە، گەیشتینە شاری هەولێری قەڵا و منارە.", image_src: "img/travel_erbil.png", order: 3 },
+                        { id: 'ts1_e4', text_ku: "سەردانی قەڵای دێرینی هەولێرمان کرد و وێنەی زۆرمان گرت.", image_src: "img/travel_citadel.png", order: 4 },
+                        { id: 'ts1_e5', text_ku: "ئێوارە خوانێکی خۆشمان لە چێشتخانەیەکی کوردەواری خوارد.", image_src: "img/travel_food.png", order: 5 }
+                    ]
+                },
+                {
+                    story_id: 'travel_story_2',
+                    title_ku: 'ڕۆژێک لە سلێمانی',
+                    events: [
+                        { id: 'ts2_e1', text_ku: "گەیشتینە سلێمانی و یەکسەر چووین بۆ بازاڕی سەرەکی.", image_src: "img/sulaymani_bazar.png", order: 1 },
+                        { id: 'ts2_e2', text_ku: "سەردانی مۆزەخانەی ئەمنەسوورەکەمان کرد.", image_src: "img/amna_suraka.png", order: 2 },
+                        { id: 'ts2_e3', text_ku: "پاش نیوەڕۆ چووین بۆ پارکی ئازادی.", image_src: "img/azadi_park.png", order: 3 }
+                    ]
+                }
+            ],
+            'ڕۆژانەی قوتابی': [ // Theme: Student's Daily Routine
+                {
+                    story_id: 'student_story_1',
+                    title_ku: 'ڕۆژێکی ئاسایی لە قوتابخانە',
+                    events: [
+                        { id: 'ss1_e1', text_ku: "کاتژمێر ٧ی بەیانی لەخەو هەڵسام.", image_src: "img/student_wakeup.png", order: 1 },
+                        { id: 'ss1_e2', text_ku: "نانی بەیانیم خوارد و جلەکانم لەبەرکرد.", image_src: "img/student_breakfast.png", order: 2 },
+                        { id: 'ss1_e3', text_ku: "بەرەو قوتابخانە بەڕێکەوتم.", image_src: "img/student_schoolbus.png", order: 3 },
+                        { id: 'ss1_e4', text_ku: "لە پۆلدا وانەی بیرکاریمان خوێند.", image_src: "img/student_class.png", order: 4 },
+                        { id: 'ss1_e5', text_ku: "دوای تەواوبوونی دەوام گەڕامەوە ماڵەوە.", image_src: "img/student_home.png", order: 5 }
+                    ]
+                }
+            ],
+             'چیرۆکی ئاژەڵان': [
+                 {
+                    story_id: 'animal_story_1',
+                    title_ku: 'کەروێشک و کیسەڵ',
+                    events: [
+                        { id: 'as1_e1', text_ku: "کەروێشکێک گاڵتەی بە کیسەڵێک دەکرد کە زۆر هێواشە.", image_src: "img/rabbit_turtle_1.png", order: 1 },
+                        { id: 'as1_e2', text_ku: "کیسەڵەکە وتی، 'با پێشبڕکێ بکەین بزانین کامیان خێراترە.'", image_src: "img/rabbit_turtle_2.png", order: 2 },
+                        { id: 'as1_e3', text_ku: "کەروێشک زۆر بە خێرایی ڕایکرد و لە پێش کەوت، پاشان لەبەر خۆرەتاو پاڵکەوت و خەوی لێکەوت.", image_src: "img/rabbit_sleep.png", order: 3 },
+                        { id: 'as1_e4', text_ku: "کیسەڵەکە بە هێواشی بەڵام بەردەوام ڕۆیشت و لە کەروێشکی بردەوە.", image_src: "img/turtle_wins.png", order: 4 }
+                    ]
+                 }
+             ]
+        };
+
+        // --- STATE VARIABLES ---
+        let currentSelectedTheme = null;
+        let currentStory = null;
+        let currentStoryIndexInTheme = 0; // To track which story in the theme is being played
+        let draggedElement = null;
+
+        // --- DOM Elements Cache ---
+        const themeButtonsContainer = document.getElementById('theme-buttons');
+        const storySequencerActivityDiv = document.getElementById('story-sequencer-activity');
+        const activityHr = document.getElementById('activity-hr');
+        const storyTitleEl = document.getElementById('story-title');
+        const scrambledEventsArea = document.getElementById('scrambled-events-area');
+        const orderedEventsDropzone = document.getElementById('ordered-events-dropzone');
+        const checkSequenceBtn = document.getElementById('check-sequence-btn');
+        const resetStoryBtn = document.getElementById('reset-story-btn');
+        const nextStoryBtn = document.getElementById('next-story-btn');
+        const feedbackArea = document.getElementById('feedback-area');
+        const currentYearEl = document.getElementById('current-year');
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateThemeButtons();
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            
+            checkSequenceBtn.addEventListener('click', checkSequence);
+            resetStoryBtn.addEventListener('click', resetCurrentStory);
+            nextStoryBtn.addEventListener('click', loadNextStoryInTheme);
+        });
+
+        function populateThemeButtons() {
+            themeButtonsContainer.innerHTML = '';
+            for (const themeName in storySequencingData) {
+                if (storySequencingData[themeName] && storySequencingData[themeName].length > 0) { // Only add themes with stories
+                    const button = document.createElement('button');
+                    button.className = 'btn';
+                    // Simple icon logic for example
+                    let iconClass = 'fa-solid fa-layer-group'; 
+                    if (themeName === 'گەشت و گوزار') iconClass = 'fa-solid fa-map-signs';
+                    else if (themeName === 'ڕۆژانەی قوتابی') iconClass = 'fa-solid fa-user-graduate';
+                    else if (themeName === 'چیرۆکی ئاژەڵان') iconClass = 'fa-solid fa-paw';
+
+                    button.innerHTML = `<i class="${iconClass}"></i> ${themeName}`;
+                    button.onclick = (function(name, btnEl) {
+                        return function() { selectTheme(name, btnEl); };
+                    })(themeName, button);
+                    themeButtonsContainer.appendChild(button);
+                }
+            }
+        }
+
+        function selectTheme(themeName, clickedButton) {
+            currentSelectedTheme = themeName;
+            currentStoryIndexInTheme = 0; // Reset to the first story of the new theme
+
+            document.querySelectorAll('#theme-buttons .btn').forEach(btn => btn.classList.remove('active'));
+            if (clickedButton) clickedButton.classList.add('active');
+            
+            storySequencerActivityDiv.style.display = 'block';
+            activityHr.style.display = 'block';
+            loadStory();
+        }
+
+        function loadStory() {
+            if (!currentSelectedTheme || !storySequencingData[currentSelectedTheme] || storySequencingData[currentSelectedTheme].length === 0) {
+                storyTitleEl.textContent = "هیچ چیرۆکێک بۆ ئەم بابەتە نییە.";
+                scrambledEventsArea.innerHTML = '<h3>کارتە تێکەڵکراوەکان:</h3>';
+                orderedEventsDropzone.innerHTML = '<h3>ڕیزبەندی تۆ:</h3>';
+                feedbackArea.textContent = '';
+                nextStoryBtn.style.display = 'none';
+                return;
+            }
+
+            const storiesInTheme = storySequencingData[currentSelectedTheme];
+            if (currentStoryIndexInTheme >= storiesInTheme.length) {
+                // Reached end of stories for this theme
+                storyTitleEl.textContent = `هەموو چیرۆکەکانی بابەتی "${currentSelectedTheme}" تەواو بوون.`;
+                scrambledEventsArea.innerHTML = '<h3>کارتە تێکەڵکراوەکان:</h3><p>بابەتێکی تر هەڵبژێرە یان دووبارە هەوڵبدەرەوە.</p>';
+                orderedEventsDropzone.innerHTML = '<h3>ڕیزبەندی تۆ:</h3>';
+                feedbackArea.textContent = '';
+                nextStoryBtn.style.display = 'none';
+                checkSequenceBtn.disabled = true;
+                return;
+            }
+
+            currentStory = storiesInTheme[currentStoryIndexInTheme];
+            storyTitleEl.textContent = currentStory.title_ku;
+            feedbackArea.textContent = '';
+            checkSequenceBtn.disabled = false;
+            nextStoryBtn.style.display = 'none'; // Hide until current story is successfully completed
+
+
+            // Populate scrambled events
+            scrambledEventsArea.innerHTML = '<h3>کارتە تێکەڵکراوەکان:</h3>'; // Clear previous, keep header
+            orderedEventsDropzone.innerHTML = '<h3>ڕیزبەندی تۆ:</h3>'; // Clear previous, keep header
+
+            const shuffledEvents = shuffleArray([...currentStory.events]);
+            shuffledEvents.forEach(event => {
+                const card = createEventCard(event);
+                scrambledEventsArea.appendChild(card);
+            });
+        }
+        
+        function loadNextStoryInTheme() {
+            currentStoryIndexInTheme++;
+            loadStory();
+        }
+
+
+        function createEventCard(eventData) {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+            card.id = eventData.id;
+            card.dataset.order = eventData.order;
+            card.draggable = true;
+            
+            let content = '';
+            if (eventData.image_src && eventData.image_src !== "img/placeholder.png") { // Check for actual image
+                content += `<img src="${eventData.image_src}" alt="وێنەی ڕووداو">`;
+            }
+            content += `<span>${eventData.text_ku}</span>`;
+            card.innerHTML = content;
+
+            card.addEventListener('dragstart', (e) => {
+                draggedElement = e.target.closest('.event-card');
+                e.target.closest('.event-card').classList.add('dragging');
+                e.dataTransfer.setData('text/plain', draggedElement.id);
+                e.dataTransfer.effectAllowed = 'move';
+            });
+            card.addEventListener('dragend', (e) => {
+                 e.target.closest('.event-card').classList.remove('dragging');
+                 draggedElement = null;
+            });
+            return card;
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.dataTransfer.dropEffect = 'move';
+        }
+
+        function dropToOrderArea(ev) {
+            ev.preventDefault();
+            if (draggedElement) {
+                if (ev.target === orderedEventsDropzone || ev.target.closest('#ordered-events-dropzone')) {
+                     // If there's a card at the drop position, insert before it
+                    const targetCard = ev.target.closest('.event-card');
+                    if(targetCard && targetCard.parentElement === orderedEventsDropzone) {
+                        orderedEventsDropzone.insertBefore(draggedElement, targetCard);
+                    } else {
+                        orderedEventsDropzone.appendChild(draggedElement);
+                    }
+                    clearFeedbackHighlights(); // Clear highlights when reordering
+                }
+            }
+             draggedElement = null; // Reset after drop
+        }
+        function dropToScrambleArea(ev) {
+            ev.preventDefault();
+            if (draggedElement) {
+                 if (ev.target === scrambledEventsArea || ev.target.closest('#scrambled-events-area')) {
+                     // If there's a card at the drop position, insert before it
+                    const targetCard = ev.target.closest('.event-card');
+                     if (targetCard && targetCard.parentElement === scrambledEventsArea) {
+                         scrambledEventsArea.insertBefore(draggedElement, targetCard);
+                    } else {
+                        scrambledEventsArea.appendChild(draggedElement);
+                    }
+                    clearFeedbackHighlights();
+                }
+            }
+            draggedElement = null;
+        }
+
+
+        function checkSequence() {
+            const orderedCards = Array.from(orderedEventsDropzone.querySelectorAll('.event-card'));
+            if (orderedCards.length !== currentStory.events.length) {
+                feedbackArea.textContent = "تکایە هەموو کارتەکانی ڕووداو ڕیز بکە پێش دڵنیابوونەوە.";
+                feedbackArea.className = 'feedback-incorrect';
+                return;
+            }
+
+            let isCorrectSequence = true;
+            orderedCards.forEach((card, index) => {
+                card.classList.remove('correct', 'incorrect'); // Clear previous states
+                const expectedOrder = index + 1;
+                const cardActualOrder = parseInt(card.dataset.order);
+                
+                if (cardActualOrder === expectedOrder) {
+                    card.classList.add('correct');
+                } else {
+                    card.classList.add('incorrect');
+                    isCorrectSequence = false;
+                }
+            });
+
+            if (isCorrectSequence) {
+                feedbackArea.textContent = "پیرۆزە! ڕیزبەندییەکە ڕاستە. 👍";
+                feedbackArea.className = 'feedback-correct';
+                checkSequenceBtn.disabled = true; // Disable check button after correct sequence
+                // Show next story button if there are more stories in the theme
+                const storiesInTheme = storySequencingData[currentSelectedTheme];
+                if (currentStoryIndexInTheme < storiesInTheme.length - 1) {
+                    nextStoryBtn.style.display = 'inline-flex';
+                } else {
+                    nextStoryBtn.style.display = 'none'; // No more stories in this theme
+                     feedbackArea.textContent += " هەموو چیرۆکەکانی ئەم بابەتەت تەواو کرد!";
+                }
+            } else {
+                feedbackArea.textContent = "هەڵەیەک هەیە لە ڕیزبەندییەکەدا. دووبارە هەوڵبدەرەوە. 🤔";
+                feedbackArea.className = 'feedback-incorrect';
+                 nextStoryBtn.style.display = 'none';
+            }
+        }
+        
+        function clearFeedbackHighlights() {
+            orderedEventsDropzone.querySelectorAll('.event-card').forEach(card => {
+                card.classList.remove('correct', 'incorrect');
+            });
+            feedbackArea.textContent = "";
+        }
+
+        function resetCurrentStory() {
+            feedbackArea.textContent = '';
+            checkSequenceBtn.disabled = false;
+            nextStoryBtn.style.display = 'none';
+            
+            // Move all cards from dropzone back to scrambled area
+            const cardsInDropzone = Array.from(orderedEventsDropzone.querySelectorAll('.event-card'));
+            cardsInDropzone.forEach(card => {
+                card.classList.remove('correct', 'incorrect');
+                scrambledEventsArea.appendChild(card);
+            });
+
+            // Re-shuffle cards in the scrambled area
+            const cardsToShuffle = Array.from(scrambledEventsArea.querySelectorAll('.event-card'));
+            scrambledEventsArea.innerHTML = '<h3>کارتە تێکەڵکراوەکان:</h3>'; // Clear and re-add header
+            shuffleArray(cardsToShuffle).forEach(card => scrambledEventsArea.appendChild(card));
+        }
+
+
+        // --- UTILITY FUNCTIONS ---
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="kmr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rengên Kurmancî - Hîngeha Zimanê Kurdî</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        /* --- Basic Setup & Color Scheme --- */
+        :root {
+            --font-main: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #8e44ad; /* Purple for the colors theme */
+            --accent-hover-color: #9b59b6;
+            --light-bg-color: #f4f6f7;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --white-color: #ffffff;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --transition-speed: 0.3s;
+            --border-color: #e0e6e8;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.6rem;
+            font-weight: 700;
+        }
+        header h1 i {
+            margin-right: 12px;
+            color: var(--accent-color);
+        }
+
+        #user-score-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            background-color: #fdf2e9;
+            padding: 8px 15px;
+            border-radius: var(--border-radius-md);
+            margin: -10px auto 20px auto;
+            width: fit-content;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        #user-score-display i {
+            margin-right: 8px;
+        }
+
+        .mock-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        .mock-nav-button {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .mock-nav-button:hover {
+            transform: translateY(-2px);
+        }
+        .mock-nav-button i {
+            margin-right: 8px;
+        }
+
+        /* --- Tab Controls --- */
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 500;
+        }
+        .tab-button.active, .tab-button:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            color: var(--white-color);
+            border-color: var(--accent-color);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Color Learning Grid --- */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .color-card {
+            background: var(--card-bg-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            text-align: center;
+            overflow: hidden;
+        }
+        .color-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .color-swatch {
+            width: 100%;
+            height: 100px;
+        }
+        .color-info {
+            padding: 15px;
+        }
+        .color-name-kmr {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .color-name-eng {
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+
+        /* --- Quiz Section --- */
+        .quiz-container {
+            background-color: #fafafa;
+            border-radius: var(--border-radius-lg);
+            padding: 25px 30px;
+            max-width: 650px;
+            margin: 25px auto;
+        }
+        .quiz-question {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+        #quizColorSwatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .quiz-option {
+            background-color: var(--white-color);
+            padding: 15px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid var(--border-color);
+            font-size: 1.1rem;
+        }
+        .quiz-option:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-hover-color);
+            transform: translateY(-3px);
+        }
+        .quiz-option.correct {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--white-color);
+            transform: scale(1.05);
+        }
+        .quiz-option.incorrect {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+            color: var(--white-color);
+            animation: shake 0.4s;
+        }
+        .quiz-options.disabled .quiz-option:not(.correct) {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .quiz-result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            min-height: 28px;
+        }
+        #nextQuestionBtn {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            display: none;
+            margin: 20px auto 0 auto;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-palette"></i> Rengên Kurmancî</h1>
+            <div id="user-score-display">
+                <i class="fa-solid fa-star"></i> Pûan: <span id="score-value">0</span>
+            </div>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('colorsTab', this)">Fêrbûna Rengan</button>
+            <button class="tab-button" onclick="showTab('quizTab', this)">Pirsyarî (Quiz)</button>
+        </nav>
+
+        <main>
+            <section id="colorsTab" class="tab-content active">
+                <div class="color-grid" id="colorGridContainer">
+                    </div>
+            </section>
+
+            <section id="quizTab" class="tab-content">
+                 <div class="quiz-container">
+                     <div id="quizArea">
+                         <div class="quiz-question" id="quizQuestionText">Ev reng çi ye?</div>
+                         <div id="quizColorSwatch"></div>
+                         <div class="quiz-options" id="quizOptionsContainer"></div>
+                         <div class="quiz-result" id="quizResult"></div>
+                         <button id="nextQuestionBtn" class="mock-nav-button" onclick="startColorQuiz()">Pirsa Nû</button>
+                     </div>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- DATA: Kurmanji Colors ---
+        const kurmanjiColors = [
+            { kmr: "Sor", eng: "Red", hex: "#e74c3c" },
+            { kmr: "Şîn", eng: "Blue", hex: "#3498db" },
+            { kmr: "Kesk", eng: "Green", hex: "#2ecc71" },
+            { kmr: "Zer", eng: "Yellow", hex: "#f1c40f" },
+            { kmr: "Pirteqalî", eng: "Orange", hex: "#e67e22" },
+            { kmr: "Mor", eng: "Purple", hex: "#9b59b6" },
+            { kmr: "Reş", eng: "Black", hex: "#2c3e50" },
+            { kmr: "Spî", eng: "White", hex: "#ecf0f1", border: "1px solid #ccc" },
+            { kmr: "Qehweyî", eng: "Brown", hex: "#8d6e63" },
+            { kmr: "Gewr", eng: "Gray", hex: "#95a5a6" },
+            { kmr: "Pembe", eng: "Pink", hex: "#ff79c6" },
+            { kmr: "Hêşîn", eng: "Cyan/Sky Blue", hex: "#00bcd4" }
+        ];
+
+        // --- CORE ELEMENTS ---
+        const colorGridContainer = document.getElementById('colorGridContainer');
+        const quizColorSwatch = document.getElementById('quizColorSwatch');
+        const quizOptionsContainer = document.getElementById('quizOptionsContainer');
+        const quizResult = document.getElementById('quizResult');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const scoreValueEl = document.getElementById('score-value');
+
+        // --- TEXT-TO-SPEECH (TTS) ENGINE ---
+        const synth = window.speechSynthesis;
+        let kurdishVoice = null;
+        
+        function loadVoices() {
+            const voices = synth.getVoices();
+            // Prioritize Kurdish, fall back to Turkish
+            kurdishVoice = voices.find(voice => voice.lang.startsWith('ku')) || voices.find(voice => voice.lang.startsWith('tr'));
+        }
+        
+        // Voices load asynchronously. We must wait for them.
+        // Also call it once in case they are already loaded.
+        loadVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        function speak(text) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            if (text !== '') {
+                const utterThis = new SpeechSynthesisUtterance(text);
+                utterThis.onerror = (event) => console.error('SpeechSynthesisUtterance.onerror', event);
+                
+                if (kurdishVoice) {
+                    utterThis.voice = kurdishVoice;
+                } else {
+                    // Fallback if no specific voice is found
+                    utterThis.lang = 'tr-TR'; 
+                }
+                
+                utterThis.pitch = 1;
+                utterThis.rate = 0.9;
+                synth.speak(utterThis);
+            }
+        }
+        
+        // --- GAMIFICATION (POINTS SYSTEM) ---
+        function getScore() {
+            return parseInt(localStorage.getItem('kurmanji_user_score') || '0', 10);
+        }
+
+        function displayScore() {
+            if (scoreValueEl) {
+                scoreValueEl.textContent = getScore();
+            }
+        }
+
+        function updateScore(pointsToAdd) {
+            const newScore = getScore() + pointsToAdd;
+            localStorage.setItem('kurmanji_user_score', newScore);
+            displayScore();
+        }
+
+        // --- UI & LOGIC ---
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            clickedButton.classList.add('active');
+
+            if(tabId === 'quizTab') {
+                startColorQuiz();
+            }
+        }
+
+        // Populate the learning grid with color cards
+        function populateColorGrid() {
+            colorGridContainer.innerHTML = '';
+            kurmanjiColors.forEach(color => {
+                const card = document.createElement('div');
+                card.className = 'color-card';
+                card.innerHTML = `
+                    <div class="color-swatch" style="background-color: ${color.hex}; ${color.border || ''}"></div>
+                    <div class="color-info">
+                        <div class="color-name-kmr">${color.kmr}</div>
+                        <div class="color-name-eng">${color.eng}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => speak(color.kmr));
+                colorGridContainer.appendChild(card);
+            });
+        }
+
+        // --- QUIZ LOGIC ---
+        let correctColor = null;
+
+        function startColorQuiz() {
+            // Shuffle colors and pick one for the question
+            const shuffled = [...kurmanjiColors].sort(() => 0.5 - Math.random());
+            correctColor = shuffled[0];
+
+            // Display the color swatch
+            quizColorSwatch.style.backgroundColor = correctColor.hex;
+            quizColorSwatch.style.border = correctColor.border || 'none';
+
+            // Prepare answer options (1 correct, 3 wrong)
+            let options = [correctColor];
+            const distractors = shuffled.slice(1);
+            // Ensure we have enough unique colors for options
+            while(options.length < 4 && options.length < kurmanjiColors.length) {
+                options.push(distractors.shift());
+            }
+            options.sort(() => 0.5 - Math.random());
+
+            // Display the options
+            quizOptionsContainer.innerHTML = '';
+            quizOptionsContainer.classList.remove('disabled');
+            quizResult.textContent = '';
+            nextQuestionBtn.style.display = 'none';
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option';
+                button.textContent = option.kmr;
+                button.addEventListener('click', () => checkAnswer(button, option));
+                quizOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, chosenColor) {
+            quizOptionsContainer.classList.add('disabled');
+            
+            if (chosenColor.kmr === correctColor.kmr) {
+                // Correct Answer
+                selectedButton.classList.add('correct');
+                quizResult.textContent = 'Rast e! Pir baş!';
+                quizResult.style.color = 'var(--success-color)';
+                updateScore(10);
+                speak('Rast e'); // TTS for "Correct"
+            } else {
+                // Incorrect Answer
+                selectedButton.classList.add('incorrect');
+                quizResult.textContent = `Şaş e. Bersiva rast: ${correctColor.kmr}`;
+                quizResult.style.color = 'var(--danger-color)';
+                speak('Şaş e'); // TTS for "Wrong"
+
+                // Highlight the correct answer
+                document.querySelectorAll('.quiz-option').forEach(btn => {
+                    if (btn.textContent === correctColor.kmr) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+            nextQuestionBtn.style.display = 'inline-flex';
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            displayScore();
+            populateColorGrid();
+            // IMPROVEMENT: Removed startColorQuiz() from here. 
+            // It's better to load the quiz only when the user clicks the tab.
+        });
+    </script>
+</body>
+</html>
+  

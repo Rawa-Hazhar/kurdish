@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی ناوی شوێنەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #16a085; /* Teal accent for places */
+            --accent-hover-color: #1abc9c;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 950px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--accent-color); }
+
+        .page-navigation { display: flex; justify-content: center; gap: 15px; margin-top: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); width: 100%; }
+        .nav-link-button { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 8px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); outline: none; background: linear-gradient(135deg, #d35400, var(--secondary-color)); }
+
+        nav.tab-navigation { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-button { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .activity-section { padding: 25px; background-color: #f8f9fa; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); text-align: center; margin-bottom: 20px;}
+        .activity-section h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 20px; }
+        .activity-description { font-size: 1rem; color: var(--muted-text-color); margin-bottom: 20px; }
+
+        /* Activity 1: Identify the Places */
+        .identify-places-question { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 10px; }
+        .identify-places-question .target-place-name { font-size: 1.8rem; font-weight: bold; color: var(--secondary-color); }
+        .identify-places-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px auto; max-width: 700px; }
+        .identify-places-option img { width: 100%; height: 120px; object-fit: cover; border-radius: var(--border-radius-md); border: 3px solid var(--border-color); cursor: pointer; transition: all var(--transition-speed); }
+        .identify-places-option img:hover { border-color: var(--accent-color); transform: scale(1.05); box-shadow: var(--box-shadow-hover); }
+        .identify-places-option img.correct { border-color: var(--success-color) !important; box-shadow: 0 0 12px var(--success-color); transform: scale(1.05); }
+        .identify-places-option img.incorrect { border-color: var(--danger-color) !important; opacity: 0.7; }
+        .identify-places-options.disabled .identify-places-option img:not(.correct):not(.incorrect) { opacity: 0.6; cursor: default; }
+
+        /* Activity 2: Activity and Place Matching */
+        .activity-place-matching-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .matching-column { display: flex; flex-direction: column; gap: 10px; }
+        .matching-column h4 { text-align: center; font-size: 1.2rem; color: var(--primary-color); margin-bottom: 10px; font-weight: 600; }
+        .match-item-btn { padding: 12px 15px; background-color: var(--white-color); border: 2px solid var(--border-color); border-radius: var(--border-radius-md); cursor: pointer; transition: all var(--transition-speed); text-align: center; font-size: 1.05rem; font-weight: 500; min-height: 50px; display:flex; align-items:center; justify-content:center; }
+        .match-item-btn:hover { border-color: var(--accent-color); background-color: #f1f8f5; }
+        .match-item-btn.selected { border-color: var(--accent-hover-color); background-color: var(--accent-color); color: var(--white-color); font-weight: bold; }
+        .match-item-btn.matched { border-color: var(--success-color); background-color: var(--success-color); color: var(--white-color); cursor: default; opacity: 0.8; pointer-events: none; }
+        .match-item-btn.incorrect-flash { border-color: var(--danger-color); background-color: var(--danger-color); color: var(--white-color); animation: shakeHorizontal 0.4s; }
+
+        /* Activity 3: Tourist Sentences (Complete the Sentence - Improved) */
+        .tourist-sentence-question-container {
+            padding: 15px;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 20px;
+        }
+        .tourist-sentence-text {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            line-height: 2;
+            margin-bottom: 10px; /* Space for the blank */
+        }
+        .tourist-sentence-text .blank-fill {
+            display: inline-block;
+            min-width: 120px;
+            border-bottom: 2px solid var(--muted-text-color);
+            padding: 0 8px;
+            font-weight: bold;
+            color: var(--accent-color);
+            background-color: #e8f6f3; /* Light teal for blank background */
+            border-radius: 3px;
+        }
+        .tourist-sentence-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        .tourist-option-btn { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--border-color); border-radius: var(--border-radius-md); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1.1rem; }
+        .tourist-option-btn:hover { border-color: var(--accent-color); background-color: var(--accent-color); color: var(--white-color); }
+        .tourist-option-btn.correct { background-color: var(--success-color); border-color: var(--success-hover-color); color: var(--white-color); }
+        .tourist-option-btn.incorrect { background-color: var(--danger-color); border-color: var(--danger-hover-color); color: var(--white-color); animation: shakeHorizontal 0.4s; }
+        .tourist-sentence-options.disabled .tourist-option-btn:not(.correct):not(.incorrect) { opacity: 0.6; cursor: not-allowed; }
+        
+        .feedback-area-activity { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; padding: 10px; border-radius: var(--border-radius-sm); }
+        .btn-next-activity { margin-top: 15px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(22, 160, 133, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(22, 160, 133, 0.3); outline: none; }
+        .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); }
+        .btn.danger:hover {box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+        @media (max-width: 768px) { .activity-place-matching-area { grid-template-columns: 1fr; } .identify-places-options {grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));} }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-map-signs"></i> فێربوونی ناوی شوێنەکان</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('identifyPlacesTab', this)"><i class="fa-solid fa-search-location"></i> شوێنەکان بناسە</button>
+            <button class="tab-button" onclick="showTab('activityPlaceMatchingTab', this)"><i class="fa-solid fa-people-arrows"></i> چالاکی و شوێن</button>
+            <button class="tab-button" onclick="showTab('touristSentencesTab', this)"><i class="fa-solid fa-route"></i> ڕستەی گونجاو</button>
+        </nav>
+
+        <main>
+            <section id="identifyPlacesTab" class="tab-content active">
+                <div class="activity-section">
+                    <h3>شوێنەکان بناسەرەوە</h3>
+                    <p class="activity-description">گوێ لە ناوی شوێنەکە بگرە و وێنە گونجاوەکە هەڵبژێرە.</p>
+                    <div id="identify-places-question" class="identify-places-question">
+                        <span id="identify-places-target-name" class="target-place-name">...</span> کامەیە؟
+                    </div>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn" id="play-identify-place-audio-btn"><i class="fa-solid fa-volume-high"></i> گوێگرتن</button>
+                    </div>
+                    <div class="identify-places-options" id="identify-places-options-container"></div>
+                    <div id="identify-places-feedback" class="feedback-area-activity"></div>
+                    <button id="next-identify-place-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="activityPlaceMatchingTab" class="tab-content">
+                <div class="activity-section">
+                    <h3>چالاکییەکان بە شوێنەکانەوە ببەستەرەوە</h3>
+                    <p class="activity-description">کرتە لە چالاکییەک بکە، پاشان کرتە لەو شوێنە بکە کە چالاکییەکەی تێدا ئەنجام دەدرێت.</p>
+                    <div class="activity-place-matching-area">
+                        <div class="matching-column" id="activities-column">
+                            <h4>چالاکییەکان</h4>
+                        </div>
+                        <div class="matching-column" id="places-column-for-matching">
+                            <h4>شوێنەکان</h4>
+                        </div>
+                    </div>
+                    <div id="activity-place-feedback" class="feedback-area-activity"></div>
+                    <button class="btn danger btn-next-activity" onclick="resetActivityPlaceMatchingGame()" style="margin-top:15px;"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                </div>
+            </section>
+
+            <section id="touristSentencesTab" class="tab-content">
+                 <div class="activity-section">
+                    <h3>ڕستەکان بە ناوی شوێنی گونجاو پڕبکەرەوە</h3>
+                    <p class="activity-description">وشەی گونجاو هەڵبژێرە بۆ پڕکردنەوەی شوێنی بەتاڵی ڕستەکە.</p>
+                    <div id="tourist-sentence-question-container" class="tourist-sentence-question-container">
+                        <p id="tourist-sentence-text" class="tourist-sentence-text"></p>
+                    </div>
+                    <div class="tourist-sentence-options" id="tourist-sentence-options-container"></div>
+                    <div id="tourist-sentence-feedback" class="feedback-area-activity"></div>
+                    <button id="next-tourist-sentence-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> ڕستەی داهاتوو</button>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const placesData = [
+            { id: 301, name_ku: "قوتابخانە", sentence_ku: "منداڵان فێری خوێندن و نووسین دەبن لە _BLANK_.", image_src: "img/places/school.png", audio_src: "audio/places/qutabkhana.mp3", activity: "خوێندن" },
+            { id: 302, name_ku: "نەخۆشخانە", sentence_ku: "کاتێک زۆر نەخۆشین، پزیشکەکان لە _BLANK_ یارمەتیمان دەدەن.", image_src: "img/places/hospital.png", audio_src: "audio/places/naxoshkhana.mp3", activity: "چارەسەر وەرگرتن" },
+            { id: 303, name_ku: "بازاڕ", sentence_ku: "بۆ کڕینی میوە و سەوزەی تازە، دەچین بۆ _BLANK_.", image_src: "img/places/market.png", audio_src: "audio/places/bazar.mp3", activity: "شت کڕین" },
+            { id: 304, name_ku: "پارک", sentence_ku: "ئێواران لە _BLANK_ پیاسە دەکەین و یاری دەکەین.", image_src: "img/places/park.png", audio_src: "audio/places/park.mp3", activity: "پیاسە کردن و یاری" },
+            { id: 305, name_ku: "کتێبخانە", sentence_ku: "بۆ خوێندنەوەی کتێبی جۆراوجۆر بە بێدەنگی، _BLANK_ شوێنێکی گونجاوە.", image_src: "img/places/library.png", audio_src: "audio/places/ktebkhana.mp3", activity: "کتێب خوێندنەوە" },
+            { id: 306, name_ku: "چێشتخانە", sentence_ku: "ئەگەر حەزت لە خواردنی ئامادەکراو بوو، دەتوانیت بچیتە _BLANK_.", image_src: "img/places/restaurant.png", audio_src: "audio/places/cheshtkhana.mp3", activity: "نان خواردن" },
+            { id: 307, name_ku: "فڕۆکەخانە", sentence_ku: "بۆ گەشتکردن بۆ وڵاتێکی تر بە فڕۆکە، سەرەتا دەڕۆین بۆ _BLANK_.", image_src: "img/places/airport.png", audio_src: "audio/places/frokakhana.mp3", activity: "گەشت کردن بە فڕۆکە" },
+            { id: 308, name_ku: "دوکان", sentence_ku: "جل و بەرگ و پێداویستی ڕۆژانە لە _BLANK_ دەکڕدرێت.", image_src: "img/places/shop.png", audio_src: "audio/places/dukan.mp3", activity: "شتومەک کڕین" },
+            { id: 309, name_ku: "ماڵ", sentence_ku: "شوێنی حەوانەوە و ژیانی خێزانەکانمان _BLANK_ە.", image_src: "img/places/house.png", audio_src: "audio/places/mal.mp3", activity: "حەوانەوە" },
+            { id: 310, name_ku: "مزگەوت", sentence_ku: "موسڵمانان بۆ ئەنجامدانی نوێژەکانیان دەچنە _BLANK_.", image_src: "img/places/mosque.png", audio_src: "audio/places/mzgawt.mp3", activity: "نوێژ کردن" }
+        ];
+
+        let currentGeneralAudioPlayer = null;
+        let currentIdentifyPlaceQuestion = null;
+        
+        let selectedActivityItem = null;
+        let selectedPlaceMatchingItem = null;
+        let activityPlaceMatchedPairs = 0;
+        const totalActivityPlacePairs = placesData.length; // Correctly defined
+
+        let currentTouristSentenceData = null;
+
+
+        const identifyPlacesTargetNameEl = document.getElementById('identify-places-target-name');
+        const playIdentifyPlaceAudioBtn = document.getElementById('play-identify-place-audio-btn');
+        const identifyPlacesOptionsContainer = document.getElementById('identify-places-options-container');
+        const identifyPlacesFeedbackEl = document.getElementById('identify-places-feedback');
+        const nextIdentifyPlaceBtn = document.getElementById('next-identify-place-btn');
+
+        const activitiesColumnDiv = document.getElementById('activities-column');
+        const placesColumnForMatchingDiv = document.getElementById('places-column-for-matching');
+        const activityPlaceFeedbackEl = document.getElementById('activity-place-feedback');
+
+        const touristSentenceTextEl = document.getElementById('tourist-sentence-text');
+        const touristSentenceOptionsContainer = document.getElementById('tourist-sentence-options-container');
+        const touristSentenceFeedbackEl = document.getElementById('tourist-sentence-feedback');
+        const nextTouristSentenceBtn = document.getElementById('next-tourist-sentence-btn');
+        
+        const currentYearPlacesEl = document.getElementById('current-year');
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearPlacesEl) { currentYearPlacesEl.textContent = new Date().getFullYear(); }
+            
+            loadIdentifyPlacesQuestion();
+            setupActivityPlaceMatchingGame();
+            loadTouristSentenceQuestion();
+
+            if(playIdentifyPlaceAudioBtn) playIdentifyPlaceAudioBtn.addEventListener('click', () => {
+                if (currentIdentifyPlaceQuestion && currentIdentifyPlaceQuestion.audio_src) playAudio(currentIdentifyPlaceQuestion.audio_src);
+            });
+            if(nextIdentifyPlaceBtn) nextIdentifyPlaceBtn.addEventListener('click', loadIdentifyPlacesQuestion);
+            if(nextTouristSentenceBtn) nextTouristSentenceBtn.addEventListener('click', loadTouristSentenceQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'identifyPlacesTab') {
+                loadIdentifyPlacesQuestion();
+            } else if (tabId === 'activityPlaceMatchingTab') {
+                resetActivityPlaceMatchingGame();
+            } else if (tabId === 'touristSentencesTab') {
+                loadTouristSentenceQuestion();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid: ${src}`); return; }
+            if (currentGeneralAudioPlayer) { currentGeneralAudioPlayer.pause(); currentGeneralAudioPlayer.currentTime = 0; }
+            try {
+                currentGeneralAudioPlayer = new Audio(src);
+                currentGeneralAudioPlayer.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- Activity 1: Identify the Places ---
+        function loadIdentifyPlacesQuestion() {
+            identifyPlacesFeedbackEl.textContent = '';
+            identifyPlacesFeedbackEl.className = 'feedback-area-activity';
+            identifyPlacesOptionsContainer.innerHTML = '';
+            identifyPlacesOptionsContainer.classList.remove('disabled');
+            nextIdentifyPlaceBtn.style.display = 'none';
+
+            currentIdentifyPlaceQuestion = placesData[Math.floor(Math.random() * placesData.length)];
+            identifyPlacesTargetNameEl.textContent = currentIdentifyPlaceQuestion.name_ku;
+            
+            if (currentIdentifyPlaceQuestion.audio_src) {
+                 playAudio(currentIdentifyPlaceQuestion.audio_src);
+                 playIdentifyPlaceAudioBtn.disabled = false;
+            } else {
+                playIdentifyPlaceAudioBtn.disabled = true;
+            }
+
+            let options = [currentIdentifyPlaceQuestion];
+            let distractors = shuffleArray([...placesData].filter(p => p.id !== currentIdentifyPlaceQuestion.id));
+            for (let i = 0; options.length < Math.min(4, placesData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const imgElement = document.createElement('img');
+                imgElement.src = option.image_src || 'img/places/placeholder_place.png';
+                imgElement.alt = option.name_ku;
+                imgElement.dataset.id = option.id;
+                imgElement.onclick = () => checkIdentifyPlaceAnswer(imgElement, currentIdentifyPlaceQuestion.id);
+                
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'identify-places-option';
+                optionDiv.appendChild(imgElement);
+                identifyPlacesOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function checkIdentifyPlaceAnswer(selectedImg, correctId) {
+            const selectedId = parseInt(selectedImg.dataset.id);
+            identifyPlacesOptionsContainer.classList.add('disabled');
+            playIdentifyPlaceAudioBtn.disabled = true;
+
+            if (selectedId === correctId) {
+                selectedImg.classList.add('correct');
+                identifyPlacesFeedbackEl.textContent = 'ڕاستە! شوێنەکەت بە دروستی ناسییەوە!';
+                identifyPlacesFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedImg.classList.add('incorrect');
+                identifyPlacesFeedbackEl.textContent = `هەڵەیە. وێنەی ڕاست بۆ "${currentIdentifyPlaceQuestion.name_ku}" نیشان دراوە.`;
+                identifyPlacesFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctImg = identifyPlacesOptionsContainer.querySelector(`img[data-id="${correctId}"]`);
+                if (correctImg) {
+                    correctImg.classList.add('correct');
+                }
+            }
+            nextIdentifyPlaceBtn.style.display = 'inline-flex';
+        }
+
+        // --- Activity 2: Activity and Place Matching ---
+        function setupActivityPlaceMatchingGame() {
+            activitiesColumnDiv.innerHTML = '<h4>چالاکییەکان</h4>';
+            placesColumnForMatchingDiv.innerHTML = '<h4>شوێنەکان</h4>';
+            activityPlaceFeedbackEl.textContent = '';
+            selectedActivityItem = null;
+            selectedPlaceMatchingItem = null;
+            activityPlaceMatchedPairs = 0;
+
+            const activities = shuffleArray(placesData.map(p => ({ id: p.id, text: p.activity })));
+            const placesForMatching = shuffleArray(placesData.map(p => ({ id: p.id, text: p.name_ku })));
+
+            activities.forEach(item => createActivityPlaceMatchItem(item.text, item.id, 'activity', activitiesColumnDiv));
+            placesForMatching.forEach(item => createActivityPlaceMatchItem(item.text, item.id, 'place', placesColumnForMatchingDiv));
+        }
+
+        function createActivityPlaceMatchItem(text, id, type, columnDiv) {
+            const button = document.createElement('button');
+            button.className = 'match-item-btn';
+            button.textContent = text;
+            button.dataset.matchId = id;
+            button.dataset.type = type;
+            button.onclick = () => handleActivityPlaceItemClick(button, type);
+            columnDiv.appendChild(button);
+        }
+
+        function handleActivityPlaceItemClick(itemElement, type) {
+            if (itemElement.classList.contains('matched') || itemElement.classList.contains('incorrect-flash')) return;
+
+            if (itemElement.classList.contains('selected')) {
+                 itemElement.classList.remove('selected');
+                 if (type === 'activity') selectedActivityItem = null;
+                 else selectedPlaceMatchingItem = null;
+                 return;
+            }
+            
+            const allItems = document.querySelectorAll(`.matching-column[id$="${type === 'activity' ? 'activities-column' : 'places-column-for-matching'}"] .match-item-btn`);
+            allItems.forEach(btn => btn.classList.remove('selected'));
+            
+            if (type === 'activity') {
+                selectedActivityItem = itemElement;
+            } else { 
+                selectedPlaceMatchingItem = itemElement;
+            }
+            itemElement.classList.add('selected');
+            activityPlaceFeedbackEl.textContent = '';
+
+            if (selectedActivityItem && selectedPlaceMatchingItem) {
+                checkActivityPlaceMatch();
+            }
+        }
+
+        function checkActivityPlaceMatch() {
+            const activityId = selectedActivityItem.dataset.matchId;
+            const placeId = selectedPlaceMatchingItem.dataset.matchId;
+
+            if (activityId === placeId) {
+                selectedActivityItem.classList.remove('selected');
+                selectedPlaceMatchingItem.classList.remove('selected');
+                selectedActivityItem.classList.add('matched');
+                selectedPlaceMatchingItem.classList.add('matched');
+                activityPlaceFeedbackEl.textContent = 'گونجاندنێکی ڕاست بوو! 👍';
+                activityPlaceFeedbackEl.className = 'feedback-area-activity feedback-correct';
+                activityPlaceMatchedPairs++;
+                selectedActivityItem = null;
+                selectedPlaceMatchingItem = null;
+                if (activityPlaceMatchedPairs === totalActivityPlacePairs) {
+                     activityPlaceFeedbackEl.textContent = "پیرۆزە! هەموو چالاکی و شوێنەکانت گونجاند! 🎉";
+                }
+            } else {
+                selectedActivityItem.classList.add('incorrect-flash');
+                selectedPlaceMatchingItem.classList.add('incorrect-flash');
+                activityPlaceFeedbackEl.textContent = 'هەڵەیە، دووبارە هەوڵبدەرەوە! 🤔';
+                activityPlaceFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                setTimeout(() => {
+                    if(selectedActivityItem) selectedActivityItem.classList.remove('selected', 'incorrect-flash');
+                    if(selectedPlaceMatchingItem) selectedPlaceMatchingItem.classList.remove('selected', 'incorrect-flash');
+                    selectedActivityItem = null;
+                    selectedPlaceMatchingItem = null;
+                }, 800);
+            }
+        }
+        function resetActivityPlaceMatchingGame() { setupActivityPlaceMatchingGame(); }
+
+        // --- Activity 3: Tourist Sentences (Complete the Sentence - Improved) ---
+        function loadTouristSentenceQuestion() {
+            touristSentenceFeedbackEl.textContent = '';
+            touristSentenceFeedbackEl.className = 'feedback-area-activity';
+            touristSentenceOptionsContainer.innerHTML = '';
+            touristSentenceOptionsContainer.classList.remove('disabled');
+            nextTouristSentenceBtn.style.display = 'none';
+
+            currentTouristSentenceData = placesData[Math.floor(Math.random() * placesData.length)];
+            
+            // The sentence in placesData already has "_BLANK_" as a placeholder.
+            const sentenceWithStyledBlank = currentTouristSentenceData.sentence_ku.replace('_BLANK_', '<span class="blank-fill"></span>');
+            touristSentenceTextEl.innerHTML = sentenceWithStyledBlank;
+
+            let options = [currentTouristSentenceData]; 
+            let distractors = shuffleArray([...placesData].filter(p => p.id !== currentTouristSentenceData.id));
+            for (let i = 0; options.length < Math.min(4, placesData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'tourist-option-btn';
+                button.textContent = option.name_ku;
+                button.dataset.id = option.id;
+                button.onclick = () => checkTouristSentenceAnswer(button, currentTouristSentenceData.id, currentTouristSentenceData.name_ku);
+                touristSentenceOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkTouristSentenceAnswer(selectedButton, correctId, correctName) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            touristSentenceOptionsContainer.classList.add('disabled');
+            const blankFill = touristSentenceTextEl.querySelector('.blank-fill');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                if(blankFill) blankFill.textContent = correctName;
+                touristSentenceFeedbackEl.textContent = 'ڕاستە! وەڵامێکی گونجاوە!';
+                touristSentenceFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                if(blankFill) blankFill.textContent = selectedButton.textContent; 
+                touristSentenceFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتی بوو لە: ${correctName}`;
+                touristSentenceFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctButton = Array.from(touristSentenceOptionsContainer.querySelectorAll('.tourist-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) { correctButton.classList.add('correct');}
+                
+                // Show the correct answer in the blank after a delay if the user was wrong
+                setTimeout(() => {
+                     if(blankFill && selectedId !== correctId) { // Only if they got it wrong
+                         blankFill.innerHTML = `<span style="color: var(--success-color); font-weight:bold;">${correctName}</span>`;
+                     }
+                }, 1200);
+            }
+            nextTouristSentenceBtn.style.display = 'inline-flex';
+        }
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

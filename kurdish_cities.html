@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گەشتێک بە شارە کوردییەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #27ae60; /* Green accent for cities */
+            --accent-hover-color: #2ecc71;
+            --light-bg-color: #f4f6f7;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 980px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--accent-color); }
+
+        .page-navigation { display: flex; justify-content: center; gap: 15px; margin-top: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); width: 100%; }
+        .nav-link-button { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 8px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); outline: none; background: linear-gradient(135deg, #d35400, var(--secondary-color)); }
+
+        nav.tab-navigation { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-button { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-button i { margin-left: 8px; font-size: 0.9em;}
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .activity-section { padding: 25px; background-color: #f9f9f9; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); text-align: center; margin-bottom: 20px;}
+        .activity-section h3 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 15px; }
+        .activity-description { font-size: 1rem; color: var(--muted-text-color); margin-bottom: 25px; }
+
+        /* Activity 1: City Symbol Match */
+        .city-symbol-question { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 10px; }
+        .city-symbol-question .target-city-name { font-size: 1.8rem; font-weight: bold; color: var(--secondary-color); }
+        .city-symbol-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; margin: 20px auto; max-width: 700px; }
+        .city-symbol-option img { width: 100%; height: 120px; object-fit: contain; /* Use contain for icons/symbols */ border-radius: var(--border-radius-md); border: 3px solid var(--border-color); cursor: pointer; transition: all var(--transition-speed); padding: 10px; background-color: var(--white-color); }
+        .city-symbol-option img:hover { border-color: var(--accent-color); transform: scale(1.05); box-shadow: var(--box-shadow-hover); }
+        .city-symbol-option img.correct { border-color: var(--success-color) !important; box-shadow: 0 0 12px var(--success-color); transform: scale(1.05); }
+        .city-symbol-option img.incorrect { border-color: var(--danger-color) !important; opacity: 0.7; }
+        .city-symbol-options.disabled .city-symbol-option img:not(.correct):not(.incorrect) { opacity: 0.6; cursor: default; }
+
+        /* Activity 2: Find My City (Riddle Quiz) */
+        .riddle-quiz-question { font-size: 1.25rem; color: var(--primary-color); margin-bottom: 25px; padding: 20px; background-color: var(--white-color); border: 1px dashed var(--accent-color); border-radius: var(--border-radius-md); line-height: 1.8; font-style: italic; }
+        .riddle-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px auto; max-width: 700px; }
+        .riddle-option-btn { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--border-color); border-radius: var(--border-radius-md); padding: 12px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1.1rem; }
+        .riddle-option-btn:hover { border-color: var(--accent-color); background-color: var(--accent-color); color: var(--white-color); }
+        .riddle-option-btn.correct { background-color: var(--success-color); border-color: var(--success-hover-color); color: var(--white-color); }
+        .riddle-option-btn.incorrect { background-color: var(--danger-color); border-color: var(--danger-hover-color); color: var(--white-color); animation: shakeHorizontal 0.4s; }
+        .riddle-options.disabled .riddle-option-btn:not(.correct):not(.incorrect) { opacity: 0.6; cursor: default; }
+
+        /* Activity 3: Imaginary Journey (Diary Entry) */
+        .diary-entry-text { font-size: 1.2rem; color: var(--text-color); margin-bottom: 25px; padding: 20px; background-color: #fffaf0; /* Creamy background */ border-left: 5px solid var(--secondary-color); border-radius: var(--border-radius-sm); line-height: 1.9; text-align: right; }
+        .diary-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        /* Uses .riddle-option-btn styling for options */
+        
+        .feedback-area-activity { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; padding: 10px; border-radius: var(--border-radius-sm); }
+        .btn-next-activity { margin-top: 15px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(39, 174, 96, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3); outline: none; }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+        @media (max-width: 768px) { .city-symbol-options, .riddle-options {grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));} }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-mountain-city"></i> گەشتێک بە شارە کوردییەکان</h1>
+        </header>
+        
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('citySymbolTab', this)"><i class="fa-solid fa-landmark"></i> نیشانەی شار</button>
+            <button class="tab-button" onclick="showTab('cityRiddleTab', this)"><i class="fa-solid fa-question-circle"></i> شارەکەم بدۆزەرەوە!</button>
+            <button class="tab-button" onclick="showTab('cityJourneyTab', this)"><i class="fa-solid fa-map-signs"></i> گەشتی خەیاڵی</button>
+        </nav>
+
+        <main>
+            <section id="citySymbolTab" class="tab-content active">
+                <div class="activity-section">
+                    <h3>نیشانەی شارەکە هەڵبژێرە</h3>
+                    <p class="activity-description">گوێ لە ناوی شارەکە بگرە و پاشان وێنەی نیشانە یان شوێنەوارە بەناوبانگەکەی هەڵبژێرە.</p>
+                    <div id="city-symbol-question" class="city-symbol-question">
+                        نیشانەی شاری <strong class="target-city-name" id="city-symbol-target-name">...</strong> کامەیە؟
+                    </div>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn" id="play-city-symbol-audio-btn"><i class="fa-solid fa-volume-high"></i> گوێگرتن</button>
+                    </div>
+                    <div class="city-symbol-options" id="city-symbol-options-container">
+                    </div>
+                    <div id="city-symbol-feedback" class="feedback-area-activity"></div>
+                    <button id="next-city-symbol-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="cityRiddleTab" class="tab-content">
+                <div class="activity-section">
+                    <h3>شارەکەم بدۆزەرەوە!</h3>
+                    <p class="activity-description">مەتەڵەکە بخوێنەرەوە و ناوی شارە ڕاستەکە هەڵبژێرە.</p>
+                    <div id="city-riddle-question" class="riddle-quiz-question">
+                    </div>
+                    <div class="riddle-options" id="city-riddle-options-container">
+                    </div>
+                    <div id="city-riddle-feedback" class="feedback-area-activity"></div>
+                    <button id="next-city-riddle-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> مەتەڵی داهاتوو</button>
+                </div>
+            </section>
+
+            <section id="cityJourneyTab" class="tab-content">
+                 <div class="activity-section">
+                    <h3>گەشتی خەیاڵی</h3>
+                    <p class="activity-description">تێکستی گەشتیارەکە بخوێنەرەوە و بزانە باسی کام شار دەکات.</p>
+                    <div id="city-diary-entry-text" class="diary-entry-text">
+                    </div>
+                    <div class="diary-options" id="city-diary-options-container">
+                    </div>
+                    <div id="city-diary-feedback" class="feedback-area-activity"></div>
+                    <button id="next-city-diary-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> گەشتی داهاتوو</button>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    
+
+    <script>
+        const citiesData = [
+            { id: 501, name_ku: "هەولێر", region_ku: "باشوور", landmark_description: "قەڵای دێرین و مێژوویی", image_src: "img/cities/hewler_citadel_icon.png", audio_src: "audio/cities/hewler.mp3", riddle_ku: "شارێکم، پایتەختی هەرێمم و قەڵایەکی زۆر کۆنم هەیە کە بە هەزاران ساڵە ئاوەدانە. من کام شارەم؟", diary_entry_ku: "ئەمڕۆ گەیشتم و یەکسەر چوومە سەر قەڵا بەناوبانگەکە. چەندە مێژوویەکی دەوڵەمەندی هەیە! لەوێوە شارەکە زۆر جوان دیار بوو." },
+            { id: 502, name_ku: "سلێمانی", region_ku: "باشوور", landmark_description: "شاری ڕۆشنبیری و ئەدەب", image_src: "img/cities/silemani_library_icon.png", audio_src: "audio/cities/silemani.mp3", riddle_ku: "من بە پایتەختی ڕۆشنبیری ناسراوم، چەندان شاعیر و نووسەری گەورەم تێدا هەڵکەوتووە. کام شارەم؟", diary_entry_ku: "ئێوارەیەکی خۆش بوو لە سەرا. پیاسەیەکم کرد و چاوم بە چەندین کتێبخانە و گەلەری هونەری کەوت. هەست دەکەم هەناسەی شیعر لێرە هەڵدەمژم." },
+            { id: 503, name_ku: "دهۆک", region_ku: "باشوور", landmark_description: "سروشتی جوان و تاڤگەکان", image_src: "img/cities/duhok_dam_icon.png", audio_src: "audio/cities/duhok.mp3", riddle_ku: "بەنداوە گەورەکەم و تاڤگە دڵڕفێنەکانم ناسراون. سروشتێکی شاخاوی و سەوزم هەیە. من کوێم؟", diary_entry_ku: "سەردانی بەنداوەکەم کرد، دیمەنێکی یەکجار جوان بوو. دواتر چوم بۆ گەلیێ زاویتە، هەوایەکی پاک و سروشتێکی دڵگیر." },
+            { id: 504, name_ku: "کەرکووک", region_ku: "باشوور", landmark_description: "قەڵای کەرکووک و بیرە نەوتەکان", image_src: "img/cities/kerkuk_qela_icon.png", audio_src: "audio/cities/kerkuk.mp3", riddle_ku: "قەڵایەکی کۆنم هەیە و بە شاری ئاگر و زێڕی ڕەش ناسراوم. ناوم چییە؟", diary_entry_ku: "ئەمڕۆ قەڵا کۆنەکەی شارم بینی، پڕ بوو لە یادەوەری. دەوترێت ئەم شارە دڵی کوردستانە و مێژوویەکی دوور و درێژی هەیە." },
+            { id: 505, name_ku: "ئامەد", region_ku: "باکوور", landmark_description: "شوورە مێژووییە بەناوبانگەکان", image_src: "img/cities/amed_walls_icon.png", audio_src: "audio/cities/amed.mp3", riddle_ku: "شوورە ڕەشەکانم بە درێژایی مێژوو شاهیدی زۆر ڕووداون. یەکێکم لە گەورەترین شارەکانی باکوور. من کێم؟", diary_entry_ku: "بەناو کۆڵانە تەسکەکانی سوردا پیاسەم کرد. هەستم بە قورسایی مێژوو دەکرد لەسەر هەر بەردێکی. مزگەوتی گەورە سەرسوڕهێنەر بوو." },
+            { id: 506, name_ku: "وان", region_ku: "باکوور", landmark_description: "دەریاچەی وان و قەڵای وان", image_src: "img/cities/wan_lake_icon.png", audio_src: "audio/cities/wan.mp3", riddle_ku: "دەریاچەیەکی شینم هەیە کە گەورەترینە لە هەرێمەکەدا، پشیلە تایبەتەکانیشم بەناوبانگن. ناوی من چییە؟", diary_entry_ku: "بەیانییەکی زوو چوومە کەناری دەریاچەکە، دیمەنێکی ئەفسوناوی بوو. دواتر سەردانی قەڵا کۆنەکەم کرد کە مێژوویەکی دەوڵەمەندی هەیە." },
+            { id: 507, name_ku: "مەهاباد", region_ku: "ڕۆژهەڵات", landmark_description: "ناوەندی یەکەم کۆماری کوردستان", image_src: "img/cities/mehabad_chwar_chra_icon.png", audio_src: "audio/cities/mehabad.mp3", riddle_ku: "من پایتەختی یەکەمین کۆماری کوردستان بووم لە مێژوودا. چوارچرای من هێمایەکە. ناوم چییە؟", diary_entry_ku: "هەستێکی تایبەتم هەبوو کاتێک لە چوارچرا وەستابووم، شوێنێک کە یادەوەری گرنگی گەلەکەمانی هەڵگرتووە." },
+            { id: 508, name_ku: "سنە", region_ku: "ڕۆژهەڵات", landmark_description: "ناوەندی پارێزگای کوردستان (ئێران) و شاری هەڵپەڕکێ", image_src: "img/cities/sine_park_icon.png", audio_src: "audio/cities/sine.mp3", riddle_ku: "من بە مۆسیقا و هەڵپەڕکێ زیندووەکەم ناسراوم، ناوەندی پارێزگایەکم لە ڕۆژهەڵات. من کام شارەم؟", diary_entry_ku: "ئێوارەکەی لە پارکی ئاویەر پیاسەم کرد، خەڵکێکی زۆر هاتبوون بۆ کات بەسەربردن. دەنگی مۆسیقای کوردی لە هەموو لایەک دەهات." },
+            { id: 509, name_ku: "کرماشان", region_ku: "ڕۆژهەڵات", landmark_description: "تاقوەسان و بێستوون", image_src: "img/cities/kirmashan_taqwasan_icon.png", audio_src: "audio/cities/kirmashan.mp3", riddle_ku: "تاقوەسان و نووسراوەکانی بێستوون دوو لە شوێنەوارە گرنگەکانی منن. من شارێکی گەورەی ڕۆژهەڵاتم.", diary_entry_ku: "سەرسام بووم بە نەخشە هەڵکۆڵراوەکانی تاقوەسان. مێژوویەکی زۆر کۆنیان هەیە و چیرۆکی پاشاکان دەگێڕنەوە." },
+            { id: 510, name_ku: "قامشلۆ", region_ku: "ڕۆژاوا", landmark_description: "شارێکی سەرەکی ڕۆژاوای کوردستان", image_src: "img/cities/qamishlo_street_icon.png", audio_src: "audio/cities/qamishlo.mp3", riddle_ku: "من یەکێکم لە شارە هەرە گەورە و زیندووەکانی ڕۆژاوای کوردستان. خەڵکەکەم بە زمانە جیاوازەکان دەدوێن.", diary_entry_ku: "بازاڕی شارەکە پڕ بوو لە ژیان. دەنگی کوردی و سریانی و عەرەبی تێکەڵ ببوون. هەستم بە فرەڕەنگییەکی جوان کرد." },
+            { id: 511, name_ku: "کۆبانێ", region_ku: "ڕۆژاوا", landmark_description: "ناسراو بە بەرخۆدان", image_src: "img/cities/kobane_resistance_icon.png", audio_src: "audio/cities/kobane.mp3", riddle_ku: "من بوومە هێمای بەرخۆدان و خۆڕاگری لە مێژووی نوێدا. ناوم چییە؟", diary_entry_ku: "هەرچەندە ئاسەواری شەڕ هێشتا دیار بوو، بەڵام ئیرادەی ژیان لە چاوی خەڵکەکەیدا دەبریسکایەوە. شارێکە پڕ لە چیرۆکی قارەمانێتی." }
+        ];
+
+        let currentGeneralAudioPlayer_cities_v2 = null;
+        
+        // Activity 1: City Symbol Match State
+        let currentCitySymbolQuizItem = null;
+
+        // Activity 2: Riddle Quiz State
+        let currentCityRiddleItem = null;
+        
+        // Activity 3: Imaginary Journey State
+        let currentCityDiaryItem = null;
+
+        // DOM Cache
+        const citySymbolTargetNameEl = document.getElementById('city-symbol-target-name');
+        const playCitySymbolAudioBtn = document.getElementById('play-city-symbol-audio-btn');
+        const citySymbolOptionsContainer = document.getElementById('city-symbol-options-container');
+        const citySymbolFeedbackEl = document.getElementById('city-symbol-feedback');
+        const nextCitySymbolBtn = document.getElementById('next-city-symbol-btn');
+
+        const cityRiddleQuestionEl = document.getElementById('city-riddle-question');
+        const cityRiddleOptionsContainer = document.getElementById('city-riddle-options-container');
+        const cityRiddleFeedbackEl = document.getElementById('city-riddle-feedback');
+        const nextCityRiddleBtn = document.getElementById('next-city-riddle-btn');
+        
+        const cityDiaryEntryTextEl = document.getElementById('city-diary-entry-text');
+        const cityDiaryOptionsContainer = document.getElementById('city-diary-options-container');
+        const cityDiaryFeedbackEl = document.getElementById('city-diary-feedback');
+        const nextCityDiaryBtn = document.getElementById('next-city-diary-btn');
+        
+        const currentYearCitiesEl_v2 = document.getElementById('current-year');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearCitiesEl_v2) { currentYearCitiesEl_v2.textContent = new Date().getFullYear(); }
+            
+            loadCitySymbolQuestion();
+            loadCityRiddleQuestion();
+            loadCityDiaryQuestion();
+
+            if(playCitySymbolAudioBtn) playCitySymbolAudioBtn.addEventListener('click', () => {
+                if (currentCitySymbolQuizItem && currentCitySymbolQuizItem.audio_src) playAudio(currentCitySymbolQuizItem.audio_src);
+            });
+            if(nextCitySymbolBtn) nextCitySymbolBtn.addEventListener('click', loadCitySymbolQuestion);
+            if(nextCityRiddleBtn) nextCityRiddleBtn.addEventListener('click', loadCityRiddleQuestion);
+            if(nextCityDiaryBtn) nextCityDiaryBtn.addEventListener('click', loadCityDiaryQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'citySymbolTab') {
+                loadCitySymbolQuestion();
+            } else if (tabId === 'cityRiddleTab') {
+                loadCityRiddleQuestion();
+            } else if (tabId === 'cityJourneyTab') {
+                loadCityDiaryQuestion();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid for city: ${src}`); return; }
+            if (currentGeneralAudioPlayer_cities_v2) { currentGeneralAudioPlayer_cities_v2.pause(); currentGeneralAudioPlayer_cities_v2.currentTime = 0; }
+            try {
+                currentGeneralAudioPlayer_cities_v2 = new Audio(src);
+                currentGeneralAudioPlayer_cities_v2.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- Activity 1: City Symbol Match ---
+        function loadCitySymbolQuestion() {
+            citySymbolFeedbackEl.textContent = '';
+            citySymbolFeedbackEl.className = 'feedback-area-activity';
+            citySymbolOptionsContainer.innerHTML = '';
+            citySymbolOptionsContainer.classList.remove('disabled');
+            nextCitySymbolBtn.style.display = 'none';
+
+            currentCitySymbolQuizItem = citiesData[Math.floor(Math.random() * citiesData.length)];
+            citySymbolTargetNameEl.textContent = currentCitySymbolQuizItem.name_ku;
+            
+            if (currentCitySymbolQuizItem.audio_src) {
+                 playAudio(currentCitySymbolQuizItem.audio_src);
+                 playCitySymbolAudioBtn.disabled = false;
+            } else {
+                playCitySymbolAudioBtn.disabled = true;
+            }
+
+            let options = [currentCitySymbolQuizItem]; // Correct option
+            let distractors = shuffleArray([...citiesData].filter(c => c.id !== currentCitySymbolQuizItem.id));
+            for (let i = 0; options.length < Math.min(4, citiesData.length) && i < distractors.length; i++) { // Ensure 3 or 4 options
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const imgElement = document.createElement('img');
+                // For symbols, use the main image_src, assuming it's an icon or landmark
+                imgElement.src = option.image_src || `img/cities/placeholder_symbol.png`; 
+                imgElement.alt = option.landmark_description || option.name_ku;
+                imgElement.dataset.id = option.id;
+                imgElement.onclick = () => checkCitySymbolAnswer(imgElement, currentCitySymbolQuizItem.id);
+                
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'city-symbol-option';
+                optionDiv.appendChild(imgElement);
+                citySymbolOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function checkCitySymbolAnswer(selectedImg, correctId) {
+            const selectedId = parseInt(selectedImg.dataset.id);
+            citySymbolOptionsContainer.classList.add('disabled');
+            playCitySymbolAudioBtn.disabled = true;
+
+            if (selectedId === correctId) {
+                selectedImg.classList.add('correct');
+                citySymbolFeedbackEl.textContent = 'ڕاستە! نیشانەی شارەکەت بە جوانی ناسییەوە!';
+                citySymbolFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedImg.classList.add('incorrect');
+                citySymbolFeedbackEl.textContent = `هەڵەیە. وێنەی ڕاست بۆ "${currentCitySymbolQuizItem.name_ku}" نیشان دراوە.`;
+                citySymbolFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctImg = citySymbolOptionsContainer.querySelector(`img[data-id="${correctId}"]`);
+                if (correctImg) {
+                    correctImg.classList.add('correct');
+                }
+            }
+            nextCitySymbolBtn.style.display = 'inline-flex';
+        }
+
+        // --- Activity 2: Find My City (Riddle Quiz) ---
+        function loadCityRiddleQuestion() {
+            cityRiddleFeedbackEl.textContent = '';
+            cityRiddleFeedbackEl.className = 'feedback-area-activity';
+            cityRiddleOptionsContainer.innerHTML = '';
+            cityRiddleOptionsContainer.classList.remove('disabled');
+            nextCityRiddleBtn.style.display = 'none';
+
+            currentCityRiddleItem = citiesData[Math.floor(Math.random() * citiesData.length)];
+            cityRiddleQuestionEl.textContent = currentCityRiddleItem.riddle_ku;
+
+            let options = [currentCityRiddleItem];
+            let distractors = shuffleArray([...citiesData].filter(c => c.id !== currentCityRiddleItem.id));
+            for (let i = 0; options.length < Math.min(4, citiesData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'riddle-option-btn';
+                button.textContent = option.name_ku;
+                button.dataset.id = option.id;
+                button.onclick = () => checkCityRiddleAnswer(button, currentCityRiddleItem.id);
+                cityRiddleOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkCityRiddleAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            cityRiddleOptionsContainer.classList.add('disabled');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                cityRiddleFeedbackEl.textContent = 'ڕاستە! وەڵامی مەتەڵەکەت دۆزییەوە!';
+                cityRiddleFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                cityRiddleFeedbackEl.textContent = `هەڵەیە. وەڵامی ڕاست بریتی بوو لە: ${currentCityRiddleItem.name_ku}`;
+                cityRiddleFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctButton = Array.from(cityRiddleOptionsContainer.querySelectorAll('.riddle-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+            }
+            nextCityRiddleBtn.style.display = 'inline-flex';
+        }
+        
+        // --- Activity 3: Imaginary Journey (Diary Entry) ---
+        function loadCityDiaryQuestion() {
+            cityDiaryFeedbackEl.textContent = '';
+            cityDiaryFeedbackEl.className = 'feedback-area-activity';
+            cityDiaryOptionsContainer.innerHTML = '';
+            cityDiaryOptionsContainer.classList.remove('disabled');
+            nextCityDiaryBtn.style.display = 'none';
+
+            currentCityDiaryItem = citiesData[Math.floor(Math.random() * citiesData.length)];
+            cityDiaryEntryTextEl.textContent = currentCityDiaryItem.diary_entry_ku;
+
+            let options = [currentCityDiaryItem];
+            let distractors = shuffleArray([...citiesData].filter(c => c.id !== currentCityDiaryItem.id));
+            for (let i = 0; options.length < Math.min(4, citiesData.length) && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'riddle-option-btn'; // Re-use riddle button style
+                button.textContent = option.name_ku;
+                button.dataset.id = option.id;
+                button.onclick = () => checkCityDiaryAnswer(button, currentCityDiaryItem.id);
+                cityDiaryOptionsContainer.appendChild(button);
+            });
+        }
+
+        function checkCityDiaryAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            cityDiaryOptionsContainer.classList.add('disabled');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                cityDiaryFeedbackEl.textContent = 'ڕاستە! گەشتە خەیاڵییەکەت سەرکەوتوو بوو!';
+                cityDiaryFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                cityDiaryFeedbackEl.textContent = `هەڵەیە. گەشتیارەکە باسی شاری ${currentCityDiaryItem.name_ku}ی دەکرد.`;
+                cityDiaryFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                const correctButton = Array.from(cityDiaryOptionsContainer.querySelectorAll('.riddle-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+            }
+            nextCityDiaryBtn.style.display = 'inline-flex';
+        }
+
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

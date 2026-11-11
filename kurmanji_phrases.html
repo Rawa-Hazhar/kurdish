@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="kmr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hevokên Rojane - Kurmancî | Hîngeha Zimanê Kurdî</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-main: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #2980b9; /* Blue for phrases theme */
+            --accent-hover-color: #3498db;
+            --light-bg-color: #f4f6f7;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --white-color: #ffffff;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --transition-speed: 0.3s;
+            --border-color: #e0e6e8;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { font-family: var(--font-main), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.7; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .container { width: 100%; max-width: 950px; margin: 20px auto; padding: 30px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); }
+
+        header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.6rem; font-weight: 700; }
+        header h1 i { margin-right: 12px; color: var(--accent-color); }
+        #user-score-display { text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--secondary-color); background-color: #fdf2e9; padding: 8px 15px; border-radius: var(--border-radius-md); margin: -10px auto 20px auto; width: fit-content; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        #kurmanji-navbar-placeholder { margin-bottom: 30px; }
+        .page-navigation { display: flex; justify-content: center; gap: 15px; width: 100%; flex-wrap: wrap; }
+        .nav-link-button { font-family: var(--font-main); background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; }
+        
+        .activity-section { margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 30px; }
+        .activity-title { font-size: 1.8rem; text-align: center; color: var(--primary-color); margin-bottom: 20px; }
+        
+        /* Learning List Styles */
+        .phrase-list { list-style: none; padding: 0; }
+        .phrase-item { background-color: #f9f9f9; border-left: 5px solid var(--accent-color); border-radius: var(--border-radius-md); padding: 15px 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .phrase-kurmanji { font-size: 1.2rem; font-weight: 500; }
+        .phrase-english { font-size: 0.95rem; color: var(--muted-text-color); }
+        
+        /* Sentence Scramble Game Styles */
+        .scramble-container { text-align: center; }
+        .scramble-translation { font-style: italic; color: var(--muted-text-color); margin-bottom: 20px; }
+        #scramble-dropzone { min-height: 60px; border: 2px dashed var(--border-color); border-radius: var(--border-radius-md); padding: 10px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        #scramble-word-bank { min-height: 60px; background-color: #f0f0f0; border-radius: var(--border-radius-md); padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .scramble-word { background-color: var(--white-color); color: var(--primary-color); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 5px; cursor: grab; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* General button and feedback styles */
+        .activity-controls { margin-top: 20px; text-align: center; }
+        .btn-check { font-family: var(--font-main); background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; padding: 12px 25px; font-size: 1rem; font-weight: 600; border-radius: 5px; cursor: pointer; }
+        .feedback { font-size: 1.1rem; font-weight: 600; margin-top: 15px; min-height: 25px; }
+        .feedback.correct { color: var(--success-color); }
+        .feedback.incorrect { color: var(--danger-color); }
+
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-comments"></i> Hevokên Rojane</h1>
+            <div id="user-score-display">
+                <i class="fa-solid fa-star"></i> Pûan: <span id="score-value">0</span>
+            </div>
+        </header>
+
+        <div id="kurmanji-navbar-placeholder"></div>
+
+        <main>
+            <section>
+                <h2 class="activity-title">Beşa 1: Hevdîtin (Meeting Someone)</h2>
+                <ul class="phrase-list" id="phrases-learn-container"></ul>
+            </section>
+
+            <section class="activity-section">
+                <h2 class="activity-title">Rahênan 1: Hevokê Çêke</h2>
+                <div class="scramble-container">
+                    <p>Peyvan bi rêz bike ji bo hevoka rast çêkî.</p>
+                    <p class="scramble-translation" id="scramble-translation-hint"></p>
+                    <div id="scramble-dropzone"></div>
+                    <div id="scramble-word-bank"></div>
+                    <div class="activity-controls">
+                        <button class="btn-check" onclick="checkScrambleAnswer()">Kontrol bike</button>
+                    </div>
+                    <div class="feedback" id="scramble-feedback"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    
+    <script>
+        // --- DATA ---
+        const phrases = [
+            { kmr: "Navê te çi ye?", eng: "What is your name?" },
+            { kmr: "Navê min Alan e", eng: "My name is Alan." },
+            { kmr: "Tu ji ku derê yî?", eng: "Where are you from?" },
+            { kmr: "Ez ji Kurdistanê me", eng: "I am from Kurdistan." },
+            { kmr: "Tu çawan î?", eng: "How are you?" },
+            { kmr: "Ez baş im, spas", eng: "I am fine, thank you." }
+        ];
+
+        // --- CORE ELEMENTS ---
+        const phrasesContainer = document.getElementById('phrases-learn-container');
+        const scoreValueEl = document.getElementById('score-value');
+        const dropzone = document.getElementById('scramble-dropzone');
+        const wordBank = document.getElementById('scramble-word-bank');
+        const translationHint = document.getElementById('scramble-translation-hint');
+        const scrambleFeedback = document.getElementById('scramble-feedback');
+        let currentScramblePhrase = null;
+
+        // --- TTS & GAMIFICATION (Copied from other modules) ---
+        const synth = window.speechSynthesis;
+        let kurdishVoice = null;
+        function loadVoices() {
+            kurdishVoice = synth.getVoices().find(v => v.lang.startsWith('ku') || v.lang.startsWith('tr'));
+        }
+        loadVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        function speak(text) {
+            if (synth.speaking) synth.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            if (kurdishVoice) utter.voice = kurdishVoice;
+            else utter.lang = 'tr-TR';
+            synth.speak(utter);
+        }
+        function getScore() { return parseInt(localStorage.getItem('kurmanji_user_score') || '0'); }
+        function displayScore() { if (scoreValueEl) scoreValueEl.textContent = getScore(); }
+        function updateScore(points) {
+            localStorage.setItem('kurmanji_user_score', getScore() + points);
+            displayScore();
+        }
+
+        // --- LEARNING LIST LOGIC ---
+        function populatePhrasesList() {
+            phrasesContainer.innerHTML = '';
+            phrases.forEach(p => {
+                const item = document.createElement('li');
+                item.className = 'phrase-item';
+                item.innerHTML = `<div><p class="phrase-kurmanji">${p.kmr}</p><p class="phrase-english">${p.eng}</p></div><i class="fa-solid fa-volume-high"></i>`;
+                item.addEventListener('click', () => speak(p.kmr));
+                phrasesContainer.appendChild(item);
+            });
+        }
+        
+        // --- SENTENCE SCRAMBLE LOGIC ---
+        function startScrambleGame() {
+            // Pick a random phrase
+            currentScramblePhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            translationHint.textContent = `Werger (Translation): "${currentScramblePhrase.eng}"`;
+            
+            // Clear previous game
+            dropzone.innerHTML = '';
+            wordBank.innerHTML = '';
+            scrambleFeedback.textContent = '';
+            scrambleFeedback.className = 'feedback';
+
+            // Create and shuffle word tiles
+            const words = currentScramblePhrase.kmr.split(' ');
+            words.sort(() => Math.random() - 0.5); // Shuffle
+
+            words.forEach(word => {
+                const wordDiv = document.createElement('div');
+                wordDiv.className = 'scramble-word';
+                wordDiv.textContent = word;
+                wordDiv.draggable = true;
+                wordDiv.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', e.target.textContent);
+                });
+                wordBank.appendChild(wordDiv);
+            });
+        }
+
+        // Setup Drag and Drop Listeners
+        dropzone.addEventListener('dragover', e => e.preventDefault());
+        dropzone.addEventListener('drop', e => {
+            e.preventDefault();
+            const wordText = e.dataTransfer.getData('text/plain');
+            // Find and move the original word div
+            const wordDiv = Array.from(wordBank.children).find(child => child.textContent === wordText);
+            if(wordDiv) dropzone.appendChild(wordDiv);
+        });
+
+        wordBank.addEventListener('dragover', e => e.preventDefault());
+        wordBank.addEventListener('drop', e => {
+            e.preventDefault();
+            const wordText = e.dataTransfer.getData('text/plain');
+            const wordDiv = Array.from(dropzone.children).find(child => child.textContent === wordText);
+            if(wordDiv) wordBank.appendChild(wordDiv);
+        });
+
+        function checkScrambleAnswer() {
+            const assembledWords = Array.from(dropzone.children).map(child => child.textContent);
+            const assembledSentence = assembledWords.join(' ');
+
+            if (assembledSentence === currentScramblePhrase.kmr) {
+                scrambleFeedback.textContent = 'Rast e! Pir baş!';
+                scrambleFeedback.className = 'feedback correct';
+                updateScore(15); // Higher score for a harder task
+                speak('Pir baş');
+                setTimeout(startScrambleGame, 2000); // Start next game after a short delay
+            } else {
+                scrambleFeedback.textContent = 'Şaş e. Ji nû ve biceribîne.';
+                scrambleFeedback.className = 'feedback incorrect';
+                speak('Şaş e');
+            }
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            displayScore();
+            populatePhrasesList();
+            startScrambleGame();
+        });
+    </script>
+</body>
+</html>

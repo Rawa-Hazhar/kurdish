@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+</head>
+<body>
+<title>فێرگەی زمانی کوردی</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="فێربوونی زمانی کوردی لە ئەلفوبێوە: سۆرانی و کورمانجی. Hînbûna zimanê kurdî ji alfabeyê ve.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Vazirmatn:wght@400;600;800&display=swap">
+<style>
+    /* Layout: one centred column; sun mark, bilingual title, two dialect doors side by side. Single light look, same as the lessons. */
+    :root {
+        --red: #c8312b; --green: #1f7a4d; --green-deep: #17603c; --sun: #f0b323;
+        --ink: #1c2b26; --paper: #f1f5f1; --card: #ffffff; --line: #d9e2db; --muted: #5a6c64;
+        --font-ku: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+        --font-la: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+        color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { direction: rtl; }
+    body {
+        margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-ku); font-size: 17px; line-height: 1.8;
+        padding-block: 0 32px;
+    }
+    .flag { height: 6px; background: linear-gradient(180deg, var(--red) 0 33.3%, #fff 33.3% 66.6%, var(--green) 66.6%); }
+    .wrap { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; padding-top: clamp(24px, 6vw, 56px);
+        padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+    .top { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+    .sun { width: clamp(84px, 18vw, 120px); height: auto; }
+    @media (prefers-reduced-motion: no-preference) { .sun .rays { transform-origin: 60px 60px; animation: turn 90s linear infinite; } }
+    @keyframes turn { to { transform: rotate(360deg); } }
+    h1 { margin: 10px 0 0; font-size: clamp(2rem, 7vw, 3.1rem); font-weight: 800; line-height: 1.35; text-wrap: balance; }
+    .latin { font-family: var(--font-la); direction: ltr; }
+    .top .latin { font-size: clamp(1.05rem, 3.2vw, 1.35rem); font-weight: 600; color: var(--green-deep); }
+    .lede { margin: 6px 0 0; max-width: 34em; color: var(--muted); }
+    .doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .door {
+        display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 24px 22px 20px;
+        background: var(--card); border: 1px solid var(--line); border-radius: 18px; color: inherit; text-decoration: none;
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .door:hover, .door:focus-visible { transform: translateY(-3px); border-color: var(--green); box-shadow: 0 12px 28px rgba(28, 43, 38, .12); }
+    .door:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+    .door .sample { font-size: 2.6rem; font-weight: 800; line-height: 1.3; color: var(--green); letter-spacing: .02em; }
+    .door.kmr { direction: ltr; font-family: var(--font-la); }
+    .door.kmr .sample { color: var(--red); font-weight: 700; }
+    .door h2 { margin: 0; font-size: 1.45rem; line-height: 1.5; }
+    .door p { margin: 0; color: var(--muted); font-size: .98rem; }
+    .meter { margin-top: auto; padding-top: 10px; font-size: .88rem; color: var(--muted); }
+    .track { height: 8px; margin-top: 6px; border-radius: 8px; background: var(--line); overflow: hidden; }
+    .fill { height: 100%; width: 0; border-radius: 8px; background: var(--green); transition: width .5s ease; }
+    .door.kmr .fill { background: var(--red); }
+    .go {
+        align-self: flex-start; margin-top: 8px; padding: 9px 18px; border-radius: 10px; font-weight: 600;
+        background: var(--ink); color: #fff; display: inline-flex; gap: 8px; align-items: center;
+    }
+    .go svg { width: 14px; height: 14px; }
+    footer { text-align: center; color: var(--muted); font-size: .88rem; }
+    footer p { margin: 0; }
+    .credit b { color: var(--ink); }
+</style>
+
+<div class="flag" aria-hidden="true"></div>
+<div class="wrap">
+    <header class="top">
+        <svg class="sun" viewBox="0 0 120 120" role="img" aria-label="خۆری ئاڵای کوردستان">
+            <g class="rays" fill="#f0b323" id="rays"></g>
+            <circle cx="60" cy="60" r="27" fill="#f0b323"/>
+        </svg>
+        <h1>فێرگەی زمانی کوردی</h1>
+        <div class="latin" lang="kmr">Hîngeha Zimanê Kurdî</div>
+        <p class="lede">لە ئەلفوبێوە دەست پێ بکە و هەنگاو بە هەنگاو فێری وشە، ڕستە و ڕێزمان ببە. زاراوەکەت هەڵبژێرە.</p>
+    </header>
+
+    <main class="doors">
+        <a class="door ckb" href="sorani.html" lang="ckb">
+            <div class="sample" aria-hidden="true">ئا ب پ</div>
+            <h2>کوردیی ناوەندی · سۆرانی</h2>
+            <p>ئەلفوبێ، وشە، ژمارە، ڕەنگ، ڕێزمان، ڕستەسازی و یاریی سێ‌ڕەهەندی بە ئەلفوبێی کوردیی عەرەبی.</p>
+            <div class="meter"><span dir="ltr"><b data-done="ckb">0</b> / 19</span> وانە تەواو کراوە<div class="track"><div class="fill" data-fill="ckb"></div></div></div>
+            <span class="go">دەست پێ بکە <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="door kmr" href="kurmanji_index.html" lang="kmr">
+            <div class="sample" aria-hidden="true">A B C Ç</div>
+            <h2>Kurdiya Bakur · Kurmancî</h2>
+            <p>Alfabe, hevok, hejmar, reng, malbat, bajarên Kurdistanê û lîstikên 3D bi tîpên latînî.</p>
+            <div class="meter"><span><b data-done="kmr">0</b> / 10</span> wane qediyan<div class="track"><div class="fill" data-fill="kmr"></div></div></div>
+            <span class="go">Dest pê bike <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 2 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="yr">2026</span> فێرگەی زمانی کوردی · <span class="latin" lang="kmr">Hîngeha Zimanê Kurdî</span></p>
+        <p class="latin credit">Developed by <b>Rawa Hazhar</b></p>
+    </footer>
+</div>
+
+<script>
+    (function () {
+        var r = '', i;
+        for (i = 0; i < 21; i++) r += '<path transform="rotate(' + (i * 360 / 21) + ' 60 60)" d="M60 4l5.4 30h-10.8z"/>';
+        document.getElementById('rays').innerHTML = r;   // the sun on the flag has 21 rays
+        document.getElementById('yr').textContent = new Date().getFullYear();
+        var seen = {};
+        try { seen = JSON.parse(localStorage.getItem('ku_seen') || '{}') || {}; } catch (e) { }
+        var n = { ckb: 0, kmr: 0 }, total = { ckb: 19, kmr: 10 };
+        Object.keys(seen).forEach(function (k) { n[k.indexOf('kurmanji') === 0 ? 'kmr' : 'ckb']++; });
+        ['ckb', 'kmr'].forEach(function (d) {
+            document.querySelector('[data-done="' + d + '"]').textContent = Math.min(n[d], total[d]);
+            document.querySelector('[data-fill="' + d + '"]').style.width = Math.min(100, n[d] / total[d] * 100) + '%';
+        });
+    })();
+</script>
+
+</body>
+</html>

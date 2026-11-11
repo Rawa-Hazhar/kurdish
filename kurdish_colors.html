@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی ڕەنگەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #c0392b; /* Red accent for colors module */
+            --accent-hover-color: #e74c3c;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b; /* Re-using for incorrect, but primary accent is also red */
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow);
+            flex-grow: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.3rem;
+            font-weight: 700;
+        }
+        header h1 i {
+            margin-left: 10px;
+            color: var(--accent-color);
+        }
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+        .nav-link-button {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), #d35400);
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+            outline: none;
+            background: linear-gradient(135deg, #d35400, var(--secondary-color));
+        }
+
+        nav.tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color);
+            border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer;
+            transition: all var(--transition-speed) ease; font-weight: 600; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-3px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Color List Styles */
+        .color-list ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .color-list li {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            transition: box-shadow var(--transition-speed);
+        }
+         .color-list li:hover {
+             box-shadow: var(--box-shadow-hover);
+         }
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-sm);
+            margin-left: 15px;
+            border: 1px solid var(--border-color); /* For light colors like white */
+            flex-shrink: 0;
+        }
+        .color-name-kurdish {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            flex-grow: 1;
+        }
+        .play-color-btn {
+            background: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .play-color-btn:hover {
+            background-color: var(--accent-hover-color);
+            transform: scale(1.1);
+        }
+        .play-color-btn i {
+            font-size: 1rem;
+        }
+
+        /* Matching Game Styles */
+        .matching-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+         .matching-column h3 {
+             text-align: center;
+             font-size: 1.2rem;
+             color: var(--primary-color);
+             margin-bottom: 15px;
+             font-weight: 600;
+         }
+        .match-item {
+            padding: 12px;
+            background-color: var(--white-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: center;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+        .match-item.color-text { font-weight: 600; color: var(--primary-color); }
+        .match-item.color-block {
+            width: 100%;
+            height: 50px;
+            text-indent: -9999px; /* Hide text if any, show only background */
+        }
+
+        .match-item:hover {
+            border-color: var(--accent-color);
+        }
+        .match-item.selected {
+            border-color: var(--accent-hover-color);
+            box-shadow: 0 0 0 3px var(--accent-color);
+        }
+        .match-item.matched {
+            border-color: var(--success-color);
+            background-color: var(--success-color) !important; /* Ensure bg overrides for color blocks */
+            opacity: 0.7;
+            cursor: default;
+            pointer-events: none;
+        }
+        .match-item.matched.color-text { /* Keep text visible for matched text items */
+            color: var(--white-color);
+        }
+        .match-item.incorrect {
+             border-color: var(--danger-color) !important;
+             animation: shakeHorizontal 0.4s;
+        }
+         @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        #matching-feedback-colors {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+
+
+        /* Quiz Styles */
+        .quiz-area {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+         .quiz-area h3 {
+             font-size: 1.5rem;
+             color: var(--primary-color);
+             margin-bottom: 25px;
+         }
+        .quiz-question-color-display {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px auto;
+            border-radius: var(--border-radius-md);
+            border: 2px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+        }
+        .quiz-question-text {
+             font-size: 1.3rem;
+             color: var(--primary-color);
+             margin-bottom: 20px;
+        }
+        .quiz-options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .quiz-option-btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 1rem;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quiz-option-btn .quiz-color-swatch { /* For options that are color swatches */
+            width: 100%;
+            height: 30px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--muted-text-color);
+        }
+        .quiz-option-btn:hover, .quiz-option-btn:focus-visible {
+            border-color: var(--accent-color);
+            box-shadow: var(--box-shadow-hover);
+            outline: none;
+        }
+        .quiz-option-btn.correct {
+            background-color: var(--success-color) !important;
+            border-color: var(--success-hover-color) !important;
+            color: var(--white-color) !important; /* For text options */
+        }
+         .quiz-option-btn.incorrect {
+            background-color: var(--danger-color) !important;
+            border-color: var(--danger-hover-color) !important;
+            color: var(--white-color) !important; /* For text options */
+            animation: shakeHorizontal 0.4s;
+        }
+        .quiz-options-container.disabled .quiz-option-btn:not(.correct):not(.incorrect) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .quiz-feedback-area {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.5em;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+        }
+        .btn {
+            font-family: var(--font-kurdish), sans-serif;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color));
+            color: var(--white-color);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); /* Accent color shadow */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+         .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); }
+         .btn i { margin-left: 8px; }
+         .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); outline: none; }
+
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; margin: 10px auto; }
+            header h1 { font-size: 2rem; }
+            .matching-area { grid-template-columns: 1fr; }
+            .color-name-kurdish { font-size: 1.1rem; }
+            .quiz-options-container { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+        }
+         @media (max-width: 480px) {
+             .btn, .tab-button, .nav-link-button { padding: 8px 15px; font-size: 0.9rem; }
+             .match-item { font-size: 1rem; }
+             .quiz-option-btn { font-size: 0.95rem; }
+         }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-palette"></i> فێربوونی ڕەنگەکان</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('listColorsTab', this)"><i class="fa-solid fa-list"></i> لیستی ڕەنگەکان</button>
+            <button class="tab-button" onclick="showTab('matchingGameTabColors', this)"><i class="fa-solid fa-link"></i> یاریی گونجاندن</button>
+            <button class="tab-button" onclick="showTab('quizTabColors', this)"><i class="fa-solid fa-question-circle"></i> تاقیکردنەوە</button>
+        </nav>
+
+        <main>
+            <section id="listColorsTab" class="tab-content active">
+                 <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">ڕەنگەکان بە کوردی</h2>
+                 <div class="color-list">
+                     <ul id="color-list-ul">
+                         </ul>
+                 </div>
+            </section>
+
+            <section id="matchingGameTabColors" class="tab-content">
+                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 25px;">ناوی ڕەنگ بە شێوەکەی بگونجێنە</h2>
+                <div class="matching-area">
+                    <div class="matching-column" id="kurdish-color-names-column">
+                        <h3>ناوەکان</h3>
+                        </div>
+                    <div class="matching-column" id="color-swatches-column">
+                        <h3>ڕەنگەکان</h3>
+                        </div>
+                </div>
+                <div id="matching-feedback-colors"></div>
+                 <div style="text-align: center; margin-top: 25px;">
+                    <button class="btn danger" onclick="resetColorMatchingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                 </div>
+            </section>
+
+            <section id="quizTabColors" class="tab-content">
+                <div class="quiz-area">
+                    <h3>تاقیکردنەوەی ڕەنگەکان</h3>
+                    <div id="color-quiz-question-area">
+                        </div>
+                    <div id="color-quiz-options-container" class="quiz-options-container">
+                    </div>
+                    <div id="color-quiz-feedback-area" class="quiz-feedback-area"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="next-color-quiz-btn" class="btn" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const kurdishColors = [
+            { id: 1, name: "سوور", value: "#FF0000", audio: "audio/colors/soor.mp3" },
+            { id: 2, name: "زەرد", value: "#FFFF00", audio: "audio/colors/zard.mp3" },
+            { id: 3, name: "سەوز", value: "#008000", audio: "audio/colors/sawz.mp3" },
+            { id: 4, name: "شین", value: "#0000FF", audio: "audio/colors/sheen.mp3" },
+            { id: 5, name: "ڕەش", value: "#000000", audio: "audio/colors/rash.mp3" },
+            { id: 6, name: "سپی", value: "#FFFFFF", audio: "audio/colors/spi.mp3" },
+            { id: 7, name: "پرتەقاڵی", value: "#FFA500", audio: "audio/colors/pirteqalli.mp3" },
+            { id: 8, name: "پەمەیی", value: "#FFC0CB", audio: "audio/colors/pemeyi.mp3" },
+            { id: 9, name: "بنەوشەیی", value: "#800080", audio: "audio/colors/benaWsheyi.mp3" }, // Purple
+            { id: 10, name: "قاوەیی", value: "#A52A2A", audio: "audio/colors/qawayi.mp3" }, // Brown
+            { id: 11, name: "خۆڵەمێشی", value: "#808080", audio: "audio/colors/xolameshi.mp3" }, // Grey
+            { id: 12, name: "ئاڵتوونی", value: "#FFD700", audio: "audio/colors/alltooni.mp3" } // Gold
+        ];
+
+        let currentColorAudio = null;
+        let selectedColorNameItem = null;
+        let selectedColorSwatchItem = null;
+        let colorMatchedPairs = 0;
+        let totalColorPairs = kurdishColors.length;
+
+        let currentColorQuizQuestion = null;
+        let colorQuizMode = 'nameToSwatch'; // or 'swatchToName'
+
+        // DOM Cache
+        const colorListUl = document.getElementById('color-list-ul');
+        const kurdishColorNamesColumnDiv = document.getElementById('kurdish-color-names-column');
+        const colorSwatchesColumnDiv = document.getElementById('color-swatches-column');
+        const matchingFeedbackColorsEl = document.getElementById('matching-feedback-colors');
+
+        const colorQuizQuestionAreaEl = document.getElementById('color-quiz-question-area');
+        const colorQuizOptionsContainerEl = document.getElementById('color-quiz-options-container');
+        const colorQuizFeedbackAreaEl = document.getElementById('color-quiz-feedback-area');
+        const nextColorQuizBtn = document.getElementById('next-color-quiz-btn');
+        const currentYearFooterEl_colors = document.getElementById('current-year');
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearFooterEl_colors) { currentYearFooterEl_colors.textContent = new Date().getFullYear(); }
+            populateColorList();
+            setupColorMatchingGame();
+            loadColorQuizQuestion();
+            nextColorQuizBtn.addEventListener('click', loadColorQuizQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            clickedButton.classList.add('active');
+
+            if (tabId === 'matchingGameTabColors') {
+                resetColorMatchingGame();
+            } else if (tabId === 'quizTabColors') {
+                loadColorQuizQuestion();
+            }
+        }
+
+        function playColorAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid or not provided for color: ${src}`); return; }
+            if (currentColorAudio) { currentColorAudio.pause(); currentColorAudio.currentTime = 0; }
+            try {
+                currentColorAudio = new Audio(src);
+                currentColorAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        function populateColorList() {
+            colorListUl.innerHTML = '';
+            kurdishColors.forEach(color => {
+                const li = document.createElement('li');
+                const swatchStyle = `background-color: ${color.value};` + (color.value === '#FFFFFF' ? ' border: 1px solid #ccc;' : '');
+                li.innerHTML = `
+                    <div class="color-swatch" style="${swatchStyle}"></div>
+                    <span class="color-name-kurdish">${color.name}</span>
+                    <button class="play-color-btn" onclick="playColorAudio('${color.audio}')" aria-label="گوێگرتن لە ڕەنگی ${color.name}">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                `;
+                colorListUl.appendChild(li);
+            });
+        }
+
+        function setupColorMatchingGame() {
+            kurdishColorNamesColumnDiv.innerHTML = '<h3>ناوەکان</h3>';
+            colorSwatchesColumnDiv.innerHTML = '<h3>ڕەنگەکان</h3>';
+            matchingFeedbackColorsEl.textContent = '';
+            selectedColorNameItem = null;
+            selectedColorSwatchItem = null;
+            colorMatchedPairs = 0;
+
+            const shuffledNames = shuffleArray([...kurdishColors]);
+            const shuffledSwatches = shuffleArray([...kurdishColors]);
+
+            shuffledNames.forEach(color => createColorMatchItem(color.name, color.id, 'color-text', kurdishColorNamesColumnDiv));
+            shuffledSwatches.forEach(color => createColorMatchItem(color.value, color.id, 'color-block', colorSwatchesColumnDiv));
+        }
+
+        function createColorMatchItem(content, id, type, columnDiv) {
+            const div = document.createElement('div');
+            div.className = `match-item ${type}`;
+            if (type === 'color-block') {
+                div.style.backgroundColor = content;
+                if (content === '#FFFFFF') { // Add border for white swatch to make it visible
+                    div.style.border = '1px solid #ccc';
+                }
+            } else {
+                div.textContent = content;
+            }
+            div.dataset.matchId = id;
+            div.onclick = () => handleColorMatchItemClick(div, type);
+            columnDiv.appendChild(div);
+        }
+
+        function handleColorMatchItemClick(itemElement, type) {
+            if (itemElement.classList.contains('matched')) return;
+
+            if (itemElement.classList.contains('selected')) {
+                 itemElement.classList.remove('selected');
+                 if (type === 'color-text') selectedColorNameItem = null;
+                 else selectedColorSwatchItem = null;
+                 return;
+            }
+
+            if (type === 'color-text') {
+                if (selectedColorNameItem) selectedColorNameItem.classList.remove('selected');
+                selectedColorNameItem = itemElement;
+            } else { // color-block
+                if (selectedColorSwatchItem) selectedColorSwatchItem.classList.remove('selected');
+                selectedColorSwatchItem = itemElement;
+            }
+            itemElement.classList.add('selected');
+            itemElement.classList.remove('incorrect');
+            matchingFeedbackColorsEl.textContent = '';
+
+            if (selectedColorNameItem && selectedColorSwatchItem) {
+                checkColorMatch();
+            }
+        }
+
+        function checkColorMatch() {
+            const nameId = selectedColorNameItem.dataset.matchId;
+            const swatchId = selectedColorSwatchItem.dataset.matchId;
+
+            if (nameId === swatchId) {
+                selectedColorNameItem.classList.remove('selected');
+                selectedColorSwatchItem.classList.remove('selected');
+                selectedColorNameItem.classList.add('matched');
+                selectedColorSwatchItem.classList.add('matched');
+                matchingFeedbackColorsEl.textContent = 'گونجا! 👍';
+                matchingFeedbackColorsEl.className = 'feedback-correct';
+                colorMatchedPairs++;
+                selectedColorNameItem = null;
+                selectedColorSwatchItem = null;
+                if (colorMatchedPairs === totalColorPairs) {
+                     matchingFeedbackColorsEl.textContent = "پیرۆزە! هەمووت گونجاند! 🎉";
+                }
+            } else {
+                selectedColorNameItem.classList.add('incorrect');
+                selectedColorSwatchItem.classList.add('incorrect');
+                matchingFeedbackColorsEl.textContent = 'هەوڵبدەرەوە! 🤔';
+                matchingFeedbackColorsEl.className = 'feedback-incorrect';
+                setTimeout(() => {
+                    if(selectedColorNameItem) selectedColorNameItem.classList.remove('selected', 'incorrect');
+                    if(selectedColorSwatchItem) selectedColorSwatchItem.classList.remove('selected', 'incorrect');
+                    selectedColorNameItem = null;
+                    selectedColorSwatchItem = null;
+                }, 800);
+            }
+        }
+
+        function resetColorMatchingGame() {
+             setupColorMatchingGame();
+        }
+
+        function loadColorQuizQuestion() {
+            colorQuizFeedbackAreaEl.textContent = '';
+            colorQuizFeedbackAreaEl.className = 'quiz-feedback-area';
+            colorQuizOptionsContainerEl.innerHTML = '';
+            colorQuizOptionsContainerEl.classList.remove('disabled');
+            nextColorQuizBtn.style.display = 'none';
+
+            currentColorQuizQuestion = kurdishColors[Math.floor(Math.random() * kurdishColors.length)];
+            colorQuizMode = Math.random() < 0.5 ? 'nameToSwatch' : 'swatchToName';
+
+            if (colorQuizMode === 'nameToSwatch') {
+                colorQuizQuestionAreaEl.innerHTML = `<p class="quiz-question-text">ڕەنگی <strong>${currentColorQuizQuestion.name}</strong> کامەیە؟</p>`;
+            } else { // swatchToName
+                const swatchBorderStyle = currentColorQuizQuestion.value === '#FFFFFF' ? 'border: 1px solid #ccc;' : '';
+                colorQuizQuestionAreaEl.innerHTML = `
+                    <div class="quiz-question-color-display" style="background-color: ${currentColorQuizQuestion.value}; ${swatchBorderStyle}"></div>
+                    <p class="quiz-question-text">ئەم ڕەنگە چییە؟</p>
+                `;
+            }
+
+            let options = [currentColorQuizQuestion];
+            let distractors = shuffleArray([...kurdishColors].filter(c => c.id !== currentColorQuizQuestion.id));
+            for(let i = 0; options.length < 4 && i < distractors.length; i++) {
+                options.push(distractors[i]);
+            }
+             while (options.length < Math.min(4, kurdishColors.length)) {
+                let randomColor = kurdishColors[Math.floor(Math.random() * kurdishColors.length)];
+                if (!options.some(opt => opt.id === randomColor.id)) {
+                    options.push(randomColor);
+                }
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'quiz-option-btn';
+                if (colorQuizMode === 'nameToSwatch') {
+                    // Options are color swatches
+                    const swatchDiv = document.createElement('div');
+                    swatchDiv.className = 'quiz-color-swatch';
+                    swatchDiv.style.backgroundColor = option.value;
+                    button.appendChild(swatchDiv);
+                } else { // swatchToName - options are color names
+                    button.textContent = option.name;
+                }
+                button.dataset.id = option.id;
+                button.onclick = () => checkColorQuizAnswer(button, currentColorQuizQuestion.id);
+                colorQuizOptionsContainerEl.appendChild(button);
+            });
+        }
+
+        function checkColorQuizAnswer(selectedButton, correctId) {
+            const selectedId = parseInt(selectedButton.dataset.id);
+            colorQuizOptionsContainerEl.classList.add('disabled');
+
+            if (selectedId === correctId) {
+                selectedButton.classList.add('correct');
+                colorQuizFeedbackAreaEl.textContent = 'ڕاستە! زۆر باشە!';
+                colorQuizFeedbackAreaEl.className = 'quiz-feedback-area feedback-correct';
+            } else {
+                selectedButton.classList.add('incorrect');
+                let correctAnswerText = '';
+                if (colorQuizMode === 'nameToSwatch') {
+                    correctAnswerText = `ڕەنگی دروست ${currentColorQuizQuestion.name} بوو.`;
+                     // We need to visually show which swatch was correct if the user picked wrong
+                     const correctButton = Array.from(colorQuizOptionsContainerEl.querySelectorAll('.quiz-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                     if(correctButton) correctButton.classList.add('correct');
+
+                } else { // swatchToName
+                    correctAnswerText = `ناوی ڕاست: ${currentColorQuizQuestion.name}`;
+                     const correctButton = Array.from(colorQuizOptionsContainerEl.querySelectorAll('.quiz-option-btn')).find(btn => parseInt(btn.dataset.id) === correctId);
+                     if(correctButton) correctButton.classList.add('correct');
+                }
+                colorQuizFeedbackAreaEl.textContent = `هەڵەیە. ${correctAnswerText}`;
+                colorQuizFeedbackAreaEl.className = 'quiz-feedback-area feedback-incorrect';
+            }
+            nextColorQuizBtn.style.display = 'inline-flex';
+        }
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

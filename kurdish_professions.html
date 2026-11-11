@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێرگەی وشەی پیشەکان - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        /* --- Styles are identical to secondabc.html --- */
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif; --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50; --secondary-color: #e67e22; --accent-color: #3498db;
+            --accent-hover-color: #2980b9; --light-bg-color: #ecf0f1; --card-bg-color: white;
+            --text-color: #34495e; --muted-text-color: #7f8c8d; --success-color: #27ae60;
+            --success-hover-color: #2ecc71; --danger-color: #c0392b; --danger-hover-color: #e74c3c;
+            --warning-color: #f39c12; --white-color: #ffffff; --border-radius-sm: 5px;
+            --border-radius-md: 8px; --border-radius-lg: 12px; --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12); --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 1100px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--secondary-color); } /* Default icon color */
+        #theme-selection, #activity-selection { margin-bottom: 30px; padding: 20px; background-color: #f8f9f9; border-radius: var(--border-radius-md); border: 1px solid var(--light-bg-color); }
+        #theme-selection h2, #activity-selection h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; font-size: 1.4rem; }
+        .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3); outline: none; }
+        .btn:active { transform: translateY(0); box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2); }
+        .btn.secondary { background: linear-gradient(135deg, var(--secondary-color), #e74c3c); box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); }
+        .btn.secondary:hover { box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); }
+        .btn.danger { background: linear-gradient(135deg, #95a5a6, var(--muted-text-color)); box-shadow: 0 2px 5px rgba(127, 140, 141, 0.2); }
+        .btn.danger:hover { box-shadow: 0 4px 8px rgba(127, 140, 141, 0.3); }
+        .btn.active { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 0 0 2px var(--white-color), 0 3px 6px rgba(52, 152, 219, 0.3); }
+        button:disabled, .btn:disabled { background: #bdc3c7; cursor: not-allowed; box-shadow: none; transform: none; opacity: 0.7; }
+        .activity-content { display: none; animation: fadeInContent 0.5s ease-out; }
+        .activity-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; } to { opacity: 1; } }
+        #activity-title { text-align: center; font-size: 1.6rem; color: var(--secondary-color); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid var(--light-bg-color); }
+        #vocab-list-container { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+        #vocab-list-scroll { max-height: 450px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 10px;}
+        #vocab-list ul { list-style: none; padding: 0; }
+        #vocab-list li { padding: 12px 15px; border-bottom: 1px solid var(--light-bg-color); transition: background-color var(--transition-speed); cursor: pointer; display: grid; grid-template-columns: auto 1fr auto auto; gap: 15px; align-items: center; }
+        #vocab-list li:last-child { border-bottom: none; }
+        #vocab-list li:hover, #vocab-list li.selected { background-color: #e8f4fd; }
+        #vocab-list .vocab-word { font-weight: 700; font-size: 1.2rem; color: var(--primary-color);}
+        #vocab-list .vocab-sentence { font-size: 0.95rem; color: var(--text-color); grid-column: 2 / 3; }
+        #vocab-list .info-icon { color: var(--accent-color); cursor: help; font-size: 1rem; position: relative; }
+        #vocab-list .play-btn-small { background: none; border: none; color: var(--accent-color); font-size: 1.2rem; cursor: pointer; transition: color var(--transition-speed); }
+        #vocab-list .play-btn-small:hover { color: var(--accent-hover-color); }
+        .tooltip { position: absolute; right: 100%; margin-right: 10px; top: 50%; transform: translateY(-50%); background-color: var(--primary-color); color: var(--white-color); padding: 8px 12px; border-radius: var(--border-radius-sm); font-size: 0.85rem; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); z-index: 10; box-shadow: var(--box-shadow); }
+        .info-icon:hover .tooltip { opacity: 1; visibility: visible; }
+        #vocab-writing-area { padding: 15px; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); text-align: center; background-color: #fdfdfd;}
+        #vocab-writing-target { font-size: 3rem; color: var(--secondary-color); font-weight: 700; margin-bottom: 15px; min-height: 50px; }
+        #vocab-writing-canvas { border: 1px dashed var(--accent-color); border-radius: var(--border-radius-sm); background-color: var(--white-color); cursor: crosshair; width: 100%; max-width: 250px; height: 120px; margin-bottom: 15px; }
+        #flashcard-container { perspective: 1000px; max-width: 350px; margin: 20px auto; height: 220px; }
+        .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; border-radius: var(--border-radius-md); box-shadow: var(--box-shadow); } /* Adjusted shadow */
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border-radius: var(--border-radius-md); font-size: 1.6rem; text-align: center; }
+        .flashcard-front { background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: var(--white-color); font-size: 2.2rem; font-weight: 700; }
+        .flashcard-back { background: var(--card-bg-color); color: var(--text-color); transform: rotateY(180deg); }
+        .flashcard-back img { max-width: 50%; max-height: 45%; margin-bottom: 10px; border-radius: var(--border-radius-sm); object-fit: contain;}
+        .flashcard-back .back-text { font-size: 1rem; margin-top: 5px; color: var(--text-color); }
+        .flashcard-back .play-btn-small { margin-top: 10px; background: var(--accent-color); color: white; font-size: 0.8rem; padding: 5px 10px; border-radius: var(--border-radius-sm);}
+        #flashcard-controls { text-align: center; margin-top: 25px; }
+        #flashcard-controls button { margin: 0 8px; }
+        #card-counter { text-align: center; margin-top: 15px; color: var(--muted-text-color); font-size: 0.9rem; }
+        #matching-game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 550px; margin: 20px auto; perspective: 1000px; }
+        .match-card { aspect-ratio: 1 / 1; background-color: var(--primary-color); border-radius: var(--border-radius-md); cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s, background-color 0.5s, opacity 0.5s; box-shadow: var(--box-shadow); } /* Adjusted shadow */
+        .match-card .match-card-face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: var(--border-radius-md); padding: 5px; overflow: hidden; text-align: center; }
+        .match-card .match-card-front { background: linear-gradient(135deg, #bdc3c7, var(--light-bg-color)); }
+        .match-card .match-card-back { background: var(--card-bg-color); transform: rotateY(180deg); }
+        .match-card .match-card-back img { max-width: 75%; max-height: 75%; object-fit: contain; }
+        .match-card .match-card-back span { font-size: 1rem; font-weight: 600; }
+        .match-card.flipped { transform: rotateY(180deg); }
+        .match-card.matched { transform: rotateY(180deg) scale(0.95); opacity: 0.5; pointer-events: none; background-color: var(--success-color); border: 2px solid var(--white-color); }
+        .match-card.incorrect { animation: shake 0.4s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0) rotateY(180deg); } 25% { transform: translateX(-5px) rotateY(180deg); } 75% { transform: translateX(5px) rotateY(180deg); } }
+        #game-feedback { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; }
+        #listening-quiz-area { text-align: center; }
+        #play-quiz-audio-btn { margin-bottom: 30px; }
+        #listening-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; max-width: 650px; margin: 0 auto 20px; }
+        .quiz-option-btn { font-size: 1.1rem; padding: 12px; background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); cursor: pointer; transition: all var(--transition-speed); }
+        .quiz-option-btn:hover { border-color: var(--accent-color); background-color: #e8f4fd; }
+        .quiz-option-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+        .quiz-option-btn.correct { background-color: var(--success-color); color: var(--white-color); border-color: var(--success-color); transform: scale(1.03); }
+        .quiz-option-btn.incorrect { background-color: var(--danger-color); color: var(--white-color); border-color: var(--danger-color); animation: shakeHorizontal 0.4s; }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        #quiz-feedback { font-size: 1.1rem; font-weight: 600; margin-top: 15px; min-height: 1.5em;}
+        #quiz-score { margin-top: 20px; font-size: 1.1rem; font-weight: bold; color: var(--primary-color); }
+        #dialogue-practice { padding: 20px; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); background-color: #fdfdfd; margin-top: 20px;}
+        .dialogue-line { margin-bottom: 15px; padding: 10px 15px; border-right: 4px solid var(--accent-color); background-color: var(--white-color); border-radius: var(--border-radius-sm); display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);}
+        .dialogue-line:nth-child(odd) { border-right: none; border-left: 4px solid var(--secondary-color); background-color: #fff9f5;}
+        .dialogue-speaker { font-weight: bold; color: var(--primary-color); font-size: 0.9rem;}
+        .dialogue-text { flex-grow: 1; font-size: 1.05rem; }
+        .dialogue-text .keyword { font-weight: bold; color: var(--secondary-color); background-color: #fef0e5; padding: 1px 4px; border-radius: 3px;}
+        .dialogue-play-btn { background: none; border: none; color: var(--accent-color); font-size: 1rem; cursor: pointer; padding: 5px;}
+        .dialogue-play-btn:hover { color: var(--accent-hover-color); }
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); } /* Adjusted grey text */
+        @media (max-width: 768px) { body { padding: 10px; } .container { padding: 15px; margin: 10px auto;} header h1 { font-size: 2rem; } .btn { padding: 9px 16px; font-size: 0.9rem; } #theme-selection h2, #activity-selection h2 { font-size: 1.3rem; } #activity-title { font-size: 1.5rem; } #flashcard-container { max-width: 90%; height: 200px;} .flashcard-face { font-size: 1.4rem;} .flashcard-front { font-size: 1.8rem;} .flashcard-back .back-text { font-size: 0.95rem; } #matching-game-board { grid-template-columns: repeat(3, 1fr); max-width: 95%; gap: 10px;} #vocab-list-container { grid-template-columns: 1fr; } #vocab-writing-area { margin-top: 20px; } .dialogue-text { font-size: 1rem;} }
+        @media (max-width: 480px) { #matching-game-board { grid-template-columns: repeat(2, 1fr); } .quiz-option-btn { font-size: 1rem; padding: 10px;} .btn i { display: none; } .btn { padding: 8px 12px; } #vocab-list li { grid-template-columns: auto 1fr auto; gap: 10px; } #vocab-list .vocab-sentence { grid-column: 1 / 4; grid-row: 2; font-size: 0.9rem; margin-top: 5px; } #vocab-list .info-icon { grid-row: 1; grid-column: 3;} #vocab-list .play-btn-small { grid-row: 1; grid-column: 4;} }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+<style>#theme-selection{display:none}</style><link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-briefcase"></i> فێرگەی وشەی پیشەکان</h1>
+        </header>
+
+         
+
+        <section id="theme-selection">
+            <h2>بابەت: پیشەکان</h2>
+            <div class="button-group" id="theme-buttons">
+                </div>
+        </section>
+
+        <section id="activity-selection" style="display: none;"> <h2>چالاکییەک هەڵبژێرە:</h2>
+            <div class="button-group">
+                <button class="btn secondary" onclick="showActivity('vocab-list')"><i class="fa-solid fa-list"></i> وشەکان</button>
+                <button class="btn secondary" onclick="showActivity('flashcards')"><i class="fa-solid fa-clone"></i> فلاشکارت</button>
+                <button class="btn secondary" onclick="showActivity('matching-game')"><i class="fa-solid fa-puzzle-piece"></i> یاریی گونجاندن</button>
+                <button class="btn secondary" onclick="showActivity('listening-quiz')"><i class="fa-solid fa-headphones"></i> تاقیکردنەوەی گوێگرتن</button>
+                <button class="btn secondary" onclick="showActivity('dialogue-practice')"><i class="fa-solid fa-comments"></i> گفتوگۆ</button>
+            </div>
+        </section>
+
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid var(--light-bg-color);">
+
+        <main id="main-content">
+            <h3 id="activity-title" style="display: none;"></h3>
+
+            <div id="vocab-list" class="activity-content">
+                <p style="text-align: center; font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 15px;">کرتە لە وشەیەک بکە بۆ بینینی لە بەشی نووسین و گوێگرتن لێی.</p>
+                <div id="vocab-list-container">
+                    <div id="vocab-list-scroll">
+                        <ul></ul>
+                    </div>
+                    <div id="vocab-writing-area">
+                        <div id="vocab-writing-target">...</div>
+                        <p style="font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 10px;">لێرە وشەکە بنووسەوە:</p>
+                        <canvas id="vocab-writing-canvas" width="250" height="120" aria-label="ڕووبەری نووسینی وشە"></canvas>
+                        <button id="clear-vocab-canvas-btn" class="btn danger btn-small" onclick="clearVocabCanvas()" style="padding: 5px 10px; font-size: 0.8rem;"><i class="fa-solid fa-eraser"></i> سڕینەوە</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="flashcards" class="activity-content">
+                 <p style="text-align: center; font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 15px;">کرتە لە کارتەکە بکە بۆ بینینی لایەکەی تر.</p>
+                <div id="flashcard-container">
+                    <div class="flashcard" onclick="flipCard(this)">
+                        <div class="flashcard-face flashcard-front"></div>
+                        <div class="flashcard-face flashcard-back">
+                            <img src="img/placeholder.png" alt="وێنە"> <div class="back-text"></div>
+                             <button class="btn play-btn-small" onclick="playCurrentFlashcardAudio(event)">
+                                 <i class="fa-solid fa-volume-up"></i> گوێبگرە
+                             </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="flashcard-controls">
+                    <button class="btn" onclick="prevCard()"><i class="fa-solid fa-arrow-right"></i> پێشوو</button>
+                    <button class="btn" onclick="nextCard()"><i class="fa-solid fa-arrow-left"></i> داهاتوو</button>
+                    <button class="btn secondary" onclick="shuffleCards()"><i class="fa-solid fa-random"></i> تێکەڵکردن</button>
+                </div>
+                 <div id="card-counter"></div>
+            </div>
+
+            <div id="matching-game" class="activity-content">
+                 <p style="text-align: center; font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 15px;">دوو کارتی هاوشێوە بدۆزەرەوە (وشە و وێنە).</p>
+                 <div id="matching-game-board"></div>
+                 <div id="game-feedback"></div>
+                 <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn danger" onclick="resetMatchingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                 </div>
+            </div>
+
+            <div id="listening-quiz" class="activity-content">
+                <div id="listening-quiz-area">
+                    <p style="text-align: center; margin-bottom: 15px; font-size: 1.1rem;">گوێ لە وشەکە بگرە و وشەی ڕاست هەڵبژێرە:</p>
+                    <button id="play-quiz-audio-btn" class="btn" onclick="playCurrentQuizAudio()">
+                        <i class="fa-solid fa-volume-high"></i> لێدانی دەنگ
+                    </button>
+                    <div id="listening-options"></div>
+                    <div id="quiz-feedback"></div>
+                    <div id="quiz-score">نمرە: ٠ / ٠</div>
+                    <div style="text-align: center; margin-top: 20px;">
+                         <button id="next-quiz-item-btn" class="btn" onclick="nextQuizItem()" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                         <button id="restart-quiz-btn" class="btn danger" onclick="startListeningQuiz()" style="display: none;"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dialogue-practice" class="activity-content">
+                  <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem;">گوێ لە گفتوگۆکە بگرە و تەرکیز بکە سەر وشە <span class="keyword">ڕەنگکراوەکان</span>:</p>
+                  <div id="dialogue-lines">
+                      </div>
+             </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="current-year">2025</span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        // --- DATA STRUCTURE ---
+        const vocabularyData = {
+            'پیشەکان': [ // Professions
+                { id: 101, word_ku: "مامۆستا", meaning: "کەسێک کە وانە دەڵێتەوە", audio_src: "audio/professions/mamosta.mp3", image_src: "img/professions/teacher.png", sentence_ku: "مامۆستا وانەی کوردی دەڵێتەوە.", grammar_note_ku: "کۆ: مامۆستایان" },
+                { id: 102, word_ku: "پزیشک", meaning: "کەسێک کە چارەسەری نەخۆش دەکات", audio_src: "audio/professions/pzishk.mp3", image_src: "img/professions/doctor.png", sentence_ku: "پزیشکەکە لە نەخۆشخانە کار دەکات.", grammar_note_ku: null },
+                { id: 103, word_ku: "ئەندازیار", meaning: "کەسێک کە دیزاینی باڵەخانە و پرۆژە دەکات", audio_src: "audio/professions/andazyar.mp3", image_src: "img/professions/engineer.png", sentence_ku: "ئەندازیارەکە پردێکی نوێی دروست کرد.", grammar_note_ku: null },
+                { id: 104, word_ku: "پەرستار", meaning: "کەسێک کە یارمەتی پزیشک و نەخۆش دەدات", audio_src: "audio/professions/parastar.mp3", image_src: "img/professions/nurse.png", sentence_ku: "پەرستارەکە زۆر میهرەبانە.", grammar_note_ku: null },
+                { id: 105, word_ku: "نانەوا", meaning: "کەسێک کە نان دروست دەکات", audio_src: "audio/professions/nanawa.mp3", image_src: "img/professions/baker.png", sentence_ku: "نانەواکە نانی گەرمی هەیە.", grammar_note_ku: null },
+                { id: 106, word_ku: "دارتاش", meaning: "کەسێک کە کاری دار دەکات", audio_src: "audio/professions/dartash.mp3", image_src: "img/professions/carpenter.png", sentence_ku: "دارتاشەکە مێزێکی جوانی دروست کرد.", grammar_note_ku: null },
+                { id: 107, word_ku: "جووتیار", meaning: "کەسێک کە کشتوکاڵ دەکات", audio_src: "audio/professions/jootyar.mp3", image_src: "img/professions/farmer.png", sentence_ku: "جووتیارەکە گەنمی چاندووە.", grammar_note_ku: null },
+                { id: 108, word_ku: "پۆلیس", meaning: "کەسێک کە پارێزگاری لە ئاسایش دەکات", audio_src: "audio/professions/polis.mp3", image_src: "img/professions/police.png", sentence_ku: "پۆلیسەکە هاتووچۆی ڕێکخست.", grammar_note_ku: null },
+                { id: 109, word_ku: "پارێزەر", meaning: "کەسێک کە لە دادگا بەرگری دەکات", audio_src: "audio/professions/parezar.mp3", image_src: "img/professions/lawyer.png", sentence_ku: "پارێزەرەکە دۆسیەکەی بردەوە.", grammar_note_ku: null },
+                { id: 110, word_ku: "شوفێر", meaning: "کەسێک کە ئۆتۆمبێل لێدەخوڕێت", audio_src: "audio/professions/shofer.mp3", image_src: "img/professions/driver.png", sentence_ku: "شوفێری پاسەکە زۆر بە ئاگایە.", grammar_note_ku: null }
+            ]
+        };
+
+        const dialogueData = {
+             'پیشەکان': [
+                  { speaker: "ئاراس", line: "تۆ چ کارەییت؟", keywords: [], audio: "audio/professions_dialogue/dialogue_p1.mp3" },
+                  { speaker: "سارا", line: "من <span class='keyword'>مامۆستا</span>م. تۆ چیت؟", keywords: ["مامۆستا"], audio: "audio/professions_dialogue/dialogue_p2.mp3" },
+                  { speaker: "ئاراس", line: "من <span class='keyword'>ئەندازیار</span>م. لە کوێ کار دەکەیت؟", keywords: ["ئەندازیار"], audio: "audio/professions_dialogue/dialogue_p3.mp3" },
+                  { speaker: "سارا", line: "من لە قوتابخانەیەک کار دەکەم. <span class='keyword'>پزیشک</span>ەکان لە کوێ کار دەکەن؟", keywords: ["پزیشک"], audio: "audio/professions_dialogue/dialogue_p4.mp3" },
+                  { speaker: "ئاراس", line: "ئەوان لە نەخۆشخانە کار دەکەن. <span class='keyword'>جووتیار</span> چی دەکات؟", keywords: ["جووتیار"], audio: "audio/professions_dialogue/dialogue_p5.mp3" },
+                  { speaker: "سارا", line: "<span class='keyword'>جووتیار</span> خواردنمان بۆ بەرهەم دەهێنێت.", keywords: ["جووتیار"], audio: "audio/professions_dialogue/dialogue_p6.mp3" }
+              ]
+         };
+
+        // --- STATE VARIABLES ---
+        // (Identical to secondabc.html)
+        let currentTheme = null; let currentWords = []; let currentActivity = null;
+        let currentFlashcardIndex = 0; let flashcardAudioContext = null;
+        let vocabCanvasCtx = null;
+        let firstCard = null; let secondCard = null; let lockBoard = false;
+        let matchedPairs = 0; let totalPairs = 0;
+        let quizItems = []; let currentQuizIndex = 0; let quizScore = 0; let quizAudioContext = null;
+
+        // --- DOM Elements Cache ---
+        // (Identical to secondabc.html)
+        const themeButtonsContainer = document.getElementById('theme-buttons');
+        const activitySelectionSection = document.getElementById('activity-selection');
+        const activityTitle = document.getElementById('activity-title');
+        const mainContent = document.getElementById('main-content');
+        const allActivityContents = document.querySelectorAll('.activity-content');
+        const vocabListUl = document.querySelector('#vocab-list ul');
+        const vocabListScrollDiv = document.getElementById('vocab-list-scroll');
+        const vocabWritingArea = document.getElementById('vocab-writing-area');
+        const vocabWritingTarget = document.getElementById('vocab-writing-target');
+        let vocabWritingCanvas = document.getElementById('vocab-writing-canvas');
+        const flashcardContainer = document.getElementById('flashcard-container');
+        const flashcardElement = document.querySelector('#flashcards .flashcard');
+        const flashcardFront = document.querySelector('#flashcards .flashcard-front');
+        const flashcardBack = document.querySelector('#flashcards .flashcard-back');
+        const flashcardImage = document.querySelector('#flashcards .flashcard-back img');
+        const flashcardBackText = document.querySelector('#flashcards .flashcard-back .back-text');
+        const cardCounterEl = document.getElementById('card-counter');
+        const gameBoard = document.getElementById('matching-game-board');
+        const gameFeedback = document.getElementById('game-feedback');
+        const playQuizAudioBtn = document.getElementById('play-quiz-audio-btn');
+        const listeningOptionsDiv = document.getElementById('listening-options');
+        const quizFeedbackEl = document.getElementById('quiz-feedback');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const nextQuizItemBtn = document.getElementById('next-quiz-item-btn');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const dialogueLinesContainer = document.getElementById('dialogue-lines');
+        const currentYearEl = document.getElementById('current-year');
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!themeButtonsContainer || !activitySelectionSection || !mainContent) {
+                 console.error("Critical layout elements missing!");
+                 alert("هەڵەیەک ڕوویدا لە بارکردنی پەڕەکە. تکایە دووبارە هەوڵبدەرەوە.");
+                 return;
+            }
+
+            populateThemeButtons(); // Will populate with "پیشەکان"
+            if (currentYearEl) { currentYearEl.textContent = new Date().getFullYear(); }
+            try {
+                flashcardAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                quizAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) { console.warn("Web Audio API is not supported."); }
+
+            vocabCanvasCtx = setupMiniCanvas(vocabWritingCanvas);
+            if (!vocabCanvasCtx) { console.warn("Mini writing canvas setup failed."); }
+
+            // Automatically select the "پیشەکان" theme if it's the only one
+            if (Object.keys(vocabularyData).length === 1 && vocabularyData['پیشەکان']) {
+                const professionsButton = themeButtonsContainer.querySelector('button'); // Should be the only one
+                if (professionsButton) {
+                    selectTheme('پیشەکان', professionsButton);
+                }
+            }
+        });
+
+        // --- THEME AND ACTIVITY SELECTION ---
+        // (Largely identical to secondabc.html, but populateThemeButtons adapted for single/multiple themes)
+        function populateThemeButtons() {
+            themeButtonsContainer.innerHTML = '';
+            const themes = Object.keys(vocabularyData);
+            if (themes.length === 0) {
+                 themeButtonsContainer.innerHTML = "<p>هیچ بابەتێک بەردەست نییە.</p>";
+                 activitySelectionSection.style.display = 'none'; // Hide activity if no themes
+                 return;
+            }
+
+            themes.forEach(themeName => {
+                const button = document.createElement('button');
+                button.className = 'btn';
+                let iconClass = 'fa-solid fa-users-gear'; // Default icon for professions
+                if (themeName === 'پیشەکان') iconClass = 'fa-solid fa-briefcase';
+                // Add more specific icons if more themes are added to this page later
+                button.innerHTML = `<i class="${iconClass}"></i> ${themeName}`;
+                button.onclick = (function(name, btn) {
+                    return function() { selectTheme(name, btn); };
+                })(themeName, button);
+                themeButtonsContainer.appendChild(button);
+            });
+
+            // If only one theme, auto-select it and show activities
+            if (themes.length === 1) {
+                const firstThemeButton = themeButtonsContainer.querySelector('.btn');
+                if (firstThemeButton) {
+                    firstThemeButton.click(); // Simulate click to select theme and show activities
+                    document.getElementById('theme-selection').querySelector('h2').style.display = 'none'; // Optionally hide "بابەت:"
+                    firstThemeButton.style.display = 'none'; // Optionally hide the single theme button
+                    activitySelectionSection.style.display = 'block'; // Ensure activity selection is visible
+                }
+            } else {
+                 activitySelectionSection.style.display = 'none'; // Hide if multiple themes need selection first
+            }
+        }
+
+        function selectTheme(themeName, clickedButton) {
+            currentTheme = themeName;
+            currentWords = vocabularyData[themeName] || [];
+            currentActivity = null;
+
+            document.querySelectorAll('#theme-buttons .btn').forEach(btn => btn.classList.remove('active'));
+            if (clickedButton) clickedButton.classList.add('active');
+
+            activitySelectionSection.style.display = 'block';
+            activityTitle.style.display = 'none';
+            allActivityContents.forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('#activity-selection .btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function showActivity(activityId) {
+            if (!currentTheme) {
+                alert(" تکایە سەرەتا بابەتێک هەڵبژێرە!");
+                return;
+            }
+             const clickedButton = event?.target?.closest('.btn');
+
+            currentActivity = activityId;
+            document.querySelectorAll('#activity-selection .btn').forEach(btn => btn.classList.remove('active'));
+             if (clickedButton) clickedButton.classList.add('active');
+
+            let titleText = '';
+            if (activityId === 'vocab-list') titleText = `لیستی وشەکانی: ${currentTheme}`;
+            else if (activityId === 'flashcards') titleText = `فلاشکارتی: ${currentTheme}`;
+            else if (activityId === 'matching-game') titleText = `یاریی گونجاندنی: ${currentTheme}`;
+            else if (activityId === 'listening-quiz') titleText = `تاقیکردنەوەی گوێگرتنی: ${currentTheme}`;
+            else if (activityId === 'dialogue-practice') titleText = `گفتوگۆی: ${currentTheme}`;
+            activityTitle.textContent = titleText;
+            activityTitle.style.display = 'block';
+
+            allActivityContents.forEach(content => {
+                content.classList.toggle('active', content.id === activityId);
+            });
+
+            try {
+                if (activityId === 'vocab-list') { loadVocabularyList(); }
+                else if (activityId === 'flashcards') { startFlashcards(); }
+                else if (activityId === 'matching-game') { startMatchingGame(); }
+                else if (activityId === 'listening-quiz') { startListeningQuiz(); }
+                else if (activityId === 'dialogue-practice') { loadDialogue(); }
+            } catch (error) {
+                console.error(`Error loading activity ${activityId}:`, error);
+                alert("هەڵەیەک ڕوویدا لە بارکردنی چالاکییەکە.");
+            }
+        }
+
+        // --- AUDIO HANDLING ---
+        // (Identical to secondabc.html)
+        let currentAudio = null;
+        function playAudio(src) {
+            if (!src || typeof src !== 'string' || !src.includes('.mp3')) { console.warn(`Audio source invalid: ${src}`); return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+            try {
+                currentAudio = new Audio(src);
+                currentAudio.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- VOCABULARY LIST + MINI WRITING ACTIVITY ---
+        // (Identical to secondabc.html)
+        function loadVocabularyList() {
+             if (!vocabListUl || !vocabWritingArea) { console.error("Vocab list or writing area elements missing."); return;}
+             vocabListUl.innerHTML = '';
+             vocabWritingTarget.textContent = '...';
+             clearVocabCanvas();
+
+             if (!currentWords || currentWords.length === 0) {
+                 vocabListUl.innerHTML = '<li>هیچ وشەیەک بۆ ئەم بابەتە نییە.</li>';
+                 return;
+             }
+             currentWords.forEach((item, index) => {
+                 const li = document.createElement('li');
+                 li.setAttribute('role', 'button');
+                 li.tabIndex = 0;
+                 li.onclick = (function(currentItem, currentLi) {
+                     return function() { selectVocabItemForWriting(currentItem, currentLi); };
+                 })(item, li);
+                 li.onkeydown = (function(currentItem, currentLi) {
+                    return function(e) { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectVocabItemForWriting(currentItem, currentLi); }};
+                })(item, li);
+
+                 let grammarTooltip = item.grammar_note_ku ? `<span class="tooltip">${item.grammar_note_ku}</span>` : '';
+                 let infoIcon = item.grammar_note_ku ? `<span class="info-icon" aria-label="تێبینی ڕێزمان"><i class="fa-solid fa-circle-info"></i>${grammarTooltip}</span>` : '<span></span>';
+                 const playFuncStr = item.audio_src ? `event.stopPropagation(); playAudio('${item.audio_src}')` : `event.stopPropagation(); console.warn('No audio for ${item.word_ku}')`;
+                 li.innerHTML = `
+                     <span class="vocab-word">${item.word_ku}</span>
+                     <span class="vocab-sentence">${item.sentence_ku || ''}</span>
+                     ${infoIcon}
+                     <button class="play-btn-small" onclick="${playFuncStr}" aria-label="گوێگرتن لە ${item.word_ku}" ${!item.audio_src ? 'disabled' : ''}>
+                         <i class="fa-solid fa-volume-high"></i>
+                     </button>
+                 `;
+                 vocabListUl.appendChild(li);
+             });
+              const firstLi = vocabListUl.querySelector('li');
+              if (firstLi && currentWords.length > 0) {
+                   selectVocabItemForWriting(currentWords[0], firstLi);
+              }
+        }
+         function selectVocabItemForWriting(item, listItemElement) {
+             if (!item) return;
+             vocabWritingTarget.textContent = item.word_ku;
+             clearVocabCanvas();
+             document.querySelectorAll('#vocab-list li').forEach(li => li.classList.remove('selected'));
+              if (listItemElement) listItemElement.classList.add('selected');
+               listItemElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+         }
+        function setupMiniCanvas(canvas) {
+            if (!canvas?.getContext) { return null; }
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = 'var(--primary-color)';
+            let isDrawing = false; let lastX = 0; let lastY = 0;
+
+            function getPos(event) {
+                 const rect = canvas.getBoundingClientRect();
+                 const clientX = event.touches?.[0]?.clientX ?? event.clientX;
+                 const clientY = event.touches?.[0]?.clientY ?? event.clientY;
+                 if (clientX === undefined || clientY === undefined) return null;
+                 return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+            function startDrawing(e) { const pos = getPos(e); if(!pos) return; isDrawing=true; [lastX, lastY] = [pos.x, pos.y]; }
+            function draw(e) { if(!isDrawing) return; if(e.touches) e.preventDefault(); const pos = getPos(e); if(!pos) return; ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); [lastX, lastY] = [pos.x, pos.y]; }
+            function stopDrawing() { if(isDrawing){ isDrawing = false; } }
+
+            const newCanvas = canvas.cloneNode(true); // To remove old listeners
+            canvas.parentNode.replaceChild(newCanvas, canvas);
+            vocabWritingCanvas = newCanvas;
+            const newCtx = newCanvas.getContext('2d');
+            newCtx.lineWidth = 4; newCtx.lineCap = 'round'; newCtx.lineJoin = 'round'; newCtx.strokeStyle = 'var(--primary-color)';
+
+            newCanvas.addEventListener('mousedown', startDrawing);
+            newCanvas.addEventListener('mousemove', draw);
+            newCanvas.addEventListener('mouseup', stopDrawing);
+            newCanvas.addEventListener('mouseout', stopDrawing);
+            newCanvas.addEventListener('touchstart', startDrawing, { passive: false });
+            newCanvas.addEventListener('touchmove', draw, { passive: false });
+            newCanvas.addEventListener('touchend', stopDrawing);
+            newCanvas.addEventListener('touchcancel', stopDrawing);
+            return newCtx;
+        }
+        function clearVocabCanvas() {
+            if (vocabCanvasCtx && vocabWritingCanvas) {
+                 vocabCanvasCtx.clearRect(0, 0, vocabWritingCanvas.width, vocabWritingCanvas.height);
+            }
+        }
+
+        // --- FLASHCARD ACTIVITY ---
+        // (Identical to secondabc.html)
+        function startFlashcards() {
+             if (!flashcardContainer || !flashcardElement || !cardCounterEl) { return; }
+             currentFlashcardIndex = 0;
+             if (currentWords && currentWords.length > 0) {
+                  shuffleArray(currentWords);
+                 displayFlashcard();
+             } else {
+                  flashcardFront.textContent = "هیچ وشەیەک نییە";
+                  flashcardBack.innerHTML = `<img src="img/placeholder.png" alt="وێنە"><div class="back-text"></div><button class="btn play-btn-small" disabled><i class="fa-solid fa-volume-up"></i> گوێبگرە</button>`;
+                   cardCounterEl.textContent = "٠ / ٠";
+             }
+             flashcardElement.classList.remove('flipped');
+        }
+        function displayFlashcard() {
+              if (!currentWords || currentWords.length === 0 || currentFlashcardIndex >= currentWords.length) return;
+             const item = currentWords[currentFlashcardIndex];
+             flashcardFront.textContent = item.word_ku;
+             flashcardImage.src = item.image_src || 'img/professions/placeholder_profession.png'; // Adjusted placeholder
+             flashcardImage.alt = item.word_ku;
+             flashcardBackText.textContent = item.sentence_ku || item.meaning || '';
+             flashcardElement.classList.remove('flipped');
+             cardCounterEl.textContent = `${(currentFlashcardIndex + 1).toLocaleString('ku')} / ${currentWords.length.toLocaleString('ku')}`;
+             const playBtn = flashcardBack.querySelector('.play-btn-small');
+             if (playBtn) {
+                  playBtn.onclick = (event) => { event.stopPropagation(); playAudio(item.audio_src); };
+                  playBtn.disabled = !item.audio_src;
+             }
+         }
+        function flipCard(cardElement) { if(cardElement) cardElement.classList.toggle('flipped'); }
+        function nextCard() { if(!currentWords || currentWords.length === 0) return; currentFlashcardIndex = (currentFlashcardIndex + 1) % currentWords.length; displayFlashcard(); }
+        function prevCard() { if(!currentWords || currentWords.length === 0) return; currentFlashcardIndex = (currentFlashcardIndex - 1 + currentWords.length) % currentWords.length; displayFlashcard(); }
+        function shuffleCards() { if(currentWords && currentWords.length > 0) { shuffleArray(currentWords); currentFlashcardIndex = 0; displayFlashcard(); } }
+        function playCurrentFlashcardAudio(event) {
+            event.stopPropagation();
+            if (currentWords && currentWords.length > 0 && currentWords[currentFlashcardIndex].audio_src) { playAudio(currentWords[currentFlashcardIndex].audio_src); }
+        }
+
+        // --- MATCHING GAME ACTIVITY ---
+        // (Identical to secondabc.html)
+        function startMatchingGame() {
+            if (!gameBoard || !gameFeedback) { return; }
+            matchedPairs = 0; firstCard = null; secondCard = null; lockBoard = false;
+            gameBoard.innerHTML = ''; gameFeedback.textContent = '';
+
+            let gameWords = shuffleArray([...currentWords]).slice(0, Math.min(currentWords.length, 4)); // Max 4 pairs
+            if (gameWords.length < 2) { gameFeedback.textContent = "وشەی پێویست بۆ ئەم یارییە نییە."; return; }
+            totalPairs = gameWords.length;
+
+            let cardsData = [];
+            gameWords.forEach(item => {
+                cardsData.push({ type: 'word', content: item.word_ku, matchId: item.id });
+                cardsData.push({ type: 'image', content: item.image_src || 'img/professions/placeholder_profession.png', matchId: item.id });
+            });
+            shuffleArray(cardsData);
+
+            cardsData.forEach(data => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.dataset.matchId = data.matchId;
+                card.innerHTML = `
+                    <div class="match-card-face match-card-front"></div>
+                    <div class="match-card-face match-card-back">
+                        ${data.type === 'word' ? `<span>${data.content}</span>` : `<img src="${data.content}" alt="وێنەی گونجاندن">`}
+                    </div>
+                `;
+                card.addEventListener('click', handleMatchCardClick);
+                gameBoard.appendChild(card);
+            });
+            const numCards = cardsData.length;
+            let cols = Math.min(Math.ceil(Math.sqrt(numCards)), 4);
+            cols = Math.max(cols, 2);
+            gameBoard.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        }
+        function handleMatchCardClick(event) {
+             const clickedCard = event.currentTarget;
+              if (lockBoard || clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) return;
+              clickedCard.classList.add('flipped');
+              if (!firstCard) { firstCard = clickedCard; return; }
+              secondCard = clickedCard; lockBoard = true; gameFeedback.textContent = "";
+              checkForMatch();
+          }
+        function checkForMatch() {
+             const isMatch = firstCard.dataset.matchId === secondCard.dataset.matchId;
+             if (isMatch) { disableCards(); gameFeedback.textContent = "گونجا! 👍"; gameFeedback.style.color = 'var(--success-color)'; }
+             else { unflipCards(); gameFeedback.textContent = "هەوڵبدەرەوە! 🤔"; gameFeedback.style.color = 'var(--secondary-color)'; }
+         }
+        function disableCards() {
+             firstCard.classList.add('matched'); secondCard.classList.add('matched');
+             matchedPairs++; resetBoardState();
+             if (matchedPairs === totalPairs) {
+                 gameFeedback.textContent = " پیرۆزە! هەمووت گونجاند! 🎉";
+                 gameFeedback.style.color = 'var(--primary-color)';
+             }
+         }
+        function unflipCards() {
+             firstCard?.classList.add('incorrect'); secondCard?.classList.add('incorrect');
+             setTimeout(() => {
+                 firstCard?.classList.remove('flipped', 'incorrect');
+                 secondCard?.classList.remove('flipped', 'incorrect');
+                 resetBoardState();
+             }, 1000);
+         }
+        function resetBoardState() { [firstCard, secondCard, lockBoard] = [null, null, false]; }
+        function resetMatchingGame() { startMatchingGame(); }
+
+        // --- LISTENING QUIZ ACTIVITY ---
+        // (Identical to secondabc.html)
+        function startListeningQuiz() {
+             if(!listeningOptionsDiv || !quizFeedbackEl || !quizScoreEl || !playQuizAudioBtn || !nextQuizItemBtn || !restartQuizBtn) { return; }
+             quizScore = 0; currentQuizIndex = 0;
+             quizItems = shuffleArray([...currentWords]);
+             quizFeedbackEl.textContent = ''; listeningOptionsDiv.innerHTML = '';
+             nextQuizItemBtn.style.display = 'none'; restartQuizBtn.style.display = 'none';
+             playQuizAudioBtn.style.display = 'inline-flex';
+
+             if (!quizItems || quizItems.length === 0) {
+                 quizFeedbackEl.textContent = "هیچ وشەیەک بۆ تاقیکردنەوە نییە."; return;
+             }
+              quizScoreEl.textContent = `نمرە: ٠ / ${quizItems.length.toLocaleString('ku')}`;
+              displayQuizItem();
+         }
+        function displayQuizItem() {
+              if (currentQuizIndex >= quizItems.length) { showQuizResults(); return; }
+              const currentItem = quizItems[currentQuizIndex];
+              listeningOptionsDiv.innerHTML = ''; quizFeedbackEl.textContent = '';
+              playQuizAudioBtn.disabled = false;
+              nextQuizItemBtn.style.display = 'none';
+
+              let options = [currentItem];
+              let wrongAnswers = currentWords.filter(w => w.id !== currentItem.id).sort(() => 0.5 - Math.random());
+              for (let i = 0; options.length < 3 && i < wrongAnswers.length; i++) { if (!options.some(opt => opt.id === wrongAnswers[i].id)) options.push(wrongAnswers[i]); }
+              shuffleArray(options);
+
+              options.forEach(option => {
+                  const button = document.createElement('button');
+                  button.className = 'quiz-option-btn';
+                  button.textContent = option.word_ku;
+                  button.dataset.wordId = option.id;
+                  button.onclick = () => checkListeningAnswer(button, currentItem.id);
+                  listeningOptionsDiv.appendChild(button);
+              });
+         }
+        function playCurrentQuizAudio() {
+            if (currentQuizIndex < quizItems.length && quizItems[currentQuizIndex].audio_src) {
+                playAudio(quizItems[currentQuizIndex].audio_src);
+                playQuizAudioBtn.disabled = true;
+                setTimeout(() => { if(playQuizAudioBtn) playQuizAudioBtn.disabled = false; }, 1500);
+            } else if (currentQuizIndex < quizItems.length) {
+                console.warn("No audio source for current quiz item.");
+                 quizFeedbackEl.textContent = "ببورە، دەنگی ئەم وشەیە بەردەست نییە.";
+            }
+        }
+        function checkListeningAnswer(selectedButton, correctWordId) {
+             const selectedWordId = parseInt(selectedButton.dataset.wordId);
+             const correctItem = quizItems[currentQuizIndex];
+             listeningOptionsDiv.querySelectorAll('.quiz-option-btn').forEach(btn => btn.disabled = true);
+
+             if (selectedWordId === correctWordId) {
+                 quizScore++; selectedButton.classList.add('correct');
+                 quizFeedbackEl.textContent = "ڕاستە! 👍"; quizFeedbackEl.style.color = 'var(--success-color)';
+             } else {
+                 selectedButton.classList.add('incorrect');
+                 quizFeedbackEl.textContent = `هەڵەیە. ووشەی ڕاست: ${correctItem.word_ku}`; quizFeedbackEl.style.color = 'var(--secondary-color)';
+                 const correctButton = listeningOptionsDiv.querySelector(`[data-word-id="${correctWordId}"]`);
+                 if (correctButton) correctButton.classList.add('correct');
+             }
+              quizScoreEl.textContent = `نمرە: ${quizScore.toLocaleString('ku')} / ${quizItems.length.toLocaleString('ku')}`;
+
+              if (currentQuizIndex >= quizItems.length - 1) {
+                 nextQuizItemBtn.style.display = 'none';
+                 restartQuizBtn.style.display = 'inline-flex';
+                 showQuizResults();
+             } else {
+                  nextQuizItemBtn.style.display = 'inline-flex';
+                  nextQuizItemBtn.focus();
+             }
+         }
+        function nextQuizItem() { currentQuizIndex++; displayQuizItem(); }
+        function showQuizResults() {
+            const percentage = quizItems.length > 0 ? Math.round((quizScore / quizItems.length) * 100) : 0;
+            quizFeedbackEl.innerHTML = `تاقیکردنەوە تەواو بوو! <br> نمرەی کۆتایی: ${quizScore.toLocaleString('ku')} / ${quizItems.length.toLocaleString('ku')} (%${percentage})`;
+            quizFeedbackEl.style.color = 'var(--primary-color)';
+            playQuizAudioBtn.style.display = 'none';
+        }
+
+        // --- DIALOGUE ACTIVITY ---
+        // (Identical to secondabc.html)
+        function loadDialogue() {
+             if (!dialogueLinesContainer) { return; }
+             dialogueLinesContainer.innerHTML = '';
+
+             const themeDialogues = dialogueData[currentTheme];
+             if (!themeDialogues || themeDialogues.length === 0) {
+                 dialogueLinesContainer.innerHTML = '<p style="text-align:center;">گفتوگۆ بۆ ئەم بابەتە بەردەست نییە.</p>';
+                 return;
+             }
+
+             themeDialogues.forEach(line => {
+                 const lineDiv = document.createElement('div');
+                 lineDiv.className = 'dialogue-line';
+                  const playFuncStr = line.audio ? `playAudio('${line.audio}')` : `console.warn('No audio for this dialogue line')`;
+                 lineDiv.innerHTML = `
+                      <span class="dialogue-speaker">${line.speaker}:</span>
+                      <span class="dialogue-text">${line.line}</span>
+                      <button class="dialogue-play-btn" onclick="${playFuncStr}" ${!line.audio ? 'disabled' : ''}>
+                           <i class="fa-solid fa-volume-high"></i>
+                       </button>
+                  `;
+                 dialogueLinesContainer.appendChild(lineDiv);
+             });
+        }
+
+        // --- UTILITY FUNCTIONS ---
+        // (Identical to secondabc.html)
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کاتەکانی ڕۆژ و شەو - فێرگەی کوردی</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+
+    <style>
+        :root {
+            --font-kurdish: 'Vazirmatn', sans-serif;
+            --font-latin: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #f1c40f; /* Brighter Yellow/Orange for Time of Day */
+            --accent-hover-color: #f39c12;
+            --light-bg-color: #ecf0f1;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --success-color: #27ae60;
+            --success-hover-color: #2ecc71;
+            --danger-color: #c0392b;
+            --danger-hover-color: #e74c3c;
+            --white-color: #ffffff;
+            --border-radius-sm: 5px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.12);
+            --transition-speed: 0.3s;
+            --border-color: #dfe4e7;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-kurdish), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.8; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { width: 100%; max-width: 1000px; margin: 20px auto; padding: 25px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); flex-grow: 1; }
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.3rem; font-weight: 700; }
+        header h1 i { margin-left: 10px; color: var(--accent-color); }
+
+        .page-navigation { display: flex; justify-content: center; gap: 15px; margin-top: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); width: 100%; }
+        .nav-link-button { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 8px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(230, 126, 34, 0.2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .nav-link-button i { margin-left: 8px; }
+        .nav-link-button:hover, .nav-link-button:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); outline: none; background: linear-gradient(135deg, #d35400, var(--secondary-color)); }
+
+        nav.tab-navigation { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .tab-button { font-family: var(--font-kurdish), sans-serif; background-color: var(--white-color); color: var(--primary-color); border: 1px solid #bdc3c7; border-radius: var(--border-radius-sm); padding: 10px 18px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-button i { margin-left: 8px; }
+        .tab-button:hover, .tab-button:focus-visible { background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--box-shadow); }
+        .tab-button.active { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--text-color); /* Better contrast with yellow */ border-color: var(--accent-hover-color); box-shadow: var(--box-shadow); transform: translateY(-1px); }
+
+        .tab-content { display: none; animation: fadeInContent 0.6s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .activity-section { padding: 25px; background-color: #fdfdfd; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); text-align: center; margin-bottom: 20px; box-shadow: var(--box-shadow);}
+        .activity-section h3 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 15px; }
+        .activity-description { font-size: 1rem; color: var(--muted-text-color); margin-bottom: 25px; }
+
+        /* Activity 1: Daily Clock/Timeline */
+        .daily-clock-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .clock-segments { display: flex; justify-content: space-around; width: 100%; max-width: 600px; margin-bottom: 20px; background-color: var(--light-bg-color); padding:10px; border-radius:var(--border-radius-md); }
+        .clock-segment { flex-grow: 1; padding: 15px 10px; text-align: center; cursor: pointer; border-radius: var(--border-radius-sm); transition: background-color 0.3s, transform 0.3s; border: 2px solid transparent; }
+        .clock-segment:hover { transform: translateY(-3px); }
+        .clock-segment.active { border-color: var(--accent-color); background-color: var(--white-color); box-shadow: var(--box-shadow-hover); }
+        .clock-segment i { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .clock-segment .segment-name { font-weight: 600; font-size: 1.1rem;}
+
+        #bayani { background-color: #fff3e0; } #bayani.active, #bayani:hover { background-color: #ffe0b2; }
+        #niwaro { background-color: #fffde7; } #niwaro.active, #niwaro:hover { background-color: #fff9c4; }
+        #dway-niwaro { background-color: #e3f2fd; } #dway-niwaro.active, #dway-niwaro:hover { background-color: #bbdefb; }
+        #ewara { background-color: #ede7f6; } #ewara.active, #ewara:hover { background-color: #d1c4e9; }
+        #shaw { background-color: #eceff1; } #shaw.active, #shaw:hover { background-color: #cfd8dc; }
+
+        .time-details-display { min-height: 200px; width:100%; max-width:500px; padding: 20px; background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); text-align: center; box-shadow: var(--box-shadow); }
+        .time-details-display img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border:2px solid var(--accent-color); }
+        .time-details-display .time-name-display { font-size: 1.8rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 5px; }
+        .time-details-display .time-description-display { font-size: 1rem; color: var(--text-color); margin-bottom: 15px; }
+
+        /* Activity 2: Story of the Times (Sentence Ordering) */
+        .story-ordering-area { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .time-slots-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; margin-bottom: 20px; }
+        .time-slot { background-color: var(--light-bg-color); border: 2px dashed var(--border-color); border-radius: var(--border-radius-md); padding: 15px; min-height: 100px; text-align: center; }
+        .time-slot h4 { font-size: 1.2rem; color: var(--accent-color); margin-bottom: 10px; }
+        .story-sentence-bank { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 15px; background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); min-height: 80px; }
+        .story-sentence { background-color: var(--card-bg-color); padding: 10px 15px; border-radius: var(--border-radius-sm); cursor: grab; border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: transform 0.2s; font-size:0.95rem; }
+        .story-sentence:hover { transform: scale(1.05); }
+        .story-sentence.dragging { opacity: 0.5; background-color: var(--accent-hover-color); }
+        .time-slot.over { border-style: solid; border-color: var(--accent-color); background-color: #fff8e1; }
+        .story-sentence.correct-drop { background-color: var(--success-hover-color); color:var(--white-color); border-color:var(--success-color); }
+
+        /* Activity 3: Odd One Out (Picture Quiz) */
+        .odd-one-out-question .target-time-name { font-size: 1.6rem; font-weight: bold; color: var(--secondary-color); }
+        .odd-one-out-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin: 20px auto; max-width: 650px; }
+        .odd-one-out-option img { width: 100%; height: 110px; object-fit: cover; border-radius: var(--border-radius-md); border: 3px solid var(--border-color); cursor: pointer; transition: all var(--transition-speed); }
+        .odd-one-out-option img:hover { border-color: var(--accent-color); transform: scale(1.05); box-shadow: var(--box-shadow-hover); }
+        .odd-one-out-option img.correct-pick { /* User picked the correct odd one out */ border-color: var(--success-color) !important; box-shadow: 0 0 12px var(--success-color); transform: scale(1.05); }
+        .odd-one-out-option img.incorrect-pick { /* User picked a wrong image (not the odd one) */ border-color: var(--danger-color) !important; opacity: 0.7; }
+        .odd-one-out-option img.actual-odd-one.highlight { /* If user picked wrong, highlight the actual odd one */ border-color: var(--warning-color) !important; box-shadow: 0 0 10px var(--warning-color); transform: scale(1.03); }
+        .odd-one-out-options.disabled .odd-one-out-option img:not(.correct-pick):not(.incorrect-pick) { opacity: 0.6; cursor: default; }
+        
+        .feedback-area-activity { text-align: center; margin-top: 20px; font-size: 1.1rem; font-weight: 600; min-height: 1.5em; padding: 10px; border-radius: var(--border-radius-sm); }
+        .btn-next-activity { margin-top: 15px; }
+        .btn { font-family: var(--font-kurdish), sans-serif; background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--text-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(241, 196, 15, 0.2); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn i { margin-left: 8px; }
+        .btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(241, 196, 15, 0.3); outline: none; }
+        .btn.danger { background: linear-gradient(135deg, var(--danger-color), var(--danger-hover-color)); box-shadow: 0 2px 5px rgba(192, 57, 43, 0.2); }
+        .btn.danger:hover {box-shadow: 0 4px 8px rgba(192, 57, 43, 0.3); }
+        .feedback-correct { color: var(--success-color); }
+        .feedback-incorrect { color: var(--danger-color); }
+        @keyframes shakeHorizontal { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        footer { text-align: center; margin-top: 40px; padding: 15px; font-size: 0.9rem; color: var(--muted-text-color); }
+        @media (max-width: 768px) { .clock-segments { flex-direction: column; gap: 5px; } .clock-segment { flex-direction:row; justify-content:center; align-items:center; gap:10px;} .clock-segment i {font-size:1.2rem; margin-bottom:0;} .time-activity-matching-area { grid-template-columns: 1fr; } .odd-one-out-options {grid-template-columns: repeat(2, 1fr);}}
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-clock"></i> فێربوونی کاتەکانی ڕۆژ و شەو</h1>
+        </header>
+
+        
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('dailyClockTab', this)"><i class="fa-solid fa-hourglass-half"></i> کاتژمێری ڕۆژانە</button>
+            <button class="tab-button" onclick="showTab('storyOfTimesTab', this)"><i class="fa-solid fa-sort-amount-down"></i> چیرۆکی کاتەکان</button>
+            <button class="tab-button" onclick="showTab('oddOneOutTab', this)"><i class="fa-solid fa-puzzle-piece"></i> کامە ناگونجێت؟</button>
+        </nav>
+
+        <main>
+            <section id="dailyClockTab" class="tab-content active">
+                <div class="activity-section">
+                    <h3>کاتژمێری ڕۆژانە</h3>
+                    <p class="activity-description">کرتە لە بەشێکی کاتژمێرەکە بکە بۆ زانینی زانیاری زیاتر.</p>
+                    <div class="daily-clock-container">
+                        <div class="clock-segments" id="clock-segments-container">
+                            </div>
+                        <div class="time-details-display" id="time-details-display-area">
+                            <p>بەشێک هەڵبژێرە...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="storyOfTimesTab" class="tab-content">
+                <div class="activity-section">
+                    <h3>چیرۆکی کاتەکان: ڕستەکان ڕیز بکە</h3>
+                    <p class="activity-description">ڕستەکان ڕابکێشە بۆ ناو ئەو کاتەی ڕۆژ کە گونجاوە بۆی.</p>
+                    <div class="story-ordering-area">
+                        <div class="time-slots-container" id="time-slots-drop-container">
+                            </div>
+                        <div class="story-sentence-bank" id="story-sentence-bank-container">
+                            </div>
+                    </div>
+                    <div id="story-ordering-feedback" class="feedback-area-activity"></div>
+                    <button class="btn btn-next-activity" onclick="resetStoryOrderingGame()"><i class="fa-solid fa-redo"></i> دووبارە</button>
+                </div>
+            </section>
+
+            <section id="oddOneOutTab" class="tab-content">
+                 <div class="activity-section">
+                    <h3>کام وێنەیە ناگونجێت؟</h3>
+                    <p class="activity-description" id="odd-one-out-question">بۆ کاتی <strong class="target-time-name">...</strong>، کام وێنە گونجاو نییە؟</p>
+                    <div class="odd-one-out-options" id="odd-one-out-options-container">
+                        </div>
+                    <div id="odd-one-out-feedback" class="feedback-area-activity"></div>
+                    <button id="next-odd-one-out-btn" class="btn btn-next-activity" style="display: none;"><i class="fa-solid fa-arrow-left"></i> پرسیاری داهاتوو</button>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+    </footer>
+
+    <script>
+        const timesOfDayData = [
+            { id: 401, name_ku: "بەیانی", icon: "fa-solid fa-sun", description_ku: "سەرەتای ڕۆژ، کاتی هەڵهاتنی خۆر.", image_src: "img/times/morning.png", audio_src: "audio/times/bayani.mp3", story_sentence: "خۆر لە ڕۆژهەڵاتەوە هەڵدێت.", related_images: ["img/times/activity_breakfast.png", "img/times/activity_sunrise.png", "img/times/activity_gotoschool.png"], odd_one_out_image: "img/times/activity_sleeping.png" },
+            { id: 402, name_ku: "نیوەڕۆ", icon: "fa-solid fa-cloud-sun", description_ku: "ناوەڕاستی ڕۆژ، خۆر لە ئاسمان بەرزە.", image_src: "img/times/noon.png", audio_src: "audio/times/niwaro.mp3", story_sentence: "کاتی نانخواردنی نیوەڕۆیە و پشوویە.", related_images: ["img/times/activity_lunch.png", "img/times/activity_sun_high.png", "img/times/activity_park_play.png"], odd_one_out_image: "img/times/activity_stars.png" },
+            { id: 403, name_ku: "دوای نیوەڕۆ", icon: "fa-solid fa-cloud", description_ku: "کاتی دوای نیوەڕۆ و پێش ئێوارە.", image_src: "img/times/afternoon.png", audio_src: "audio/times/dway_niwaro.mp3", story_sentence: "خەڵک سەرقاڵی کارەکانیانن یان چا دەخۆنەوە.", related_images: ["img/times/activity_work_office.png", "img/times/activity_tea_time.png", "img/times/activity_homework.png"], odd_one_out_image: "img/times/activity_breakfast.png" },
+            { id: 404, name_ku: "ئێوارە", icon: "fa-solid fa-cloud-moon", description_ku: "کۆتایی ڕۆژ، کاتی ئاوابوونی خۆر.", image_src: "img/times/evening.png", audio_src: "audio/times/ewara.mp3", story_sentence: "ئاسمان ڕەنگی دەگۆڕێت و خێزان کۆدەبێتەوە.", related_images: ["img/times/activity_sunset.png", "img/times/activity_dinner.png", "img/times/activity_tv_family.png"], odd_one_out_image: "img/times/activity_sunrise.png" },
+            { id: 405, name_ku: "شەو", icon: "fa-solid fa-moon", description_ku: "کاتی تاریکی، کاتی پشوو و خەوتن.", image_src: "img/times/night.png", audio_src: "audio/times/shaw.mp3", story_sentence: "ئەستێرەکان لە ئاسمان دەدرەوشێنەوە.", related_images: ["img/times/activity_sleeping.png", "img/times/activity_stars.png", "img/times/activity_reading_bed.png"], odd_one_out_image: "img/times/activity_lunch.png" }
+        ];
+
+        let currentGeneralAudioPlayer = null;
+        let activeClockSegment = null;
+        
+        // Activity 2 (Story Ordering) State
+        let draggedSentenceElement = null;
+        let storyCorrectPlacements = 0;
+
+        // Activity 3 (Odd One Out) State
+        let currentOddOneOutItem = null;
+
+        // DOM Cache
+        const clockSegmentsContainer = document.getElementById('clock-segments-container');
+        const timeDetailsDisplayArea = document.getElementById('time-details-display-area');
+        
+        const timeSlotsDropContainer = document.getElementById('time-slots-drop-container');
+        const storySentenceBankContainer = document.getElementById('story-sentence-bank-container');
+        const storyOrderingFeedbackEl = document.getElementById('story-ordering-feedback');
+
+        const oddOneOutQuestionEl = document.getElementById('odd-one-out-question');
+        const oddOneOutOptionsContainer = document.getElementById('odd-one-out-options-container');
+        const oddOneOutFeedbackEl = document.getElementById('odd-one-out-feedback');
+        const nextOddOneOutBtn = document.getElementById('next-odd-one-out-btn');
+        
+        const currentYearTimesEl_v2 = document.getElementById('current-year');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentYearTimesEl_v2) { currentYearTimesEl_v2.textContent = new Date().getFullYear(); }
+            
+            populateDailyClock();
+            setupStoryOrderingGame();
+            loadOddOneOutQuestion();
+
+            nextOddOneOutBtn.addEventListener('click', loadOddOneOutQuestion);
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (clickedButton) clickedButton.classList.add('active');
+
+            if (tabId === 'dailyClockTab') {
+                // No specific reset needed, but could clear details display
+                timeDetailsDisplayArea.innerHTML = '<p>بەشێک هەڵبژێرە...</p>';
+                if(activeClockSegment) activeClockSegment.classList.remove('active');
+                activeClockSegment = null;
+            } else if (tabId === 'storyOfTimesTab') {
+                resetStoryOrderingGame();
+            } else if (tabId === 'oddOneOutTab') {
+                loadOddOneOutQuestion();
+            }
+        }
+
+        function playAudio(src) {
+            if (!src || !src.includes('.mp3')) { console.warn(`Audio source invalid: ${src}`); return; }
+            if (currentGeneralAudioPlayer) { currentGeneralAudioPlayer.pause(); currentGeneralAudioPlayer.currentTime = 0; }
+            try {
+                currentGeneralAudioPlayer = new Audio(src);
+                currentGeneralAudioPlayer.play().catch(e => console.error(`Error playing audio ${src}:`, e));
+            } catch (e) { console.error(`Failed to create Audio object for ${src}:`, e); }
+        }
+
+        // --- Activity 1: Daily Clock/Timeline ---
+        function populateDailyClock() {
+            clockSegmentsContainer.innerHTML = '';
+            timesOfDayData.forEach(time => {
+                const segmentDiv = document.createElement('div');
+                segmentDiv.className = 'clock-segment';
+                segmentDiv.id = time.name_ku.toLowerCase().replace(/\s+/g, '-'); // e.g., dway-niwaro
+                segmentDiv.dataset.timeId = time.id;
+                segmentDiv.innerHTML = `
+                    <i class="${time.icon || 'fa-solid fa-question'}"></i>
+                    <span class="segment-name">${time.name_ku}</span>
+                `;
+                segmentDiv.onclick = () => displayTimeDetails(time.id, segmentDiv);
+                clockSegmentsContainer.appendChild(segmentDiv);
+            });
+        }
+
+        function displayTimeDetails(timeId, clickedSegment) {
+            const timeInfo = timesOfDayData.find(t => t.id === timeId);
+            if (!timeInfo) return;
+
+            if (activeClockSegment) {
+                activeClockSegment.classList.remove('active');
+            }
+            clickedSegment.classList.add('active');
+            activeClockSegment = clickedSegment;
+
+            timeDetailsDisplayArea.innerHTML = `
+                <img src="${timeInfo.image_src || 'img/times/placeholder_time.png'}" alt="${timeInfo.name_ku}">
+                <div class="time-name-display">${timeInfo.name_ku}</div>
+                <div class="time-description-display">${timeInfo.description_ku}</div>
+                <button class="btn play-btn-activity" onclick="playAudio('${timeInfo.audio_src}')" ${!timeInfo.audio_src ? 'disabled' : ''}>
+                    <i class="fa-solid fa-volume-high"></i> گوێگرتن
+                </button>
+            `;
+        }
+
+        // --- Activity 2: Story of the Times (Sentence Ordering) ---
+        function setupStoryOrderingGame() {
+            timeSlotsDropContainer.innerHTML = '';
+            storySentenceBankContainer.innerHTML = '';
+            storyOrderingFeedbackEl.textContent = '';
+            storyCorrectPlacements = 0;
+
+            const mainTimes = ["بەیانی", "نیوەڕۆ", "ئێوارە", "شەو"]; // Focus on these 4 for distinct slots
+            mainTimes.forEach(timeName => {
+                const timeSlotDiv = document.createElement('div');
+                timeSlotDiv.className = 'time-slot';
+                timeSlotDiv.dataset.timeName = timeName;
+                timeSlotDiv.innerHTML = `<h4>${timeName}</h4>`;
+                timeSlotDiv.addEventListener('dragover', handleDragOver);
+                timeSlotDiv.addEventListener('drop', handleDropSentence);
+                timeSlotsDropContainer.appendChild(timeSlotDiv);
+            });
+
+            let allStorySentences = [];
+            timesOfDayData.forEach(time => {
+                if (mainTimes.includes(time.name_ku)) { // Only use sentences for the main 4 slots
+                    allStorySentences.push({ text: time.story_sentence, correctTime: time.name_ku, id: `sentence-${time.id}` });
+                }
+            });
+            shuffleArray(allStorySentences);
+
+            allStorySentences.forEach(sentenceData => {
+                const sentenceDiv = document.createElement('div');
+                sentenceDiv.className = 'story-sentence';
+                sentenceDiv.textContent = sentenceData.text;
+                sentenceDiv.draggable = true;
+                sentenceDiv.id = sentenceData.id;
+                sentenceDiv.dataset.correctTime = sentenceData.correctTime;
+                sentenceDiv.addEventListener('dragstart', handleDragStartSentence);
+                sentenceDiv.addEventListener('dragend', () => sentenceDiv.classList.remove('dragging'));
+                storySentenceBankContainer.appendChild(sentenceDiv);
+            });
+        }
+
+        function handleDragStartSentence(e) {
+            draggedSentenceElement = e.target;
+            e.dataTransfer.setData('text/plain', e.target.id);
+            e.dataTransfer.effectAllowed = 'move';
+            setTimeout(() => e.target.classList.add('dragging'), 0);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const targetSlot = e.target.closest('.time-slot');
+            if(targetSlot) {
+                 document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('over'));
+                 targetSlot.classList.add('over');
+            }
+            e.dataTransfer.dropEffect = 'move';
+        }
+        
+        function handleDropSentence(e) {
+            e.preventDefault();
+            const targetSlot = e.target.closest('.time-slot');
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('over'));
+
+            if (targetSlot && draggedSentenceElement) {
+                const correctTimeForSentence = draggedSentenceElement.dataset.correctTime;
+                const slotTimeName = targetSlot.dataset.timeName;
+
+                if (correctTimeForSentence === slotTimeName) {
+                    targetSlot.appendChild(draggedSentenceElement);
+                    draggedSentenceElement.draggable = false; // Prevent further dragging
+                    draggedSentenceElement.classList.remove('dragging');
+                    draggedSentenceElement.classList.add('correct-drop');
+                    storyCorrectPlacements++;
+                    storyOrderingFeedbackEl.textContent = 'زۆر باشە! ڕستەکە لە شوێنی خۆیەتی.';
+                    storyOrderingFeedbackEl.className = 'feedback-area-activity feedback-correct';
+
+                    if (storyCorrectPlacements === timesOfDayData.filter(t => ["بەیانی", "نیوەڕۆ", "ئێوارە", "شەو"].includes(t.name_ku)).length) {
+                         storyOrderingFeedbackEl.textContent = 'پیرۆزە! هەموو ڕستەکانت بە دروستی ڕیزکرد!';
+                    }
+                } else {
+                    storyOrderingFeedbackEl.textContent = 'هەڵەیە! ئەم ڕستەیە بۆ ئەم کاتە گونجاو نییە.';
+                    storyOrderingFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                    draggedSentenceElement.classList.remove('dragging'); // Reset style
+                }
+            }
+            draggedSentenceElement = null;
+        }
+        function resetStoryOrderingGame() { setupStoryOrderingGame(); }
+
+
+        // --- Activity 3: Odd One Out (Picture Quiz) ---
+        function loadOddOneOutQuestion() {
+            oddOneOutFeedbackEl.textContent = '';
+            oddOneOutFeedbackEl.className = 'feedback-area-activity';
+            oddOneOutOptionsContainer.innerHTML = '';
+            oddOneOutOptionsContainer.classList.remove('disabled');
+            nextOddOneOutBtn.style.display = 'none';
+
+            currentOddOneOutItem = timesOfDayData[Math.floor(Math.random() * timesOfDayData.length)];
+            oddOneOutQuestionEl.innerHTML = `بۆ کاتی <strong class="target-time-name">${currentOddOneOutItem.name_ku}</strong>، کام وێنە گونجاو نییە (نامۆیە)؟`;
+            
+            let options = [];
+            // Add 3 related images
+            const relatedImgs = shuffleArray([...currentOddOneOutItem.related_images]).slice(0,3);
+            relatedImgs.forEach(imgSrc => options.push({image_src: imgSrc, is_odd: false, id: currentOddOneOutItem.id}));
+            
+            // Add the actual odd one out image
+            options.push({image_src: currentOddOneOutItem.odd_one_out_image, is_odd: true, id: currentOddOneOutItem.id + "_odd"}); // Ensure unique ID for odd one
+
+            if (options.length < 4 && currentOddOneOutItem.id !== timesOfDayData[0].id) { // Add more if needed, make sure it's not a duplicate of odd one
+                 options.push({image_src: timesOfDayData[0].image_src, is_odd:false, id: timesOfDayData[0].id + "_extra"});
+            }
+             while(options.length > 4) options.pop(); // ensure max 4
+            shuffleArray(options);
+
+
+            options.forEach(option => {
+                const imgElement = document.createElement('img');
+                imgElement.src = option.image_src || 'img/times/placeholder_time.png';
+                imgElement.alt = "وێنەی چالاکی یان کات";
+                imgElement.dataset.isOdd = option.is_odd; // True if this is the one that doesn't fit
+                imgElement.dataset.parentId = currentOddOneOutItem.id; // To link back to the question item
+                imgElement.onclick = () => checkOddOneOutAnswer(imgElement, option.is_odd);
+                
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'odd-one-out-option';
+                optionDiv.appendChild(imgElement);
+                oddOneOutOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function checkOddOneOutAnswer(selectedImg, isActuallyOdd) {
+            oddOneOutOptionsContainer.classList.add('disabled');
+
+            if (isActuallyOdd) { // User correctly identified the odd one out
+                selectedImg.classList.add('correct-pick');
+                oddOneOutFeedbackEl.textContent = 'ڕاستە! ئەم وێنەیە ناگونجێت لەگەڵ کاتەکەدا.';
+                oddOneOutFeedbackEl.className = 'feedback-area-activity feedback-correct';
+            } else { // User picked an image that DOES fit
+                selectedImg.classList.add('incorrect-pick');
+                oddOneOutFeedbackEl.textContent = 'هەڵەیە! ئەم وێنەیە دەگونجێت. کامە ناگونجێت؟';
+                oddOneOutFeedbackEl.className = 'feedback-area-activity feedback-incorrect';
+                // Highlight the actual odd one out
+                const actualOddOneImg = oddOneOutOptionsContainer.querySelector('img[data-is-odd="true"]');
+                if (actualOddOneImg) {
+                    actualOddOneImg.classList.add('actual-odd-one', 'highlight');
+                }
+            }
+            nextOddOneOutBtn.style.display = 'inline-flex';
+        }
+
+
+        function shuffleArray(array) {
+            if (!array || array.length === 0) return [];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+
+</body>
+</html>

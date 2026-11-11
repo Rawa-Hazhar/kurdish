@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="kmr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfabeya Kurmancî - Hîngeha Zimanê Kurdî</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fa/css/all.min.css">
+    <style>
+        :root {
+            --font-main: 'Poppins', sans-serif;
+            --primary-color: #2c3e50;
+            --secondary-color: #e67e22;
+            --accent-color: #27ae60;
+            --accent-hover-color: #2ecc71;
+            --light-bg-color: #f4f6f7;
+            --card-bg-color: white;
+            --text-color: #34495e;
+            --muted-text-color: #7f8c8d;
+            --white-color: #ffffff;
+            --success-color: #27ae60;
+            --danger-color: #c0392b;
+            --border-radius-sm: 5px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --transition-speed: 0.3s;
+            --border-color: #e0e6e8;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-main), sans-serif; background-color: var(--light-bg-color); color: var(--text-color); line-height: 1.7; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 1200px; margin: 20px auto; padding: 30px; background-color: var(--card-bg-color); border-radius: var(--border-radius-lg); box-shadow: var(--box-shadow); }
+        header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        header h1 { color: var(--primary-color); font-size: 2.6rem; font-weight: 700; }
+        header h1 i { margin-right: 12px; color: var(--accent-color); }
+        #user-score-display { text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--secondary-color); background-color: #fdf2e9; padding: 8px 15px; border-radius: var(--border-radius-md); margin: -10px auto 20px auto; width: fit-content; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        #user-score-display i { margin-right: 8px; }
+        #kurmanji-navbar-placeholder { margin-bottom: 20px; }
+        .page-navigation { display: flex; justify-content: center; gap: 15px; width: 100%; flex-wrap: wrap; }
+        .nav-link-button { font-family: var(--font-main); background: linear-gradient(135deg, var(--secondary-color), #d35400); color: var(--white-color); border: none; border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; }
+        .nav-link-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3); }
+        .nav-link-button i { margin-right: 8px; }
+        nav.tab-navigation { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; padding-bottom: 15px; }
+        .tab-button { background-color: var(--white-color); color: var(--primary-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 10px 20px; cursor: pointer; transition: all var(--transition-speed) ease; font-weight: 500; }
+        .tab-button.active, .tab-button:hover { background: linear-gradient(135deg, var(--accent-color), var(--accent-hover-color)); color: var(--white-color); border-color: var(--accent-color); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .letter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 20px; }
+        .letter-card { background: var(--card-bg-color); border-radius: var(--border-radius-md); padding: 15px; box-shadow: var(--box-shadow); cursor: pointer; transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; text-align: center; }
+        .letter-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); border-color: var(--accent-color); }
+        .letter-main { font-size: 2.8rem; font-weight: 700; color: var(--secondary-color); }
+        .letter-name-grid { font-size: 1rem; color: var(--primary-color); font-weight: 500; }
+        .quiz-container { background-color: #fafafa; border-radius: var(--border-radius-lg); padding: 25px 30px; max-width: 650px; margin: 25px auto; }
+        .quiz-question { font-size: 1.5rem; margin-bottom: 25px; text-align: center; color: var(--primary-color); }
+        #quizLetterDisplay { font-size: 4.5rem; color: var(--secondary-color); font-weight: 700; }
+        .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .quiz-option { background-color: var(--white-color); padding: 15px; border-radius: var(--border-radius-md); text-align: center; cursor: pointer; transition: all var(--transition-speed) ease; border: 1px solid var(--border-color); font-size: 1.1rem; }
+        .quiz-option:hover { border-color: var(--accent-color); color: var(--accent-hover-color); transform: translateY(-3px); }
+        .quiz-option.correct { background-color: var(--success-color); border-color: var(--accent-hover-color); color: var(--white-color); }
+        .quiz-option.incorrect { background-color: var(--danger-color); border-color: var(--accent-hover-color); color: var(--white-color); }
+        .quiz-options.disabled { pointer-events: none; opacity: 0.7; }
+        .quiz-result { margin-top: 20px; text-align: center; font-size: 1.15rem; font-weight: 600; min-height: 28px; }
+        footer { text-align: center; margin-top: 40px; padding: 20px; font-size: 0.9rem; color: var(--muted-text-color); border-top: 1px solid var(--border-color); width: 100%; }
+        .footer-sorani-text { font-family: var(--font-kurdish-sorani), sans-serif; direction: rtl; }
+    </style>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/audio-map.js"></script>
+<script src="assets/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-font"></i> Alfabeya Kurmancî</h1>
+            <div id="user-score-display">
+                <i class="fa-solid fa-star"></i> Pûan: <span id="score-value">0</span>
+            </div>
+        </header>
+
+        <div id="kurmanji-navbar-placeholder"></div>
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('alphabetTab', this)">Tîpên Alfabeyê</button>
+            <button class="tab-button" onclick="showTab('quizTab', this)">Pirsyarî</button>
+        </nav>
+
+        <main>
+            <section id="alphabetTab" class="tab-content active">
+                <div class="letter-grid" id="letterGridKurmanji"></div>
+            </section>
+            <section id="quizTab" class="tab-content">
+                 <div class="quiz-container">
+                     <div id="quizAreaKurmanji">
+                        <div class="quiz-question">Navê vê tîpê çi ye: <span id="quizLetterDisplay"></span>?</div>
+                        <div class="quiz-options" id="quizOptionsKurmanji"></div>
+                        <div class="quiz-result" id="quizResultKurmanji"></div>
+                        <div style="text-align:center; margin-top: 20px;">
+                            <button id="nextQuestionBtnKurmanji" class="nav-link-button" onclick="startKurmanjiQuiz()" style="background: var(--accent-color);"><i class="fa-solid fa-play"></i> Dest pê bike</button>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; <span id="current-year-kmr"></span> Hîngeha Zimanê Kurdî. Hemû maf parastî ne.</p>
+            <p class="footer-sorani-text"><span id="current-year-sor"></span> فێرگەی زمانی کوردی. هەموو مافەکان پارێزراون.</p>
+        </footer>
+    </div>
+    
+    
+    <script>
+        const kurdishKurmanjiAlphabetData = [
+            { uppercase: "A", lowercase: "a", name: "A", soundFile: "audio/kurmanji_sounds/a.mp3" }, { uppercase: "B", lowercase: "b", name: "B", soundFile: "audio/kurmanji_sounds/b.mp3" },
+            { uppercase: "C", lowercase: "c", name: "C", soundFile: "audio/kurmanji_sounds/c.mp3" }, { uppercase: "Ç", lowercase: "ç", name: "Ç", soundFile: "audio/kurmanji_sounds/c_cedilla.mp3" },
+            { uppercase: "D", lowercase: "d", name: "D", soundFile: "audio/kurmanji_sounds/d.mp3" }, { uppercase: "E", lowercase: "e", name: "E", soundFile: "audio/kurmanji_sounds/e.mp3" },
+            { uppercase: "Ê", lowercase: "ê", name: "Ê", soundFile: "audio/kurmanji_sounds/e_circumflex.mp3" }, { uppercase: "F", lowercase: "f", name: "F", soundFile: "audio/kurmanji_sounds/f.mp3" },
+            { uppercase: "G", lowercase: "g", name: "G", soundFile: "audio/kurmanji_sounds/g.mp3" }, { uppercase: "H", lowercase: "h", name: "H", soundFile: "audio/kurmanji_sounds/h.mp3" },
+            { uppercase: "I", lowercase: "i", name: "I", soundFile: "audio/kurmanji_sounds/i_short.mp3" }, { uppercase: "Î", lowercase: "î", name: "Î", soundFile: "audio/kurmanji_sounds/i_long.mp3" },
+            { uppercase: "J", lowercase: "j", name: "J", soundFile: "audio/kurmanji_sounds/j.mp3" }, { uppercase: "K", lowercase: "k", name: "K", soundFile: "audio/kurmanji_sounds/k.mp3" },
+            { uppercase: "L", lowercase: "l", name: "L", soundFile: "audio/kurmanji_sounds/l.mp3" }, { uppercase: "M", lowercase: "m", name: "M", soundFile: "audio/kurmanji_sounds/m.mp3" },
+            { uppercase: "N", lowercase: "n", name: "N", soundFile: "audio/kurmanji_sounds/n.mp3" }, { uppercase: "O", lowercase: "o", name: "O", soundFile: "audio/kurmanji_sounds/o.mp3" },
+            { uppercase: "P", lowercase: "p", name: "P", soundFile: "audio/kurmanji_sounds/p.mp3" }, { uppercase: "Q", lowercase: "q", name: "Q", soundFile: "audio/kurmanji_sounds/q.mp3" },
+            { uppercase: "R", lowercase: "r", name: "R", soundFile: "audio/kurmanji_sounds/r.mp3" }, { uppercase: "S", lowercase: "s", name: "S", soundFile: "audio/kurmanji_sounds/s.mp3" },
+            { uppercase: "Ş", lowercase: "ş", name: "Ş", soundFile: "audio/kurmanji_sounds/s_cedilla.mp3" }, { uppercase: "T", lowercase: "t", name: "T", soundFile: "audio/kurmanji_sounds/t.mp3" },
+            { uppercase: "U", lowercase: "u", name: "U", soundFile: "audio/kurmanji_sounds/u_short.mp3" }, { uppercase: "Û", lowercase: "û", name: "Û", soundFile: "audio/kurmanji_sounds/u_long.mp3" },
+            { uppercase: "V", lowercase: "v", name: "V", soundFile: "audio/kurmanji_sounds/v.mp3" }, { uppercase: "W", lowercase: "w", name: "W", soundFile: "audio/kurmanji_sounds/w.mp3" },
+            { uppercase: "X", lowercase: "x", name: "X", soundFile: "audio/kurmanji_sounds/x.mp3" }, { uppercase: "Y", lowercase: "y", name: "Y", soundFile: "audio/kurmanji_sounds/y.mp3" },
+            { uppercase: "Z", lowercase: "z", name: "Z", soundFile: "audio/kurmanji_sounds/z.mp3" }
+        ];
+        
+        // --- Gamification Functions ---
+        function playSound(soundFile) { try { new Audio(soundFile).play(); } catch (e) { console.warn(`Could not play sound: ${soundFile}`, e); } }
+        function getScore() { const score = localStorage.getItem('kurmanji_user_score'); return score ? parseInt(score, 10) : 0; }
+        function displayScore() { const scoreValueEl = document.getElementById('score-value'); if (scoreValueEl) { scoreValueEl.textContent = getScore(); } }
+        function updateScore(pointsToAdd) { const newScore = getScore() + pointsToAdd; localStorage.setItem('kurmanji_user_score', newScore); displayScore(); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayScore();
+            createKurmanjiLetterCards();
+            document.getElementById('letterGridKurmanji').addEventListener('click', (event) => {
+                const card = event.target.closest('.letter-card');
+                if (card) playSound(kurdishKurmanjiAlphabetData[card.dataset.index].soundFile);
+            });
+            const currentYear = new Date().getFullYear();
+            document.getElementById('current-year-kmr').textContent = currentYear;
+            document.getElementById('current-year-sor').textContent = currentYear.toLocaleString('ar-EG');
+        });
+
+        function showTab(tabId, clickedButton) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            clickedButton.classList.add('active');
+        }
+
+        function createKurmanjiLetterCards() {
+            const grid = document.getElementById('letterGridKurmanji');
+            grid.innerHTML = '';
+            kurdishKurmanjiAlphabetData.forEach((letter, index) => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+                card.dataset.index = index;
+                card.innerHTML = `<div class="letter-main">${letter.uppercase} ${letter.lowercase}</div><div class="letter-name-grid">${letter.name}</div>`;
+                grid.appendChild(card);
+            });
+        }
+        
+        // --- Quiz Logic ---
+        let currentKurmanjiQuizLetter = null;
+        function startKurmanjiQuiz() {
+            let shuffled = [...kurdishKurmanjiAlphabetData].sort(() => 0.5 - Math.random());
+            currentKurmanjiQuizLetter = shuffled[0];
+            document.getElementById('quizLetterDisplay').textContent = `${currentKurmanjiQuizLetter.uppercase} ${currentKurmanjiQuizLetter.lowercase}`;
+            document.getElementById('quizResultKurmanji').textContent = '';
+            
+            let options = [currentKurmanjiQuizLetter];
+            let distractors = shuffled.filter(l => l.name !== currentKurmanjiQuizLetter.name);
+            options.push(distractors[0], distractors[1], distractors[2]);
+            options = options.sort(() => 0.5 - Math.random());
+
+            const optionsDiv = document.getElementById('quizOptionsKurmanji');
+            optionsDiv.innerHTML = '';
+            optionsDiv.classList.remove('disabled');
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt.name;
+                btn.onclick = () => checkKurmanjiAnswer(btn, currentKurmanjiQuizLetter.name);
+                optionsDiv.appendChild(btn);
+            });
+            const nextBtn = document.getElementById('nextQuestionBtnKurmanji');
+            nextBtn.textContent = 'Pirsa Nû';
+            nextBtn.onclick = startKurmanjiQuiz;
+        }
+
+        function checkKurmanjiAnswer(selectedButton, correctAnswerName) {
+            const selectedAnswerName = selectedButton.textContent;
+            document.getElementById('quizOptionsKurmanji').classList.add('disabled');
+
+            if (selectedAnswerName === correctAnswerName) {
+                playSound('audio/correct.mp3');
+                updateScore(10);
+                selectedButton.classList.add('correct');
+                document.getElementById('quizResultKurmanji').textContent = 'Rast e! Pir baş!';
+                document.getElementById('quizResultKurmanji').style.color = 'var(--success-color)';
+                playSound(currentKurmanjiQuizLetter.soundFile);
+            } else {
+                playSound('audio/incorrect.mp3');
+                selectedButton.classList.add('incorrect');
+                document.getElementById('quizResultKurmanji').textContent = `Şaş e. Bersiva rast: ${correctAnswerName}`;
+                document.getElementById('quizResultKurmanji').style.color = 'var(--danger-color)';
+                document.querySelectorAll('.quiz-option').forEach(btn => {
+                    if (btn.textContent === correctAnswerName) btn.classList.add('correct');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
